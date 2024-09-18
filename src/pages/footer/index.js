@@ -1,5 +1,5 @@
 function HeaderComponent() {
-  return <></>;
+    return <></>;
 }
 
 export default HeaderComponent;
