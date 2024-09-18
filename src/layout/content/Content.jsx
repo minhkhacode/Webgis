@@ -55,7 +55,7 @@ function Content() {
 
     return (
         <div className="content">
-            <HeaderComponent />
+            <HeaderComponent title={'dự án bản đồ trường ĐHCT'} />
             <div className="card">
                 <div className="card-header">
                     <h1 className="card-title"></h1>
@@ -72,7 +72,7 @@ function Content() {
                     </div>
                     <div className="search">
                         <i></i>
-                        <input type="text" name="" id="" placeholder="Hay go dieu gi do..." />
+                        <input type="text" name="" id="" placeholder="Hãy gõ điều gì đó..." />
                     </div>
                 </div>
 

@@ -7,10 +7,10 @@ function App() {
         <div className="App">
             <div className="wrapper">
                 <div className="w-screen flex">
-                    <div className="sidebar-container w-1/4 relative">
+                    <div className="sidebar-container w-1/5 relative items-center">
                         <Sidebar />
                     </div>
-                    <div className="bg-white shadow-lg rounded-lg w-3/4">
+                    <div className="bg-white shadow-lg rounded-lg w-4/5">
                         <Content />
                     </div>
                 </div>
