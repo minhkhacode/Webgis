@@ -1,11 +1,7 @@
 import React from 'react';
 
-function HeaderComponent() {
-    return (
-        <div className="header-component">
-            <div className="wrapper">HeaderComponent</div>
-        </div>
-    );
+function HeaderComponent({ title, fontStyle }) {
+    return <div className={`header-component bg-customBlue px-8 py-5 ${fontStyle}`}>{title}</div>;
 }
 
 export default HeaderComponent;

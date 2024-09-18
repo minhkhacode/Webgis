@@ -7,9 +7,7 @@ function Dropdown({ DropdownTitle, Selections }) {
                 <h1 className="dropdown-title">{DropdownTitle}</h1>
                 <ul className="dropdown-menu">
                     {Selections.map((selection, index) => {
-                        return <li className="selection" key={index}>
-
-                        </li>;
+                        return <li className="selection" key={index}>Hello</li>;
                     })}
                 </ul>
             </div>
