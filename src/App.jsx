@@ -6,8 +6,8 @@ function App() {
     return (
         <div className="App">
             <div className="wrapper">
-                <div className="w-screen d-flex">
-                    <div className="sidebar-container columns-3">
+                <div className="w-screen flex">
+                    <div className="sidebar-container columns-3 relative">
                         <Sidebar />
                     </div>
                     <div className="">

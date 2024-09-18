@@ -1,7 +1,13 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
+
+import className from 'classnames/bind';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
+
+import styles from './content.module.css';
+
+const cx = className.bind(styles);
 
 function Content() {
     const Dropdowns = [
@@ -31,18 +37,37 @@ function Content() {
         },
     ];
 
+    // eslint-disable-next-line no-unused-vars
+    const navBarList = [
+        {
+            title: 'Ban do Google',
+            show: true,
+        },
+        {
+            title: 'VE TINH',
+            show: false,
+        },
+        {
+            title: 'NDVI vision',
+            show: false,
+        },
+    ];
+
     return (
         <div className="content">
             <HeaderComponent />
             <div className="card">
                 <div className="card-header">
-                    // eslint-disable-next-line jsx-a11y/heading-has-content
                     <h1 className="card-title"></h1>
                     <div className="card-nav">
-                        <ul className="navbar">
-                            <li className="nav-item">Ban do GOOGLE</li>
-                            <li className="nav-item">VE TINH</li>
-                            <li className="nav-item">OPENSTREETMAP</li>
+                        <ul className="flex gap-x-4 cursor-pointer">
+                            {navBarList.map((item) => {
+                                return (
+                                    <li className={cx('nav-item')} key={item.title}>
+                                        {item.title}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                     <div className="search">
@@ -57,7 +82,7 @@ function Content() {
 
                 <div className="card-control">
                     {Dropdowns.map((DropdownItem) => {
-                        console.log(DropdownItem);
+                        // console.log(DropdownItem);
 
                         return (
                             <Dropdown
