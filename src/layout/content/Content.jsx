@@ -1,40 +1,46 @@
+/* eslint-disable jsx-a11y/heading-has-content */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
 
 function Content() {
     const Dropdowns = [
         {
-            title: "hello",
-            Selections: [{
-                name: "abc",
-            }]
+            title: 'hello',
+            Selections: [
+                {
+                    name: 'abc',
+                },
+            ],
         },
         {
-            title: "hello1",
-            Selections: [{
-                name: "abc",
-            }]
+            title: 'hello1',
+            Selections: [
+                {
+                    name: 'abc',
+                },
+            ],
         },
         {
-            title: "hello2",
-            Selections: [{
-                name: "abc",
-            }]
+            title: 'hello2',
+            Selections: [
+                {
+                    name: 'abc',
+                },
+            ],
         },
-
-    ]
+    ];
 
     return (
         <div className="content">
             <HeaderComponent />
             <div className="card">
                 <div className="card-header">
+                    // eslint-disable-next-line jsx-a11y/heading-has-content
                     <h1 className="card-title"></h1>
                     <div className="card-nav">
                         <ul className="navbar">
-                            <li className="nav-item">
-                                Ban do GOOGLE
-                            </li>
+                            <li className="nav-item">Ban do GOOGLE</li>
                             <li className="nav-item">VE TINH</li>
                             <li className="nav-item">OPENSTREETMAP</li>
                         </ul>
@@ -52,11 +58,15 @@ function Content() {
                 <div className="card-control">
                     {Dropdowns.map((DropdownItem) => {
                         console.log(DropdownItem);
-                        
+
                         return (
-                            <Dropdown key={DropdownItem.title} DropdownTitle={DropdownItem.title} Selections={DropdownItem.Selections}/>
-                        )
-                    }) }
+                            <Dropdown
+                                key={DropdownItem.title}
+                                DropdownTitle={DropdownItem.title}
+                                Selections={DropdownItem.Selections}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>
