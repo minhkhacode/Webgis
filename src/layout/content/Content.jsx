@@ -56,9 +56,9 @@ function Content() {
     return (
         <div className="content">
             <HeaderComponent title={'dự án bản đồ trường ĐHCT'} />
-            <div className="card">
+            <div className={cx('card')}>
                 <div className="card-header">
-                    <h1 className="card-title"></h1>
+                    <h1 className="card-title">Bản đồ Trường Đại Học Cần Thơ</h1>
                     <div className="card-nav">
                         <ul className="flex gap-x-4 cursor-pointer">
                             {navBarList.map((item) => {
@@ -71,7 +71,6 @@ function Content() {
                         </ul>
                     </div>
                     <div className="search">
-                        <i></i>
                         <input type="text" name="" id="" placeholder="Hãy gõ điều gì đó..." />
                     </div>
                 </div>
