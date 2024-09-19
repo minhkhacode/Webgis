@@ -7,6 +7,7 @@ import { GoSearch } from 'react-icons/go';
 import Button from '../../components/Button';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
+import MyMap from '../../components/Mymap';
 
 function Content() {
     const Dropdowns = [
@@ -63,20 +64,20 @@ function Content() {
         },
     ];
     // eslint-disable-next-line no-unused-vars
-    const navBarList = [
-        {
-            title: 'Ban do Google',
-            show: true,
-        },
-        {
-            title: 'VE TINH',
-            show: false,
-        },
-        {
-            title: 'NDVI vision',
-            show: false,
-        },
-    ];
+    // const navBarList = [
+    //     {
+    //         title: 'Ban do Google',
+    //         show: true,
+    //     },
+    //     {
+    //         title: 'VE TINH',
+    //         show: false,
+    //     },
+    //     {
+    //         title: 'NDVI vision',
+    //         show: false,
+    //     },
+    // ];
 
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">
@@ -87,9 +88,7 @@ function Content() {
             />
             <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
                 <div className="card-header">
-                    <h1 className="card-title text-sm colors-[#3C4858] font-extralight">
-                        Bản đồ Trường Đại Học Cần Thơ
-                    </h1>
+                    <h1 className="card-title text-sm text-[#3C4858] font-extralight">Bản đồ Trường Đại Học Cần Thơ</h1>
                     <div className="card-nav">
                         <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
                             <li className="nav-item">
@@ -132,8 +131,10 @@ function Content() {
                         </div>
                     </div>
 
-                    <div className="card-main w-full h-[600px] m-4 bg-blue">
-                        <div className="map w-full h-full">map</div>
+                    <div className="card-main w-full h-[600px] my-5 bg-blue">
+                        <div className="map w-full h-full">
+                            <MyMap />
+                        </div>
                     </div>
 
                     <div className="card-control">

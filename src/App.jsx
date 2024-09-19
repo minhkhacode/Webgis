@@ -1,4 +1,6 @@
 import React from 'react';
+import 'leaflet/dist/leaflet.css';
+
 import Sidebar from './layout/sidebar/Sidebar.jsx';
 import Content from './layout/content/Content.jsx';
 
