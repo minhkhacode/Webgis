@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 
 import { FaBars } from 'react-icons/fa6';
+import { GoSearch } from 'react-icons/go';
 
 import Button from '../../components/Button';
 import Dropdown from '../../components/Dropdown';
@@ -10,26 +11,53 @@ import HeaderComponent from '../../components/HeaderComponent';
 function Content() {
     const Dropdowns = [
         {
-            title: 'hello',
+            title: 'phòng',
             Selections: [
                 {
-                    name: 'abc',
+                    name: 'select1',
+                },
+                {
+                    name: 'select2',
+                },
+                {
+                    name: 'select3',
+                },
+                {
+                    name: 'select4',
                 },
             ],
         },
         {
-            title: 'hello1',
+            title: 'ký túc xá',
             Selections: [
                 {
-                    name: 'abc',
+                    name: 'select1',
+                },
+                {
+                    name: 'select2',
+                },
+                {
+                    name: 'select3',
+                },
+                {
+                    name: 'select4',
                 },
             ],
         },
         {
-            title: 'hello2',
+            title: 'tiện ích',
             Selections: [
                 {
-                    name: 'abc',
+                    name: 'select1',
+                },
+                {
+                    name: 'select2',
+                },
+                {
+                    name: 'select3',
+                },
+                {
+                    name: 'select4',
                 },
             ],
         },
@@ -59,32 +87,41 @@ function Content() {
             />
             <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
                 <div className="card-header">
-                    <h1 className="card-title text-sm text-[#3C4858]">Bản đồ Trường Đại Học Cần Thơ</h1>
+                    <h1 className="card-title text-sm colors-[#3C4858] font-extralight">
+                        Bản đồ Trường Đại Học Cần Thơ
+                    </h1>
                     <div className="card-nav">
-                        <ul className="navbar inline-flex overflow-x-hidden py-4 max-custom:block max-custom:gap-y-2">
+                        <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
                             <li className="nav-item">
                                 <Button
                                     content="Bản đồ Google"
-                                    customStyle="w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] uppercase"
+                                    customStyle="w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase"
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
                                     content="Vệ tinh"
-                                    customStyle="w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] uppercase"
+                                    customStyle="w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase"
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
                                     content="OPENSTREETMAP"
-                                    customStyle="w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] uppercase"
+                                    customStyle="w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase"
                                 ></Button>
                             </li>
                         </ul>
                     </div>
                     <div className="search">
                         <div className="search relative flex items-center">
-                            <i className="absolute left-3">icon</i>
+                            <i
+                                className="absolute left-3 cursor-pointer"
+                                onClick={() => {
+                                    alert('hello');
+                                }}
+                            >
+                                <GoSearch />
+                            </i>
                             <input
                                 className="w-full bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
                                 type="text"
