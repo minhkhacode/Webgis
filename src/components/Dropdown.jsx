@@ -18,7 +18,7 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
                 </h1>
                 <ul
                     className={`dropdown-menu px-10  my-2 rounded-xl shadow-custom transition-all duration-300 overflow-hidden ${
-                        isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                        isOpen ? 'max-h-100 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                     style={{ transition: 'max-height 0.3s ease, opacity 0.3s ease' }}
                 >
