@@ -4,26 +4,18 @@ module.exports = {
         './src/**/*.{js,jsx,ts,tsx}', // Các file mà Tailwind sẽ quét để áp dụng các class
     ],
     theme: {
-        extend: {},
-        colors: {
-            transparent: 'transparent',
-            current: 'currentColor',
-            blue: {
-                light: '#85d7ff',
-                DEFAULT: '#1fb6ff',
-                dark: '#009eeb',
+        extend: {
+            colors: {
+                customBlue: '#0d47a1',
             },
-            pink: {
-                light: '#ff7ce5',
-                DEFAULT: '#ff49db',
-                dark: '#ff16d1',
+            boxShadow: {
+                custom: '0 4px 20px 0 rgba(0,0,0,0.14), 0 7px 10px -5px rgba(13,71,161,0.4)',
             },
-            gray: {
-                darkest: '#1f2d3d',
-                dark: '#3c4858',
-                DEFAULT: '#c0ccda',
-                light: '#e0e6ed',
-                lightest: '#f9fafc',
+            screens: {
+                'custom-md': '750px', // Custom breakpoint at 750px
+            },
+            screens: {
+                'max-custom': { max: '998px' }, // Các màn hình nhỏ hơn hoặc bằng 640px
             },
         },
     },
