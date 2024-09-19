@@ -11,6 +11,9 @@ module.exports = {
             boxShadow: {
                 custom: '0 4px 20px 0 rgba(0,0,0,0.14), 0 7px 10px -5px rgba(13,71,161,0.4)',
             },
+            screens: {
+                'max-custom': { max: '998px' }, // Các màn hình nhỏ hơn hoặc bằng 640px
+            },
         },
     },
     plugins: [],

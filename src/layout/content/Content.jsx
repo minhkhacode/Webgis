@@ -1,30 +1,88 @@
 import Button from '../../components/Button';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
+import { IoSearchOutline } from 'react-icons/io5';
 
 function Content() {
     const Dropdowns = [
         {
-            title: 'hello',
+            title: 'Hệ quy chiếu',
             Selections: [
                 {
-                    name: 'abc',
+                    value: 'EPSG:4326',
+                },
+                {
+                    value: 'EPSG:4326',
+                },
+                {
+                    value: 'EPSG:4326',
+                },
+                {
+                    value: 'EPSG:4326',
+                },
+                {
+                    value: 'EPSG:4326',
                 },
             ],
         },
         {
-            title: 'hello1',
+            title: 'Năm',
             Selections: [
                 {
-                    name: 'abc',
+                    value: 2020,
+                },
+                {
+                    value: 2021,
+                },
+                {
+                    value: 2022,
+                },
+                {
+                    value: 2023,
+                },
+                {
+                    value: 2024,
                 },
             ],
         },
         {
-            title: 'hello2',
+            title: 'Tháng',
             Selections: [
                 {
-                    name: 'abc',
+                    value: 1,
+                },
+                {
+                    value: 2,
+                },
+                {
+                    value: 3,
+                },
+                {
+                    value: 4,
+                },
+                {
+                    value: 5,
+                },
+                {
+                    value: 6,
+                },
+                {
+                    value: 7,
+                },
+                {
+                    value: 8,
+                },
+                {
+                    value: 9,
+                },
+                {
+                    value: 10,
+                },
+                {
+                    value: 11,
+                },
+                {
+                    value: 12,
                 },
             ],
         },
@@ -58,10 +116,12 @@ function Content() {
                             </li>
                         </ul>
                     </div>
-                    <div className="search relative flex items-center">
-                        <i className="absolute left-3">icon</i>
+                    <div className="search relative flex items-center relative">
+                        <div className="text-2xl absolute left-4">
+                            <IoSearchOutline />
+                        </div>
                         <input
-                            className="w-full bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
+                            className="w-full bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded-xl outline-none focus:bg-white focus:shadow-custom transition duration-300"
                             type="text"
                             name=""
                             id=""
