@@ -2,6 +2,7 @@ import Button from '../../components/Button';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
 import { IoSearchOutline } from 'react-icons/io5';
+import MapComponent from '../../components/MapComponent.jsx';
 
 function Content() {
     const Dropdowns = [
@@ -130,8 +131,10 @@ function Content() {
                     </div>
                 </div>
 
-                <div className="card-main w-full h-[600px] m-4 bg-blue">
-                    <div className="map w-full h-full">map</div>
+                <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
+                    <div className="map w-full h-full">
+                        <MapComponent></MapComponent>
+                    </div>
                 </div>
 
                 <div className="card-control">
