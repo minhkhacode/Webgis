@@ -1,14 +1,9 @@
-import Button from '../../components/Button';
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
+import Button from '../../components/Button';
 
-import className from 'classnames/bind';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
-
-import styles from './content.module.css';
-
-const cx = className.bind(styles);
 
 function Content() {
     const Dropdowns = [
@@ -57,7 +52,7 @@ function Content() {
         <div className="content h-screen overflow-y-scroll">
             <HeaderComponent
                 title="Dự án bản đồ trường ĐHCT"
-                fontStyle="text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                fontStyle="text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
             />
             <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
                 <div className="card-header">
@@ -79,7 +74,6 @@ function Content() {
                                     customStyle="w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg"
                                 ></Button>
                             </li>
-
                         </ul>
                     </div>
                     <div className="search relative flex items-center">
