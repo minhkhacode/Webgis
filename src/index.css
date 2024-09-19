@@ -2,11 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-<<<<<<< HEAD
-html {
-    scroll-behavior: smooth;
-=======
 * {
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
->>>>>>> main
+    scroll-behavior: smooth;
 }

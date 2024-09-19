@@ -2,14 +2,12 @@ import React from 'react';
 
 function Button({ content, customStyle, icon }) {
     return (
-        <div>
-            <button
-                className={`bg-customBlue text-white py-3 px-4 flex items-center space-x-2 hover:bg-blue-600 transition duration-300 ${customStyle}`}
-            >
-                {icon ? icon : <></>}
-                <span>{content}</span>
-            </button>
-        </div>
+        <button
+            className={`bg-customBlue text-white py-3 px-4 flex items-center space-x-2 hover:bg-blue-600 transition duration-300 ${customStyle} max-custom:w-[100%] max-custom:my-2 max-custom:justify-center`}
+        >
+            {icon ? icon : <></>}
+            <span>{content}</span>
+        </button>
     );
 }
 

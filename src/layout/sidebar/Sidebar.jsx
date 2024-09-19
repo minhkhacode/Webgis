@@ -4,48 +4,6 @@ import Button from '../../components/Button.jsx';
 
 function Sidebar() {
     return (
-<<<<<<< HEAD
-        <div className="sidebar fixed w-1/5 h-full">
-            <HeaderComponent title={'bản đồ ĐHCT'} />
-
-            <div className="card-container bottom-0 h-full relative">
-                <ul className="tools mt-5">
-                    <li
-                        className="tools-item bg-blue-600 !important bg-opacity-100 my-3 mx-3.5 cursor-pointer h-12 content-center rounded"
-                        style={{
-                            backgroundColor: '#0d47a1',
-                            color: 'white',
-                        }}
-                    >
-                        <p className="flex items-center flex-wrap justify-center font-thin">
-                            <span className="material-symbols-outlined mr-4 ">space_dashboard</span>
-                            Bản Đồ Tổng Quan
-                        </p>
-                    </li>
-                    <li
-                        className="tools-item bg-blue-600 !important bg-opacity-100 my-3 mx-3.5 cursor-pointer h-12 content-center rounded"
-                        style={{
-                            backgroundColor: '#0d47a1',
-                            color: 'white',
-                        }}
-                    >
-                        <p className="flex items-center flex-wrap justify-center font-thin">
-                            <span className="material-symbols-outlined mr-4 ">space_dashboard</span>
-                            Bản Đồ Tổng Quan
-                        </p>
-                    </li>
-                    <li
-                        className="tools-item bg-blue-600 !important bg-opacity-100 my-3 mx-3.5 cursor-pointer h-12 content-center rounded"
-                        style={{
-                            backgroundColor: '#0d47a1',
-                            color: 'white',
-                        }}
-                    >
-                        <p className="flex items-center flex-wrap justify-center font-thin">
-                            <span className="material-symbols-outlined mr-4 ">space_dashboard</span>
-                            Bản Đồ Tổng Quan
-                        </p>
-=======
         <div className="sidebar h-screen flex flex-col">
             <HeaderComponent
                 title="Bản đồ DHCT"
@@ -64,7 +22,6 @@ function Sidebar() {
                         <div className="mt-2.5 mr-3.75 mb-0 ml-3.75 rounded-sm text-[#3C4858] pl-2.5 pr-2.5 capitalize text-xs py-2.5 px-3.75 cursor-pointer">
                             English
                         </div>
->>>>>>> main
                     </li>
                 </ul>
             </div>
