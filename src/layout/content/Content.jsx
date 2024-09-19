@@ -1,6 +1,14 @@
 import Button from '../../components/Button';
+/* eslint-disable jsx-a11y/heading-has-content */
+/* eslint-disable react/jsx-no-comment-textnodes */
+
+import className from 'classnames/bind';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
+
+import styles from './content.module.css';
+
+const cx = className.bind(styles);
 
 function Content() {
     const Dropdowns = [
@@ -27,6 +35,21 @@ function Content() {
                     name: 'abc',
                 },
             ],
+        },
+    ];
+    // eslint-disable-next-line no-unused-vars
+    const navBarList = [
+        {
+            title: 'Ban do Google',
+            show: true,
+        },
+        {
+            title: 'VE TINH',
+            show: false,
+        },
+        {
+            title: 'NDVI vision',
+            show: false,
         },
     ];
 
@@ -56,6 +79,7 @@ function Content() {
                                     customStyle="w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg"
                                 ></Button>
                             </li>
+
                         </ul>
                     </div>
                     <div className="search relative flex items-center">
