@@ -94,7 +94,7 @@ function Content() {
                     </div>
                 </div>
 
-                <div className="card-main w-full h-[600px] m-4">
+                <div className="card-main w-full h-[600px] m-4 bg-blue">
                     <div className="map w-full h-full">map</div>
                 </div>
 
