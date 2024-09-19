@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/heading-has-content */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import Button from '../../components/Button';
+
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
 import { IoSearchOutline } from 'react-icons/io5';
@@ -88,12 +91,27 @@ function Content() {
             ],
         },
     ];
+    // eslint-disable-next-line no-unused-vars
+    const navBarList = [
+        {
+            title: 'Ban do Google',
+            show: true,
+        },
+        {
+            title: 'VE TINH',
+            show: false,
+        },
+        {
+            title: 'NDVI vision',
+            show: false,
+        },
+    ];
 
     return (
         <div className="content h-screen overflow-y-scroll">
             <HeaderComponent
                 title="Dự án bản đồ trường ĐHCT"
-                fontStyle="text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                fontStyle="text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
             />
             <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
                 <div className="card-header">
