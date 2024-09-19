@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
 
+import { useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
 
@@ -9,75 +10,98 @@ import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
 import MyMap from '../../components/Mymap';
 
+const Dropdowns = [
+    {
+        title: 'phòng',
+        Selections: [
+            {
+                name: 'Phòng tầng 1 (Floor 1)',
+            },
+            {
+                name: 'Phòng tầng 2 (Floor 2)',
+            },
+            {
+                name: 'Phòng tầng 3 (Floor 3)',
+            },
+            {
+                name: 'Phòng tầng 4 (Floor 4)',
+            },
+            {
+                name: 'Phòng tầng 5 (Floor 5)',
+            },
+            {
+                name: 'Phòng tầng 6 (Floor 6)',
+            },
+            {
+                name: 'Phòng tầng 7 (Floor 7)',
+            },
+            {
+                name: 'Phòng tầng 8 (Floor 8)',
+            },
+            {
+                name: 'Phòng tầng 9 (Floor 9)',
+            },
+        ],
+    },
+    {
+        title: 'ký túc xá',
+        Selections: [
+            {
+                name: 'Phòng tầng 1 (Floor 1)',
+            },
+            {
+                name: 'Phòng tầng 2 (Floor 2)',
+            },
+            {
+                name: 'Phòng tầng 3 (Floor 3)',
+            },
+            {
+                name: 'Phòng tầng 4 (Floor 4)',
+            },
+            {
+                name: 'Phòng tầng 5 (Floor 5)',
+            },
+        ],
+    },
+    {
+        title: 'tiện ích',
+        Selections: [
+            {
+                name: 'Phòng tầng 1 (Floor 1)',
+            },
+            {
+                name: 'Phòng tầng 2 (Floor 2)',
+            },
+            {
+                name: 'Phòng tầng 3 (Floor 3)',
+            },
+            {
+                name: 'Phòng tầng 4 (Floor 4)',
+            },
+            {
+                name: 'Phòng tầng 5 (Floor 5)',
+            },
+        ],
+    },
+];
+
+// eslint-disable-next-line no-unused-vars
+// const navBarList = [
+//     {
+//         title: 'Ban do Google',
+//         show: true,
+//     },
+//     {
+//         title: 'VE TINH',
+//         show: false,
+//     },
+//     {
+//         title: 'NDVI vision',
+//         show: false,
+//     },
+// ];
 function Content() {
-    const Dropdowns = [
-        {
-            title: 'phòng',
-            Selections: [
-                {
-                    name: 'select1',
-                },
-                {
-                    name: 'select2',
-                },
-                {
-                    name: 'select3',
-                },
-                {
-                    name: 'select4',
-                },
-            ],
-        },
-        {
-            title: 'ký túc xá',
-            Selections: [
-                {
-                    name: 'select1',
-                },
-                {
-                    name: 'select2',
-                },
-                {
-                    name: 'select3',
-                },
-                {
-                    name: 'select4',
-                },
-            ],
-        },
-        {
-            title: 'tiện ích',
-            Selections: [
-                {
-                    name: 'select1',
-                },
-                {
-                    name: 'select2',
-                },
-                {
-                    name: 'select3',
-                },
-                {
-                    name: 'select4',
-                },
-            ],
-        },
-    ];
-    // eslint-disable-next-line no-unused-vars
-    // const navBarList = [
-    //     {
-    //         title: 'Ban do Google',
-    //         show: true,
-    //     },
-    //     {
-    //         title: 'VE TINH',
-    //         show: false,
-    //     },
-    //     {
-    //         title: 'NDVI vision',
-    //         show: false,
-    //     },
-    // ];
+    const [show, setShow] = useState(false);
 
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">
@@ -137,13 +161,14 @@ function Content() {
                         </div>
                     </div>
 
-                    <div className="card-control">
+                    <div className="card-control cursor-pointer">
                         {Dropdowns.map((DropdownItem) => {
                             return (
                                 <Dropdown
                                     key={DropdownItem.title}
                                     DropdownTitle={DropdownItem.title}
                                     Selections={DropdownItem.Selections}
+                                    Show={show}
                                 />
                             );
                         })}

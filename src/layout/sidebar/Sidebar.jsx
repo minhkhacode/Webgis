@@ -4,10 +4,10 @@ import Button from '../../components/Button.jsx';
 
 function Sidebar() {
     return (
-        <div className="sidebar h-screen flex flex-col">
+        <div className="sidebar h-screen flex flex-col fixed w-[260px]">
             <HeaderComponent
-                title="Bản đồ DHCT"
-                fontStyle="uppercase text-[1.15rem] text-[#fff] font-medium leading-[30px] overflow-hidden text-center block whitespace-nowrap"
+                title="Bản đồ ĐHCT"
+                fontStyle="uppercase text-[1.15rem] text-[#fff] font-medium leading-[30px] overflow-hidden text-center block whitespace-nowrap w-full"
             />
 
             <div className="card-container relative flex-grow">
@@ -24,14 +24,6 @@ function Sidebar() {
                         </div>
                     </li>
                 </ul>
-            </div>
-            <div className="tools-item tools-item_footer w-full absolute bottom-1 flex items-center justify-center gap-3">
-                <div className="cursor-pointer colors-gray-dark" style={{ color: '#3C4858' }}>
-                    Tiếng Việt
-                </div>
-                <div className="cursor-pointer" style={{ color: '#3C4858' }}>
-                    English
-                </div>
             </div>
         </div>
     );

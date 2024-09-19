@@ -12,12 +12,12 @@ L.Icon.Default.mergeOptions({
 
 function MyMap() {
     return (
-        <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: '100%', width: '100%' }}>
+        <MapContainer center={[48.8566, 2.3522]} zoom={13} style={{ height: '100%', width: '100%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={[51.505, -0.09]}>
+            <Marker position={[48.8566, 2.3522]}>
                 <Popup>A pretty popup. Easily customizable.</Popup>
             </Marker>
         </MapContainer>
