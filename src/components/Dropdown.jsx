@@ -7,6 +7,11 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => {
+        setShow(!show);
+    };
     return (
         <div className="dropdown">
             <div className="dropdown-list">
