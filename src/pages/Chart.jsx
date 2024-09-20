@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../layout/sidebar/Sidebar';
-import Content from '../layout/content/Content';
+import ChartContent from '../layout/chart/chart';
 
 function Chart() {
     return (
@@ -10,7 +10,7 @@ function Chart() {
                     <Sidebar />
                 </div>
                 <div className="map-box flex-grow bg-[#ededed]">
-                    <Content />
+                    <ChartContent />
                 </div>
             </div>
         </div>

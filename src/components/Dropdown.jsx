@@ -9,9 +9,9 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
     };
     const [show, setShow] = useState(false);
 
-    const handleShow = () => {
-        setShow(!show);
-    };
+    // const handleShow = () => {
+    //     setShow(!show);
+    // };
     return (
         <div className="dropdown">
             <div className="dropdown-list">
@@ -37,26 +37,12 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
                                             <FaCheck />
                                         </div>
                                     </div>
-<<<<<<< HEAD
-                                    <label
-                                        className="font-[200] text-[#AAAAAA] size-[14px] cursor-pointer"
-                                        htmlFor={item.name}
-                                    >
-                                        {item.name}
-                                    </label>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
-=======
                                     <span className="text-gray-900">{selection.value}</span>
                                 </label>
                             </li>
                         );
                     })}
                 </ul>
->>>>>>> 97d9b3d819d631ddb0b3e89bb55794c10fe29b63
             </div>
         </div>
     );

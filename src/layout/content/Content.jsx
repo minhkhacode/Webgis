@@ -9,10 +9,9 @@ import Button from '../../components/Button';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
 
-import MyMap from '../../components/Mymap';
+import MyMap from '../../components/maps/Mymap';
 
-import { IoSearchOutline } from 'react-icons/io5';
-import MapComponent from '../../components/MapComponent.jsx';
+import MapComponent from '../../components/maps/MapComponent.jsx';
 
 function Content() {
     const [show, setShow] = useState(false);
