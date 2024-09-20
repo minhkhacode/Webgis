@@ -13,107 +13,121 @@ import MyMap from '../../components/maps/Mymap';
 
 import MapComponent from '../../components/maps/MapComponent.jsx';
 
+const Dropdowns = [
+    {
+        title: 'Hệ quy chiếu',
+        Selections: [
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+        ],
+    },
+    {
+        title: 'Năm',
+        Selections: [
+            {
+                value: 2020,
+            },
+            {
+                value: 2021,
+            },
+            {
+                value: 2022,
+            },
+            {
+                value: 2023,
+            },
+            {
+                value: 2024,
+            },
+        ],
+    },
+    {
+        title: 'Tháng',
+        Selections: [
+            {
+                value: 1,
+            },
+            {
+                value: 2,
+            },
+            {
+                value: 3,
+            },
+            {
+                value: 4,
+            },
+            {
+                value: 5,
+            },
+            {
+                value: 6,
+            },
+            {
+                value: 7,
+            },
+            {
+                value: 8,
+            },
+            {
+                value: 9,
+            },
+            {
+                value: 10,
+            },
+            {
+                value: 11,
+            },
+            {
+                value: 12,
+            },
+        ],
+    },
+];
+// eslint-disable-next-line no-unused-vars
+const navBarList = [
+    {
+        title: 'Ban do Google',
+        show: true,
+    },
+    {
+        title: 'VE TINH',
+        show: false,
+    },
+    {
+        title: 'NDVI vision',
+        show: false,
+    },
+];
+
 function Content() {
     const [show, setShow] = useState(false);
-
-    const Dropdowns = [
+    const [showTab, setShowTab] = useState([
         {
-            title: 'Hệ quy chiếu',
-            Selections: [
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-            ],
-        },
-        {
-            title: 'Năm',
-            Selections: [
-                {
-                    value: 2020,
-                },
-                {
-                    value: 2021,
-                },
-                {
-                    value: 2022,
-                },
-                {
-                    value: 2023,
-                },
-                {
-                    value: 2024,
-                },
-            ],
-        },
-        {
-            title: 'Tháng',
-            Selections: [
-                {
-                    value: 1,
-                },
-                {
-                    value: 2,
-                },
-                {
-                    value: 3,
-                },
-                {
-                    value: 4,
-                },
-                {
-                    value: 5,
-                },
-                {
-                    value: 6,
-                },
-                {
-                    value: 7,
-                },
-                {
-                    value: 8,
-                },
-                {
-                    value: 9,
-                },
-                {
-                    value: 10,
-                },
-                {
-                    value: 11,
-                },
-                {
-                    value: 12,
-                },
-            ],
-        },
-    ];
-    // eslint-disable-next-line no-unused-vars
-    const navBarList = [
-        {
-            title: 'Ban do Google',
+            titleTap: 'Bản đồ Google',
             show: true,
         },
         {
-            title: 'VE TINH',
-            show: false,
+            titleTap: 'vệ tinh',
+            show: true,
         },
         {
-            title: 'NDVI vision',
-            show: false,
+            titleTap: 'open street map',
+            show: true,
         },
-    ];
+    ]);
 
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">
@@ -147,50 +161,51 @@ function Content() {
                             </li>
                         </ul>
                     </div>
-
-                    <div className="search">
-                        <div className="search relative flex items-center">
-                            <i
-                                className="absolute left-3 cursor-pointer"
-                                onClick={() => {
-                                    alert('hello');
-                                }}
-                            >
-                                <GoSearch />
-                            </i>
-                            <input
-                                className="w-full bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
-                                type="text"
-                                name=""
-                                id=""
-                                placeholder="Hay go dieu gi do..."
-                            />
-                        </div>
-                    </div>
-
-                    <div className="hidden card-main w-full h-[600px] my-5 bg-blue">
-                        <div className="map w-full h-full">
-                            <MyMap />
-                        </div>
-                    </div>
-
-                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
-                        <div className="map w-full h-full">
-                            <MapComponent></MapComponent>
-                        </div>
-                    </div>
-
-                    <div className="card-control cursor-pointer">
-                        {Dropdowns.map((DropdownItem) => {
-                            return (
-                                <Dropdown
-                                    key={DropdownItem.title}
-                                    DropdownTitle={DropdownItem.title}
-                                    Selections={DropdownItem.Selections}
-                                    Show={show}
+                    <div>
+                        <div className="search">
+                            <div className="search relative flex items-center">
+                                <i
+                                    className="absolute left-3 cursor-pointer"
+                                    onClick={() => {
+                                        alert('hello');
+                                    }}
+                                >
+                                    <GoSearch />
+                                </i>
+                                <input
+                                    className="w-full bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
+                                    type="text"
+                                    name=""
+                                    id=""
+                                    placeholder="Hay go dieu gi do..."
                                 />
-                            );
-                        })}
+                            </div>
+                        </div>
+
+                        <div className="hidden card-main w-full h-[600px] my-5 bg-blue">
+                            <div className="map w-full h-full">
+                                <MyMap />
+                            </div>
+                        </div>
+
+                        <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
+                            <div className="map w-full h-full">
+                                <MapComponent></MapComponent>
+                            </div>
+                        </div>
+
+                        <div className="card-control cursor-pointer">
+                            {Dropdowns.map((DropdownItem) => {
+                                return (
+                                    <Dropdown
+                                        key={DropdownItem.title}
+                                        DropdownTitle={DropdownItem.title}
+                                        Selections={DropdownItem.Selections}
+                                        Show={show}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
