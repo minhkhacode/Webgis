@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 
@@ -8,7 +7,7 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
-     const [show, setShow] = useState(Show);
+    const [show, setShow] = useState(false);
 
     const handleShow = () => {
         setShow(!show);
@@ -28,12 +27,6 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
                     }`}
                     style={{ transition: 'max-height 0.3s ease, opacity 0.3s ease' }}
                 >
-                <div
-                className={
-                    show === true ? 'show text-black transition-opacity duration-500 ease-in-out mb-[8px]' : 'hidden'
-                }
-            >
-            
                     {Selections.map((selection, index) => {
                         return (
                             <li className="selection" key={index}>
@@ -50,9 +43,8 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
                         );
                     })}
                 </ul>
-
             </div>
-        </>
+        </div>
     );
 }
 

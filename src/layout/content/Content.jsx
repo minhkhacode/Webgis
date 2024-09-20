@@ -15,7 +15,6 @@ import { IoSearchOutline } from 'react-icons/io5';
 import MapComponent from '../../components/MapComponent.jsx';
 
 function Content() {
-
     const [show, setShow] = useState(false);
 
     const Dropdowns = [
@@ -117,7 +116,6 @@ function Content() {
         },
     ];
 
-
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">
             <HeaderComponent
@@ -169,22 +167,19 @@ function Content() {
                                 placeholder="Hay go dieu gi do..."
                             />
                         </div>
-
                     </div>
 
-
-                    <div className="card-main w-full h-[600px] my-5 bg-blue">
+                    <div className="hidden card-main w-full h-[600px] my-5 bg-blue">
                         <div className="map w-full h-full">
                             <MyMap />
                         </div>
                     </div>
 
-                <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
-                    <div className="map w-full h-full">
-                        <MapComponent></MapComponent>
+                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
+                        <div className="map w-full h-full">
+                            <MapComponent></MapComponent>
+                        </div>
                     </div>
-                </div>
-
 
                     <div className="card-control cursor-pointer">
                         {Dropdowns.map((DropdownItem) => {
