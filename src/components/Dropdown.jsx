@@ -53,7 +53,10 @@ function Dropdown({ DropdownTitle, Selections, Show }) {
                                             </span>
                                         </label>
                                     </div>
-                                    <label className="font-[200] text-[#AAAAAA] size-[14px]" htmlFor={item.name}>
+                                    <label
+                                        className="font-[200] text-[#AAAAAA] size-[14px] cursor-pointer"
+                                        htmlFor={item.name}
+                                    >
                                         {item.name}
                                     </label>
                                 </li>
