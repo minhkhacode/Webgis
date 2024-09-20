@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 
 function Sidebar() {
     return (
-        <div className="sidebar h-screen flex flex-col">
+        <div className="sidebar h-screen flex flex-col fixed w-[260px]">
             <HeaderComponent
-                title="Bản đồ DHCT"
-                fontStyle="uppercase text-[1.15rem] text-[#fff] font-medium leading-[30px] overflow-hidden text-center block whitespace-nowrap"
+                title="Bản đồ ĐHCT"
+                fontStyle="uppercase text-[1.15rem] text-[#fff] font-medium leading-[30px] overflow-hidden text-center block whitespace-nowrap w-full"
             />
 
             <div className="card-container relative flex-grow">
