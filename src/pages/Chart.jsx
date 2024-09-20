@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../layout/sidebar/Sidebar';
 import Content from '../layout/content/Content';
 
 function Chart() {
+    const [isShowSidebar, setShowSidebar] = useState(false);
+
+    const handleShowSidebar = () => {
+        console.log(isShowSidebar);
+
+        setShowSidebar(!isShowSidebar);
+    };
+
     return (
         <div className="chart">
-            <div className="wrapper flex w-screen">
-                <div className="sidebar-container w-[260px] text-white h-screen shadow-[8px_0_20px_rgba(0,0,0,0.1)] z-10">
-                    <Sidebar />
-                </div>
-                <div className="map-box flex-grow bg-[#ededed]">
-                    <Content />
+            <div className="wrapper flex w-screen bg-[#ededed] ">
+                <Sidebar isShowSidebar={isShowSidebar} />
+                {isShowSidebar && (
+                    <div
+                        onClick={() => setShowSidebar(!isShowSidebar)}
+                        className="fixed cursor-pointer inset-0 bg-black bg-opacity-50 z-10 transition-opacity duration-300"
+                    ></div>
+                )}
+                <div className="map-box bg-[#ededed] flex-grow relative ml-[260px] max-custom:ml-0">
+                    <Content handleShowSidebar={handleShowSidebar} />
                 </div>
             </div>
         </div>

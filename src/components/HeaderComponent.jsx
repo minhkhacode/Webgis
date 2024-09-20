@@ -1,10 +1,14 @@
-import React from 'react';
+import { IoMenuSharp } from 'react-icons/io5';
 
-function HeaderComponent({ title, fontStyle, icon }) {
+function HeaderComponent({ title, fontStyle, icon, handleShowSidebar }) {
     return (
-        <div className={`${fontStyle} header-component relative bg-customBlue px-8 py-5 flex align-center font-thin`}>
-            {title}
-            <div className="hidden absolute right-[10px] max-custom:block">{icon ? icon : <></>}</div>
+        <div
+            className={`${fontStyle} header-component relative bg-customBlue px-8 py-5 flex items-center justify-between font-thin`}
+        >
+            <div>{title}</div>
+            <div onClick={handleShowSidebar} className="hidden max-custom:block">
+                {icon}
+            </div>
         </div>
     );
 }

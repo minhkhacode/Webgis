@@ -13,8 +13,9 @@ import MyMap from '../../components/Mymap';
 
 import { IoSearchOutline } from 'react-icons/io5';
 import MapComponent from '../../components/MapComponent.jsx';
+import { IoMenuSharp } from 'react-icons/io5';
 
-function Content() {
+function Content({ handleShowSidebar }) {
     const [show, setShow] = useState(false);
 
     const Dropdowns = [
@@ -100,28 +101,26 @@ function Content() {
             ],
         },
     ];
-    // eslint-disable-next-line no-unused-vars
-    const navBarList = [
-        {
-            title: 'Ban do Google',
-            show: true,
-        },
-        {
-            title: 'VE TINH',
-            show: false,
-        },
-        {
-            title: 'NDVI vision',
-            show: false,
-        },
-    ];
+
+    const navBarList = {
+        'Bản đồ Google': <MapComponent></MapComponent>,
+        'Vệ tinh': <MyMap></MyMap>,
+        OPENSTREETMAP: <MapComponent></MapComponent>,
+    };
+
+    const [isActive, setActivation] = useState('Bản đồ Google');
+
+    const handleSetActivation = (value) => {
+        setActivation(value);
+    };
 
     return (
-        <div className="content h-screen overflow-y-scroll max-custom:w-screen">
+        <div className="content max-custom:w-screen relative">
             <HeaderComponent
+                handleShowSidebar={handleShowSidebar}
                 title="Dự án bản đồ trường ĐHCT"
-                fontStyle="text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
-                icon={<FaBars className="h-[24px] w-[42px] cursor-pointer" />}
+                fontStyle=" text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
+                icon={<FaBars className="h-6 w-6 cursor-pointer" />}
             />
             <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
                 <div className="card-header">
@@ -130,18 +129,21 @@ function Content() {
                         <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
                             <li className="nav-item">
                                 <Button
+                                    handleSetActivation={handleSetActivation}
                                     content="Bản đồ Google"
                                     customStyle="w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase"
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
+                                    handleSetActivation={handleSetActivation}
                                     content="Vệ tinh"
                                     customStyle="w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase"
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
+                                    handleSetActivation={handleSetActivation}
                                     content="OPENSTREETMAP"
                                     customStyle="w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase"
                                 ></Button>
@@ -152,7 +154,7 @@ function Content() {
                     <div className="search">
                         <div className="search relative flex items-center">
                             <i
-                                className="absolute left-3 cursor-pointer"
+                                className="absolute left-4 cursor-pointer"
                                 onClick={() => {
                                     alert('hello');
                                 }}
@@ -160,7 +162,7 @@ function Content() {
                                 <GoSearch />
                             </i>
                             <input
-                                className="w-full bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
+                                className="w-full rounded-lg bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
                                 type="text"
                                 name=""
                                 id=""
@@ -169,16 +171,8 @@ function Content() {
                         </div>
                     </div>
 
-                    <div className="hidden card-main w-full h-[600px] my-5 bg-blue">
-                        <div className="map w-full h-full">
-                            <MyMap />
-                        </div>
-                    </div>
-
                     <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
-                        <div className="map w-full h-full">
-                            <MapComponent></MapComponent>
-                        </div>
+                        <div className="map w-full h-full">{navBarList[isActive]}</div>
                     </div>
 
                     <div className="card-control cursor-pointer">
