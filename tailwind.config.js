@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [
-        './src/**/*.{js,jsx,ts,tsx}', // Các file mà Tailwind sẽ quét để áp dụng các class
-    ],
+    content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
         extend: {
             colors: {
@@ -15,10 +13,7 @@ module.exports = {
                     '0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);',
             },
             screens: {
-                'custom-md': '750px', // Custom breakpoint at 750px
-            },
-            screens: {
-                'max-custom': { max: '998px' }, // Các màn hình nhỏ hơn hoặc bằng 640px
+                'max-custom': { max: '998px' },
             },
             animation: {
                 wiggle: 'wiggle 1s ease-in-out infinite',

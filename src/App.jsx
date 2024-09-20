@@ -1,21 +1,19 @@
 import React from 'react';
-import 'leaflet/dist/leaflet.css';
 
-import Sidebar from './layout/sidebar/Sidebar.jsx';
-import Content from './layout/content/Content.jsx';
+import Map from './pages/Map.jsx';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Chart from './pages/Chart.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 function App() {
     return (
-        <div className="App">
-            <div className="wrapper flex w-screen max-custom:block max-custom:h-auto">
-                <div className="sidebar-container w-[260px] text-white h-screen shadow-[8px_0_20px_rgba(0,0,0,0.1)] z-10 max-custom:hidden">
-                    <Sidebar />
-                </div>
-                <div className="map-box flex-grow bg-[#ededed] max-custom:w-full">
-                    <Content />
-                </div>
-            </div>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Map />} />
+                <Route path="/chart" element={<Chart />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
