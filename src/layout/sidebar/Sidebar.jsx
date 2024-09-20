@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 function Sidebar() {
     return (
-        <div className="sidebar h-screen flex flex-col fixed w-[260px]">
+        <div className="sidebar h-screen flex flex-col fixed w-[260px] max-custom:hidden">
             <HeaderComponent
                 title="Bản đồ ĐHCT"
                 fontStyle="uppercase text-[1.15rem] text-[#fff] font-medium leading-[30px] overflow-hidden text-center block whitespace-nowrap w-full"
