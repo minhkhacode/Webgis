@@ -6,9 +6,13 @@ import { FaChartBar } from 'react-icons/fa';
 import { FaCodeCompare } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
-function Sidebar() {
+function Sidebar({ isShowSidebar }) {
     return (
-        <div className="sidebar h-screen flex flex-col fixed w-[260px]">
+        <div
+            className={`sidebar flex flex-col bg-[#fff] w-[260px] text-white h-screen shadow-[8px_0_20px_rgba(0,0,0,0.1)] fixed top-0 left-0  z-20 transition duration-300 ease-in-out ${
+                isShowSidebar ? 'max-custom:translate-x-0' : 'max-custom:-translate-x-full'
+            }`}
+        >
             <HeaderComponent
                 title="Bản đồ ĐHCT"
                 fontStyle="uppercase text-[1.15rem] text-[#fff] font-medium leading-[30px] overflow-hidden text-center block whitespace-nowrap w-full"

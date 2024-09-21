@@ -18,7 +18,16 @@ module.exports = {
             animation: {
                 wiggle: 'wiggle 1s ease-in-out infinite',
             },
+            fontFamily: {
+                sans: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+            },
         },
     },
-    plugins: [],
+    plugins: [
+        function ({ addBase, addUtilities }) {
+            addBase({
+                html: { scrollBehavior: 'smooth' },
+            });
+        },
+    ],
 };
