@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from '../layout/sidebar/Sidebar';
-import Content from '../layout/content/Content';
+import ChartContent from '../layout/chart/chart';
+import Content from '../layout/content/Content.jsx';
 
 function Chart() {
     const [isShowSidebar, setShowSidebar] = useState(false);
@@ -22,7 +23,7 @@ function Chart() {
                     ></div>
                 )}
                 <div className="map-box bg-[#ededed] flex-grow relative ml-[260px] max-custom:ml-0">
-                    <Content handleShowSidebar={handleShowSidebar} />
+                    <ChartContent handleShowSidebar={handleShowSidebar} />
                 </div>
             </div>
         </div>

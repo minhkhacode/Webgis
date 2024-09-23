@@ -1,118 +1,130 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
 
 import Button from '../../components/Button';
 import Dropdown from '../../components/Dropdown';
 import HeaderComponent from '../../components/HeaderComponent';
+import MyMap from '../../components/maps/Mymap';
+import MapComponent from '../../components/maps/MapComponent.jsx';
+import MapShapeFile from '../../components/maps/MapShapeFile';
 
-import MyMap from '../../components/Mymap';
-
-import { IoSearchOutline } from 'react-icons/io5';
-import MapComponent from '../../components/MapComponent.jsx';
-import { IoMenuSharp } from 'react-icons/io5';
+const Dropdowns = [
+    {
+        title: 'Hệ quy chiếu',
+        Selections: [
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+        ],
+    },
+    {
+        title: 'Năm',
+        Selections: [
+            {
+                value: 2020,
+            },
+            {
+                value: 2021,
+            },
+            {
+                value: 2022,
+            },
+            {
+                value: 2023,
+            },
+            {
+                value: 2024,
+            },
+        ],
+    },
+    {
+        title: 'Tháng',
+        Selections: [
+            {
+                value: 1,
+            },
+            {
+                value: 2,
+            },
+            {
+                value: 3,
+            },
+            {
+                value: 4,
+            },
+            {
+                value: 5,
+            },
+            {
+                value: 6,
+            },
+            {
+                value: 7,
+            },
+            {
+                value: 8,
+            },
+            {
+                value: 9,
+            },
+            {
+                value: 10,
+            },
+            {
+                value: 11,
+            },
+            {
+                value: 12,
+            },
+        ],
+    },
+];
 
 function Content({ handleShowSidebar }) {
+    // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
-
-    const Dropdowns = [
-        {
-            title: 'Hệ quy chiếu',
-            Selections: [
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-                {
-                    value: 'EPSG:4326',
-                },
-            ],
-        },
-        {
-            title: 'Năm',
-            Selections: [
-                {
-                    value: 2020,
-                },
-                {
-                    value: 2021,
-                },
-                {
-                    value: 2022,
-                },
-                {
-                    value: 2023,
-                },
-                {
-                    value: 2024,
-                },
-            ],
-        },
-        {
-            title: 'Tháng',
-            Selections: [
-                {
-                    value: 1,
-                },
-                {
-                    value: 2,
-                },
-                {
-                    value: 3,
-                },
-                {
-                    value: 4,
-                },
-                {
-                    value: 5,
-                },
-                {
-                    value: 6,
-                },
-                {
-                    value: 7,
-                },
-                {
-                    value: 8,
-                },
-                {
-                    value: 9,
-                },
-                {
-                    value: 10,
-                },
-                {
-                    value: 11,
-                },
-                {
-                    value: 12,
-                },
-            ],
-        },
-    ];
+    const [showTab, setShowTab] = useState('Bản đồ Google');
+    const [geoJsonData, setGeoJsonData] = useState(null);
 
     const navBarList = {
         'Bản đồ Google': <MapComponent></MapComponent>,
-        'Vệ tinh': <MyMap></MyMap>,
+        'Vệ tinh': <MapShapeFile geoJsonData={geoJsonData}></MapShapeFile>,
         OPENSTREETMAP: <MapComponent></MapComponent>,
+    };
+
+    const handleActiveTab = (title) => {
+        setShowTab(title);
     };
 
     const [isActive, setActivation] = useState('Bản đồ Google');
 
     const handleSetActivation = (value) => {
+        console.log(isActive);
+
         setActivation(value);
     };
+
+    useEffect(() => {
+        fetch('/KQPL.geojson')
+            .then((response) => response.json())
+            .then((data) => setGeoJsonData(data))
+            .catch((error) => console.error('Error loading GeoJSON:', error));
+    }, []);
 
     return (
         <div className="content max-custom:w-screen relative">
@@ -124,28 +136,53 @@ function Content({ handleShowSidebar }) {
             />
             <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
                 <div className="card-header">
-                    <h1 className="card-title text-sm text-[#3C4858] font-extralight">Bản đồ Trường Đại Học Cần Thơ</h1>
+                    <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
+                        {showTab === 'Bản đồ Google' && 'Bản đồ Trường Đại Học Cần Thơ'}
+                        {showTab === 'Vệ tinh' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
+                        {showTab === 'OPENSTREETMAP' && 'OPENSTREETMAP tab'}
+                    </h1>
                     <div className="card-nav">
                         <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
                             <li className="nav-item">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="Bản đồ Google"
-                                    customStyle="w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase"
+                                    customStyle={
+                                        showTab === 'Bản đồ Google'
+                                            ? 'w-30 !bg-blue-600 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                            : 'w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                    }
+                                    onClick={() => {
+                                        handleActiveTab('Bản đồ Google');
+                                    }}
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="Vệ tinh"
-                                    customStyle="w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase"
+                                    customStyle={
+                                        showTab === 'Vệ tinh'
+                                            ? 'w-30 !bg-blue-600 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                            : 'w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                    }
+                                    onClick={() => {
+                                        handleActiveTab('Vệ tinh');
+                                    }}
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="OPENSTREETMAP"
-                                    customStyle="w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase"
+                                    customStyle={
+                                        showTab === 'OPENSTREETMAP'
+                                            ? 'w-30 !bg-blue-600 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
+                                            : 'w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
+                                    }
+                                    onClick={() => {
+                                        handleActiveTab('OPENSTREETMAP');
+                                    }}
                                 ></Button>
                             </li>
                         </ul>
@@ -188,8 +225,18 @@ function Content({ handleShowSidebar }) {
                         })}
                     </div>
                 </div>
+                {/* 
+                {showTab === 'Vệ tinh' && (
+                    <div className="w-full">
+                        <MapShapeFile geoJsonData={geoJsonData} />
+                    </div>
+                )}
+
+                {showTab === 'OPENSTREETMAP' && <div className="w-full">OPENSTREETMAP Tab</div>} */}
             </div>
         </div>
+        //     </div>
+        // </div>
     );
 }
 
