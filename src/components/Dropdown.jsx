@@ -9,9 +9,9 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
     };
     const [show, setShow] = useState(false);
 
-    const handleShow = () => {
-        setShow(!show);
-    };
+    // const handleShow = () => {
+    //     setShow(!show);
+    // };
     return (
         <div className="dropdown">
             <div className="dropdown-list">

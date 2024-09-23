@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../layout/sidebar/Sidebar';
-import Content from '../layout/content/Content';
+import ChartContent from '../layout/chart/chart';
 
 function Chart() {
     const [isShowSidebar, setShowSidebar] = useState(false);

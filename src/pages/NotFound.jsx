@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import Button from '../components/Button';
 
 function NotFound() {
+    useEffect(() => {
+        document.title = '404 - Page Not Found';
+    }, []);
+
     return (
         <div>
             <div className="flex flex-col items-center justify-center h-screen">
