@@ -8,12 +8,20 @@ import MiniMapControl from './MiniMap';
 const MapShapeFile = ({ geoJsonData }) => {
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.Type;
-        layer.bindPopup(typeLand);
-        // layer.on({
-        //     click: (event) => {
-        //         console.log(TypeLandUse.properties.Type);
-        //     },
-        // });
+        layer.bindPopup(typeLand, {
+            maxWidth: 300,
+            closeButton: true,
+            autoClose: true,
+            closeOnClick: true,
+        });
+        layer.on({
+            click: (event) => {
+                event.target.setStyle({
+                    fillColor: 'green',
+                    color: 'white',
+                });
+            },
+        });
     };
 
     const CountryStyle = {
