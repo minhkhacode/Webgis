@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../layout/sidebar/Sidebar';
-import ChartContent from '../layout/chart/chart';
+import ChartContent from '../layout/chart/ChartContent.jsx';
 import Content from '../layout/content/Content.jsx';
 
 function Chart() {
