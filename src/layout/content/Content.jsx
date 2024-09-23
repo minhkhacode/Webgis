@@ -95,14 +95,28 @@ const Dropdowns = [
     },
 ];
 
-function Content() {
+function Content({ handleShowSidebar }) {
     // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
     const [showTab, setShowTab] = useState('Bản đồ Google');
     const [geoJsonData, setGeoJsonData] = useState(null);
 
+    const navBarList = {
+        'Bản đồ Google': <MapComponent></MapComponent>,
+        'Vệ tinh': <MapShapeFile geoJsonData={geoJsonData}></MapShapeFile>,
+        OPENSTREETMAP: <MapComponent></MapComponent>,
+    };
+
     const handleActiveTab = (title) => {
         setShowTab(title);
+    };
+
+    const [isActive, setActivation] = useState('Bản đồ Google');
+
+    const handleSetActivation = (value) => {
+        console.log(isActive);
+
+        setActivation(value);
     };
 
     useEffect(() => {
@@ -211,14 +225,14 @@ function Content() {
                         })}
                     </div>
                 </div>
-
+                {/* 
                 {showTab === 'Vệ tinh' && (
                     <div className="w-full">
                         <MapShapeFile geoJsonData={geoJsonData} />
                     </div>
                 )}
 
-                {showTab === 'OPENSTREETMAP' && <div className="w-full">OPENSTREETMAP Tab</div>}
+                {showTab === 'OPENSTREETMAP' && <div className="w-full">OPENSTREETMAP Tab</div>} */}
             </div>
         </div>
         //     </div>
