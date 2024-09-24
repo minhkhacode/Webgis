@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
 
@@ -95,22 +96,80 @@ const Dropdowns = [
     },
 ];
 
+const DropDownLaneUseType = [
+    {
+        value: 'Phi nông nghiệp',
+        selected: true,
+        path: '/PNN.geojson',
+    },
+    {
+        value: 'Nông nghiệp',
+        selected: false,
+        path: '/NN.geojson',
+    },
+    {
+        value: 'Thổ quả',
+        selected: false,
+        path: '/TQ.geojson',
+    },
+];
+
 function Content() {
     // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
     const [showTab, setShowTab] = useState('Bản đồ Google');
-    const [geoJsonData, setGeoJsonData] = useState(null);
+    // const [geoJsonData, setGeoJsonData] = useState(null);
+    // const [geoJsonData2, setGeoJsonData2] = useState(null);
+    // const [geoJsonData3, setGeoJsonData3] = useState(null);
+    const [typeLandUseData, setTypeLandUseData] = useState('');
+    const [geoJSONDataList, setGeoJSONDataList] = useState([]);
+    const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
 
-    const handleActiveTab = (title) => {
+    const handleActiveTab = async (title) => {
         setShowTab(title);
     };
 
-    useEffect(() => {
-        fetch('/KQPL.geojson')
+    const handleAddGeoJSONDataList = async (path) => {
+        await fetch(path)
             .then((response) => response.json())
-            .then((data) => setGeoJsonData(data))
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
             .catch((error) => console.error('Error loading GeoJSON:', error));
-    }, []);
+    };
+
+    const handleRemoveGeoJSONDataList = (type) => {
+        setGeoJSONDataList(geoJSONDataList.filter((item) => item.features.type !== type));
+    };
+
+    const handleChangeDropDownTypeUseType = () => {};
+
+    const handleValueChange = (value) => {
+        setTypeLandUseData(value);
+        console.log(typeLandUseData);
+    };
+
+    // useEffect(() => {
+    // fetch('/PNN.geojson')
+    //     .then((response) => response.json())
+    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+    //     .catch((error) => console.error('Error loading GeoJSON:', error));
+    // fetch('/NN.geojson')
+    //     .then((response) => response.json())
+    //     // .then((data) => setGeoJsonData2(data))
+    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+    //     .catch((error) => console.error('Error loading GeoJSON:', error));
+    // fetch('/TQ.geojson')
+    //     .then((response) => response.json())
+    //     // .then((data) => setGeoJsonData3(data))
+    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+    //     .catch((error) => console.error('Error loading GeoJSON:', error));
+    // }, []);
+
+    // useEffect(() => {
+    //     fetch('/NN.geojson')
+    //         .then((response) => response.json())
+    //         .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+    //         .catch((error) => console.error('Error loading GeoJSON:', error));
+    // }, []);
 
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">
@@ -133,7 +192,7 @@ function Content() {
                                     content="Bản đồ Google"
                                     customStyle={
                                         showTab === 'Bản đồ Google'
-                                            ? 'w-30 !bg-blue-600 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                            ? 'w-30 !bg-active hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                             : 'w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                     }
                                     onClick={() => {
@@ -146,7 +205,7 @@ function Content() {
                                     content="Vệ tinh"
                                     customStyle={
                                         showTab === 'Vệ tinh'
-                                            ? 'w-30 !bg-blue-600 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                            ? 'w-30 !bg-active hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                             : 'w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                     }
                                     onClick={() => {
@@ -159,7 +218,7 @@ function Content() {
                                     content="OPENSTREETMAP"
                                     customStyle={
                                         showTab === 'OPENSTREETMAP'
-                                            ? 'w-30 !bg-blue-600 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
+                                            ? 'w-30 !bg-active hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
                                             : 'w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
                                     }
                                     onClick={() => {
@@ -222,12 +281,26 @@ function Content() {
 
                         {showTab === 'Vệ tinh' && (
                             <div className="w-full">
-                                <MapShapeFile geoJsonData={geoJsonData} />
+                                <MapShapeFile
+                                    // geoJsonData={geoJsonData}
+                                    // geoJsonData2={geoJsonData2}
+                                    // geoJsonData3={geoJsonData3}
+                                    getJsonDataList={geoJSONDataList}
+                                />
+
+                                <div className="mt-[20px]" />
+                                <div className="card-control cursor-pointer">
+                                    <Dropdown
+                                        DropdownTitle={'Land use type'}
+                                        Selections={DropDownLaneUseType}
+                                        Show={show}
+                                        onValueChange={handleValueChange}
+                                    />
+                                </div>
                             </div>
                         )}
-
-                        {showTab === 'OPENSTREETMAP' && <div className="w-full">OPENSTREETMAP Tab</div>}
                     </div>
+                    {showTab === 'OPENSTREETMAP' && <div className="w-full">OPENSTREETMAP Tab</div>}
                 </div>
             </div>
         </div>

@@ -4,12 +4,15 @@ import { useState } from 'react';
 import { MdDashboard } from 'react-icons/md';
 import { FaChartBar } from 'react-icons/fa';
 import { FaCodeCompare } from 'react-icons/fa6';
+import { useLocation } from 'react-router-dom';
 
 import HeaderComponent from '../../components/HeaderComponent.jsx';
 import Button from '../../components/Button.jsx';
 
 function Sidebar() {
     const [isOpen, setIsOpen] = useState(false);
+
+    const location = useLocation();
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -28,7 +31,11 @@ function Sidebar() {
                             <Link to="/">
                                 <Button
                                     content="Bản đồ"
-                                    customStyle="w-full rounded shadow-custom"
+                                    customStyle={
+                                        location.pathname === '/'
+                                            ? 'w-full !bg-active rounded shadow-custom'
+                                            : 'w-full rounded shadow-custom'
+                                    }
                                     icon={<MdDashboard />}
                                 ></Button>
                             </Link>
@@ -37,7 +44,11 @@ function Sidebar() {
                             <Link to="/chart">
                                 <Button
                                     content="Biểu đồ"
-                                    customStyle="w-full rounded shadow-custom"
+                                    customStyle={
+                                        location.pathname === '/chart'
+                                            ? 'w-full !bg-active rounded shadow-custom'
+                                            : 'w-full rounded shadow-custom'
+                                    }
                                     icon={<FaChartBar />}
                                 ></Button>
                             </Link>
@@ -46,7 +57,11 @@ function Sidebar() {
                             <Link to="/">
                                 <Button
                                     content="So sánh bản đồ"
-                                    customStyle="w-full rounded shadow-custom"
+                                    customStyle={
+                                        location.pathname === '/'
+                                            ? 'w-full !bg-active rounded shadow-custom'
+                                            : 'w-full rounded shadow-custom'
+                                    }
                                     icon={<FaCodeCompare />}
                                 ></Button>
                             </Link>
@@ -78,7 +93,7 @@ function Sidebar() {
                             {isOpen ? 'Close' : 'Open'}
                         </button>
 
-                        <ul className="mt-4 space-y-2">
+                        {/* <ul className="mt-4 space-y-2">
                             <li>
                                 <a
                                     href="#"
@@ -106,7 +121,7 @@ function Sidebar() {
                                     <span>About</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> */}
                     </div>
 
                     {/* Main Content */}
