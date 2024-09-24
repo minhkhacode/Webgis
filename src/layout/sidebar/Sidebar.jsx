@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import HeaderComponent from '../../components/HeaderComponent.jsx';
 import Button from '../../components/Button.jsx';
 import { MdDashboard } from 'react-icons/md';
@@ -7,24 +7,25 @@ import { FaCodeCompare } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { clickButton } from '../../features/button/buttonsStatusSlice.jsx';
 
 function Sidebar({ isShowSidebar }) {
     const { t, i18n } = useTranslation();
+    const language = useSelector((state) => state.language.language);
+    const { sidebarButton } = useSelector((state) => state.button);
+    const dispatch = useDispatch();
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
 
-    const dispatch = useDispatch();
-    const language = useSelector((state) => state.language.language);
-
-    React.useEffect(() => {
+    useEffect(() => {
         i18n.changeLanguage(language);
     }, [language, i18n]);
 
     return (
         <div
-            className={`sidebar flex flex-col bg-[#fff] w-[260px] text-white h-screen shadow-[8px_0_20px_rgba(0,0,0,0.1)] fixed top-0 left-0  z-20 transition duration-300 ease-in-out ${
+            className={`sidebar flex flex-col bg-[#fff] w-[260px] text-white h-screen shadow-[8px_0_20px_rgba(0,0,0,0.1)] fixed top-0 left-0 z-20 transition duration-300 ease-in-out ${
                 isShowSidebar ? 'max-custom:translate-x-0' : 'max-custom:-translate-x-full'
             }`}
         >
@@ -39,27 +40,42 @@ function Sidebar({ isShowSidebar }) {
                         <Link to="/">
                             <Button
                                 content={t('map')}
-                                customStyle="w-full rounded shadow-custom"
+                                handleActiveTab={() => dispatch(clickButton('map'))}
+                                customStyle={
+                                    sidebarButton === 'map'
+                                        ? '!bg-[#6186c1] w-full rounded shadow-custom'
+                                        : 'w-full rounded shadow-custom'
+                                }
                                 icon={<MdDashboard />}
-                            ></Button>
+                            />
                         </Link>
                     </li>
                     <li className="tools-item w-full px-5 mb-5">
                         <Link to="/chart">
                             <Button
                                 content={t('chart')}
-                                customStyle="w-full rounded shadow-custom"
+                                handleActiveTab={() => dispatch(clickButton('chart'))}
+                                customStyle={
+                                    sidebarButton === 'chart'
+                                        ? '!bg-[#6186c1] w-full rounded shadow-custom'
+                                        : 'w-full rounded shadow-custom'
+                                }
                                 icon={<FaChartBar />}
-                            ></Button>
+                            />
                         </Link>
                     </li>
                     <li className="tools-item w-full px-5 mb-5">
                         <Link to="/">
                             <Button
                                 content={t('compare')}
-                                customStyle="w-full rounded shadow-custom"
+                                handleActiveTab={() => dispatch(clickButton('compare'))}
+                                customStyle={
+                                    sidebarButton === 'compare'
+                                        ? '!bg-[#6186c1] w-full rounded shadow-custom'
+                                        : 'w-full rounded shadow-custom'
+                                }
                                 icon={<FaCodeCompare />}
-                            ></Button>
+                            />
                         </Link>
                     </li>
                     <li className="tools-item tools-item_footer w-full flex items-center justify-center gap-5 absolute bottom-2">

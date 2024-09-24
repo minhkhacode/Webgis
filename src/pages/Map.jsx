@@ -6,8 +6,6 @@ function Map() {
     const [isShowSidebar, setShowSidebar] = useState(false);
 
     const handleShowSidebar = () => {
-        console.log(isShowSidebar);
-
         setShowSidebar(!isShowSidebar);
     };
 

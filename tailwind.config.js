@@ -15,6 +15,7 @@ module.exports = {
             },
             screens: {
                 'max-custom': { max: '998px' },
+                'mid-custom': { max: '1280px' },
             },
             animation: {
                 wiggle: 'wiggle 1s ease-in-out infinite',

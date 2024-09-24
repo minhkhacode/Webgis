@@ -12,15 +12,14 @@ import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import DropdownPC from '../../components/DropdownPC.jsx';
 
 function Content({ handleShowSidebar }) {
     const { t, i18n } = useTranslation();
     const [show, setShow] = useState(false);
     const [showTab, setShowTab] = useState('googleMap');
     const [geoJsonData, setGeoJsonData] = useState(null);
-    const dispatch = useDispatch();
     const CRS = useSelector((state) => state.CRS.CRS);
-    console.log(CRS);
 
     const Dropdowns = [
         {
@@ -128,53 +127,58 @@ function Content({ handleShowSidebar }) {
                         {showTab === 'Vệ tinh' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
                         {showTab === 'OPENSTREETMAP' && 'OPENSTREETMAP tab'}
                     </h1>
-                    <div className="card-nav">
+                    <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block">
                         <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
                             <li className="nav-item">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="googleMap"
+                                    handleActiveTab={handleActiveTab}
                                     customStyle={
-                                        showTab === 'Bản đồ Google'
-                                            ? 'w-30 !bg-blue-600 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                        showTab === 'googleMap'
+                                            ? 'w-30 !bg-[#6186c1] hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                             : 'w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                     }
-                                    onClick={() => {
-                                        console.log(1);
-
-                                        handleActiveTab('Bản đồ Google');
-                                    }}
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="satelliteMap"
+                                    handleActiveTab={handleActiveTab}
                                     customStyle={
-                                        showTab === 'Vệ tinh'
-                                            ? 'w-30 !bg-blue-600 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                        showTab === 'satelliteMap'
+                                            ? 'w-30 !bg-[#6186c1] hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                             : 'w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                     }
-                                    onClick={() => {
-                                        handleActiveTab('Vệ tinh');
-                                    }}
                                 ></Button>
                             </li>
                             <li className="nav-item">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="streetMap"
+                                    handleActiveTab={handleActiveTab}
                                     customStyle={
-                                        showTab === 'OPENSTREETMAP'
-                                            ? 'w-30 !bg-blue-600 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
+                                        showTab === 'streetMap'
+                                            ? 'w-30 !bg-[#6186c1] hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
                                             : 'w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
                                     }
-                                    onClick={() => {
-                                        handleActiveTab('OPENSTREETMAP');
-                                    }}
                                 ></Button>
                             </li>
                         </ul>
+
+                        <div className="card-control w-[450px] flex justify-end items-center gap-2 cursor-pointer mid-custom:hidden ">
+                            {Dropdowns.map((DropdownItem) => {
+                                return (
+                                    <DropdownPC
+                                        key={DropdownItem.title}
+                                        DropdownTitle={t(DropdownItem.title)}
+                                        Selections={DropdownItem.Selections}
+                                        Show={show}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
 
                     <div className="search">
@@ -201,7 +205,7 @@ function Content({ handleShowSidebar }) {
                         <div className="map w-full h-full">{navBarList[isActive]}</div>
                     </div>
 
-                    <div className="card-control cursor-pointer">
+                    <div className="hidden mid-custom:block card-control cursor-pointer">
                         {Dropdowns.map((DropdownItem) => {
                             return (
                                 <Dropdown
