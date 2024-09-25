@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 
-function Dropdown({ DropdownTitle, Selections, childrents }) {
+function Dropdown({ DropdownTitle, Selections, onValueChange }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [inputValue, setInputValue] = useState('');
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
-    const [show, setShow] = useState(false);
+
+
+    const handleChange = (value) => {
+        setInputValue(value);
+    };
+
+    const handleSubmit = () => {
+        onValueChange(inputValue);
+    };
+
+    // console.log(Selections);
 
     return (
         <div className="dropdown">
@@ -26,9 +37,15 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
                 >
                     {Selections.map((selection, index) => {
                         return (
-                            <li className="selection" key={index}>
+                            <li className="selection" key={index} onClick={onclick}>
                                 <label className="flex items-center space-x-2 my-2 cursor-pointer">
-                                    <input type="checkbox" className="hidden peer" />
+                                    <input
+                                        type="checkbox"
+                                        className="hidden peer"
+                                        onChange={() => {
+                                            handleChange(selection.value);
+                                        }}
+                                    />
                                     <div className="w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
                                         <div className="w-2 h-2 text-white peer-checked:block flex items-center justify-center">
                                             <FaCheck />

@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/heading-has-content */
-/* eslint-disable react/jsx-no-comment-textnodes */
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
@@ -14,12 +12,34 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import DropdownPC from '../../components/DropdownPC.jsx';
 
+const DropDownLaneUseType = [
+    {
+        value: 'Phi nông nghiệp',
+        selected: true,
+        path: '/PNN.geojson',
+    },
+    {
+        value: 'Nông nghiệp',
+        selected: false,
+        path: '/NN.geojson',
+    },
+    {
+        value: 'Thổ quả',
+        selected: false,
+        path: '/TQ.geojson',
+    },
+];
+
 function Content({ handleShowSidebar }) {
     const { t, i18n } = useTranslation();
     const [show, setShow] = useState(false);
     const [showTab, setShowTab] = useState('googleMap');
     const [geoJsonData, setGeoJsonData] = useState(null);
     const CRS = useSelector((state) => state.CRS.CRS);
+    const [typeLandUseData, setTypeLandUseData] = useState('');
+    const [geoJSONDataList, setGeoJSONDataList] = useState([]);
+
+    const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
 
     const Dropdowns = [
         {
@@ -91,11 +111,11 @@ function Content({ handleShowSidebar }) {
 
     const navBarList = {
         googleMap: <MapComponent></MapComponent>,
-        satelliteMap: <MapShapeFile geoJsonData={geoJsonData}></MapShapeFile>,
+        satelliteMap: <MapShapeFile getJsonDataList={geoJSONDataList}></MapShapeFile>,
         streetMap: <MapComponent></MapComponent>,
     };
 
-    const handleActiveTab = (title) => {
+    const handleActiveTab = async (title) => {
         setShowTab(title);
     };
 
@@ -105,10 +125,27 @@ function Content({ handleShowSidebar }) {
         setActivation(value);
     };
 
-    useEffect(() => {
-        fetch('/KQPL.geojson')
+    const handleAddGeoJSONDataList = async (path) => {
+        await fetch(path)
             .then((response) => response.json())
-            .then((data) => setGeoJsonData(data))
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+            .catch((error) => console.error('Error loading GeoJSON:', error));
+    };
+
+    useEffect(() => {
+        fetch('/PNN.geojson')
+            .then((response) => response.json())
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+            .catch((error) => console.error('Error loading GeoJSON:', error));
+        fetch('/NN.geojson')
+            .then((response) => response.json())
+            // .then((data) => setGeoJsonData2(data))
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+            .catch((error) => console.error('Error loading GeoJSON:', error));
+        fetch('/TQ.geojson')
+            .then((response) => response.json())
+            // .then((data) => setGeoJsonData3(data))
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
             .catch((error) => console.error('Error loading GeoJSON:', error));
     }, []);
 
