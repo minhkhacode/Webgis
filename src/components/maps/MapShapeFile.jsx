@@ -5,9 +5,9 @@ import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import 'leaflet-minimap';
-import Button from '../Button';
+// import Button from '../Button';
 
-// import MiniMapControl from './MiniMap';
+import MiniMapControl from './MiniMap';
 
 function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
     const layerRefs = useRef([]);
@@ -63,9 +63,27 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
             color: '#3c2a20',
             fontWeight: '200',
         },
+        {
+            fillColor: 'green',
+            fillOpacity: '0.1',
+            color: '#3c2a20',
+            fontWeight: '200',
+        },
+        {
+            fillColor: 'grey',
+            fillOpacity: '0.1',
+            color: '#3c2a20',
+            fontWeight: '200',
+        },
+        {
+            fillColor: 'purple',
+            fillOpacity: '0.1',
+            color: '#3c2a20',
+            fontWeight: '200',
+        },
     ];
 
-    console.log('getJsonDataList: ', getJsonDataList);
+    // console.log('getJsonDataList: ', getJsonDataList);
 
     return (
         <>
@@ -85,20 +103,19 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                         />
                     );
                 })}
-
-                {/* {getJsonDataList.map((item, index) => {
-                return <MiniMapControl geoJsonData={item.features} key={index} />;
-            })} */}
+                <MiniMapControl geoJsonData={getJsonDataList} />
             </MapContainer>
             {getJsonDataList &&
                 getJsonDataList.map((item, index) => {
                     return (
-                        <Button
+                        <div
+                            className="bg-gray"
+                            key={index}
                             content={item.value}
                             onClick={() => {
                                 removeLayer(index);
                             }}
-                        ></Button>
+                        ></div>
                     );
                 })}
         </>
