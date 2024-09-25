@@ -9,9 +9,12 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
     };
     const [show, setShow] = useState(false);
 
+    // const handleShow = () => {
+    //     setShow(!show);
+    // };
     return (
         <div className="dropdown">
-            <div className="dropdown-list">
+            <div className="dropdown-list relative">
                 <h1
                     className="dropdown-title w-full bg-[#999999] px-4 py-3 rounded text-white cursor-pointer hover:bg-[#888888] transition duration-300"
                     onClick={toggleDropdown}
@@ -19,7 +22,7 @@ function Dropdown({ DropdownTitle, Selections, childrents }) {
                     {DropdownTitle}
                 </h1>
                 <ul
-                    className={`dropdown-menu px-10  my-2 rounded-xl shadow-custom transition-all duration-300 overflow-hidden ${
+                    className={`dropdown-menu absolute z-10 bg-[#fff] right-0 px-10  my-2 rounded-xl shadow-custom transition-all duration-300 overflow-hidden ${
                         isOpen ? 'max-h-100 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                     style={{ transition: 'max-height 0.3s ease, opacity 0.3s ease' }}
