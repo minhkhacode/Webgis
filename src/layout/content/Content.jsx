@@ -1,7 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/heading-has-content */
-/* eslint-disable react/jsx-no-comment-textnodes */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
 
@@ -15,12 +12,33 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import DropdownPC from '../../components/DropdownPC.jsx';
 
+const DropDownLaneUseType = [
+    {
+        value: 'Phi nông nghiệp',
+        selected: true,
+        path: '/PNN.geojson',
+    },
+    {
+        value: 'Nông nghiệp',
+        selected: false,
+        path: '/NN.geojson',
+    },
+    {
+        value: 'Thổ quả',
+        selected: false,
+        path: '/TQ.geojson',
+    },
+];
+
 function Content({ handleShowSidebar }) {
     const { t, i18n } = useTranslation();
     const [show, setShow] = useState(false);
     const [showTab, setShowTab] = useState('googleMap');
     const [geoJsonData, setGeoJsonData] = useState(null);
     const CRS = useSelector((state) => state.CRS.CRS);
+    const [typeLandUseData, setTypeLandUseData] = useState('');
+    const [geoJSONDataList, setGeoJSONDataList] = useState([]);
+
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
 
     const Dropdowns = [
@@ -93,7 +111,7 @@ function Content({ handleShowSidebar }) {
 
     const navBarList = {
         googleMap: <MapComponent></MapComponent>,
-        satelliteMap: <MapShapeFile geoJsonData={geoJsonData}></MapShapeFile>,
+        satelliteMap: <MapShapeFile getJsonDataList={geoJSONDataList}></MapShapeFile>,
         streetMap: <MapComponent></MapComponent>,
     };
 
@@ -101,56 +119,35 @@ function Content({ handleShowSidebar }) {
         setShowTab(title);
     };
 
-    const handleAddGeoJSONDataList = async (path) => {
-        await fetch(path)
-      
     const [isActive, setActivation] = useState('googleMap');
 
     const handleSetActivation = (value) => {
         setActivation(value);
     };
 
-    useEffect(() => {
-        fetch('/KQPL.geojson')
+    const handleAddGeoJSONDataList = async (path) => {
+        await fetch(path)
             .then((response) => response.json())
             .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
             .catch((error) => console.error('Error loading GeoJSON:', error));
     };
 
-    const handleRemoveGeoJSONDataList = (type) => {
-        setGeoJSONDataList(geoJSONDataList.filter((item) => item.features.type !== type));
-    };
-
-    const handleChangeDropDownTypeUseType = () => {};
-
-    const handleValueChange = (value) => {
-        setTypeLandUseData(value);
-        console.log(typeLandUseData);
-    };
-
-    // useEffect(() => {
-    // fetch('/PNN.geojson')
-    //     .then((response) => response.json())
-    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //     .catch((error) => console.error('Error loading GeoJSON:', error));
-    // fetch('/NN.geojson')
-    //     .then((response) => response.json())
-    //     // .then((data) => setGeoJsonData2(data))
-    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //     .catch((error) => console.error('Error loading GeoJSON:', error));
-    // fetch('/TQ.geojson')
-    //     .then((response) => response.json())
-    //     // .then((data) => setGeoJsonData3(data))
-    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //     .catch((error) => console.error('Error loading GeoJSON:', error));
-    // }, []);
-
-    // useEffect(() => {
-    //     fetch('/NN.geojson')
-    //         .then((response) => response.json())
-    //         .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //         .catch((error) => console.error('Error loading GeoJSON:', error));
-    // }, []);
+    useEffect(() => {
+        fetch('/PNN.geojson')
+            .then((response) => response.json())
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+            .catch((error) => console.error('Error loading GeoJSON:', error));
+        fetch('/NN.geojson')
+            .then((response) => response.json())
+            // .then((data) => setGeoJsonData2(data))
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+            .catch((error) => console.error('Error loading GeoJSON:', error));
+        fetch('/TQ.geojson')
+            .then((response) => response.json())
+            // .then((data) => setGeoJsonData3(data))
+            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
+            .catch((error) => console.error('Error loading GeoJSON:', error));
+    }, []);
 
     return (
         <div className="content max-custom:w-screen relative">
@@ -175,7 +172,6 @@ function Content({ handleShowSidebar }) {
                                     content="googleMap"
                                     handleActiveTab={handleActiveTab}
                                     customStyle={
-
                                         showTab === 'googleMap'
                                             ? 'w-30 !bg-[#6186c1] hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                             : 'w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
@@ -188,7 +184,6 @@ function Content({ handleShowSidebar }) {
                                     content="satelliteMap"
                                     handleActiveTab={handleActiveTab}
                                     customStyle={
-
                                         showTab === 'satelliteMap'
                                             ? 'w-30 !bg-[#6186c1] hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                             : 'w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
@@ -242,26 +237,7 @@ function Content({ handleShowSidebar }) {
                             />
                         </div>
                     </div>
-                        {showTab === 'Vệ tinh' && (
-                            <div className="w-full">
-                                <MapShapeFile
-                                    // geoJsonData={geoJsonData}
-                                    // geoJsonData2={geoJsonData2}
-                                    // geoJsonData3={geoJsonData3}
-                                    getJsonDataList={geoJSONDataList}
-                                />
 
-                                <div className="mt-[20px]" />
-                                <div className="card-control cursor-pointer">
-                                    <Dropdown
-                                        DropdownTitle={'Land use type'}
-                                        Selections={DropDownLaneUseType}
-                                        Show={show}
-                                        onValueChange={handleValueChange}
-                                    />
-                                </div>
-                            </div>
-                        )}
                     <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
                         <div className="map w-full h-full">{navBarList[isActive]}</div>
                     </div>
@@ -278,7 +254,6 @@ function Content({ handleShowSidebar }) {
                             );
                         })}
                     </div>
-                    {showTab === 'OPENSTREETMAP' && <div className="w-full">OPENSTREETMAP Tab</div>}
                 </div>
             </div>
         </div>
