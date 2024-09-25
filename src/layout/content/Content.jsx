@@ -1,16 +1,118 @@
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
+import { FaCheck } from 'react-icons/fa';
 
 import Button from '../../components/Button';
-import Dropdown from '../../components/Dropdown';
+import DropdownPC from '../../components/DropdownPC.jsx';
 import HeaderComponent from '../../components/HeaderComponent';
-import MyMap from '../../components/maps/Mymap';
 import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
+import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import DropdownPC from '../../components/DropdownPC.jsx';
+
+const Dropdowns = [
+    {
+        title: 'Hệ quy chiếu',
+        Selections: [
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+            {
+                value: 'EPSG:4326',
+            },
+        ],
+    },
+    {
+        title: 'Năm',
+        Selections: [
+            {
+                value: 2020,
+            },
+            {
+                value: 2021,
+            },
+            {
+                value: 2022,
+            },
+            {
+                value: 2023,
+            },
+            {
+                value: 2024,
+            },
+        ],
+    },
+    {
+        title: 'Tháng',
+        Selections: [
+            {
+                value: 1,
+            },
+            {
+                value: 2,
+            },
+            {
+                value: 3,
+            },
+            {
+                value: 4,
+            },
+            {
+                value: 5,
+            },
+            {
+                value: 6,
+            },
+            {
+                value: 7,
+            },
+            {
+                value: 8,
+            },
+            {
+                value: 9,
+            },
+            {
+                value: 10,
+            },
+            {
+                value: 11,
+            },
+            {
+                value: 12,
+            },
+        ],
+    },
+];
+
+const DropDownLaneUseType = [
+    {
+        value: 'Phi nông nghiệp',
+        selected: false,
+        path: '/PNN.geojson',
+    },
+    {
+        value: 'Nông nghiệp',
+        selected: false,
+        path: '/NN.geojson',
+    },
+    {
+        value: 'Thổ quả',
+        selected: false,
+        path: '/TQ.geojson',
+    },
+];
 
 const DropDownLaneUseType = [
     {
@@ -31,87 +133,31 @@ const DropDownLaneUseType = [
 ];
 
 function Content({ handleShowSidebar }) {
-    const { t, i18n } = useTranslation();
+    // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
+
+    const [isActive, setActivation] = useState('googleMap');
+    const [showTab, setShowTab] = useState('Bản đồ Google');
+    const [PNN, setPNN] = useState(null);
+    const [NN, setNN] = useState(null);
+    const [TQ, setTQ] = useState(null);
+    const [geoJSONDataList, setGeoJSONDataList] = useState([]);
+
     const [showTab, setShowTab] = useState('googleMap');
     const [geoJsonData, setGeoJsonData] = useState(null);
     const CRS = useSelector((state) => state.CRS.CRS);
     const [typeLandUseData, setTypeLandUseData] = useState('');
     const [geoJSONDataList, setGeoJSONDataList] = useState([]);
 
+
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
 
-    const Dropdowns = [
-        {
-            title: 'crs',
-            Selections: [...CRS],
-        },
-        {
-            title: 'year',
-            Selections: [
-                {
-                    value: 2020,
-                },
-                {
-                    value: 2021,
-                },
-                {
-                    value: 2022,
-                },
-                {
-                    value: 2023,
-                },
-                {
-                    value: 2024,
-                },
-            ],
-        },
-        {
-            title: 'month',
-            Selections: [
-                {
-                    value: 1,
-                },
-                {
-                    value: 2,
-                },
-                {
-                    value: 3,
-                },
-                {
-                    value: 4,
-                },
-                {
-                    value: 5,
-                },
-                {
-                    value: 6,
-                },
-                {
-                    value: 7,
-                },
-                {
-                    value: 8,
-                },
-                {
-                    value: 9,
-                },
-                {
-                    value: 10,
-                },
-                {
-                    value: 11,
-                },
-                {
-                    value: 12,
-                },
-            ],
-        },
-    ];
+    const dispatch = useDispatch();
+    const { t, il8n } = useTranslation();
 
     const navBarList = {
         googleMap: <MapComponent></MapComponent>,
-        satelliteMap: <MapShapeFile getJsonDataList={geoJSONDataList}></MapShapeFile>,
+        satelliteMap: <MapShapeFile getGeoJSONDataList={geoJSONDataList}></MapShapeFile>,
         streetMap: <MapComponent></MapComponent>,
     };
 
@@ -119,34 +165,80 @@ function Content({ handleShowSidebar }) {
         setShowTab(title);
     };
 
-    const [isActive, setActivation] = useState('googleMap');
 
+    const [isActive, setActivation] = useState('googleMap');
     const handleSetActivation = (value) => {
         setActivation(value);
     };
 
     const handleAddGeoJSONDataList = async (path) => {
-        await fetch(path)
-            .then((response) => response.json())
-            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-            .catch((error) => console.error('Error loading GeoJSON:', error));
+
+        await fetch(path);
+    };
+
+    const handleRemoveGeoJSONDataList = (landUseType) => {
+        const index = geoJSONDataList.indexOf(landUseType);
+        const newGeoJSONDataList = geoJSONDataList.filter((item, i) => i !== index);
+        setGeoJSONDataList(newGeoJSONDataList);
+    };
+
+    const handleChangeSelected = (itemCheck) => {
+        setDropdownLaneUseType((prev) =>
+            prev.map((item) => (item.path === itemCheck.path ? { ...item, selected: !item.selected } : item)),
+        );
+
+        if (itemCheck.selected === true) {
+            handleRemoveGeoJSONDataList(itemCheck.value);
+        }
+        if (itemCheck.selected === false) {
+            handleChangeGeoJSONDataList(itemCheck.path);
+        }
+    };
+
+    const checkLandUseTypeByPath = (path) => {
+        switch (path) {
+            case '/PNN.geojson':
+                return PNN;
+            case '/NN.geojson':
+                return NN;
+            case '/TQ.geojson':
+                return TQ;
+            default:
+                return null;
+        }
+    };
+
+    const handleChangeGeoJSONDataList = (path) => {
+        const landUseType = checkLandUseTypeByPath(path);
+        // console.log(landUseType);
+
+        !geoJSONDataList.includes(landUseType)
+            ? setGeoJSONDataList([...geoJSONDataList, landUseType])
+            : handleRemoveGeoJSONDataList(landUseType);
+        dispatch(change(...geoJSONDataList));
+        // console.log(geoJSONDataList);
     };
 
     useEffect(() => {
-        fetch('/PNN.geojson')
-            .then((response) => response.json())
-            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-            .catch((error) => console.error('Error loading GeoJSON:', error));
-        fetch('/NN.geojson')
-            .then((response) => response.json())
-            // .then((data) => setGeoJsonData2(data))
-            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-            .catch((error) => console.error('Error loading GeoJSON:', error));
-        fetch('/TQ.geojson')
-            .then((response) => response.json())
-            // .then((data) => setGeoJsonData3(data))
-            .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-            .catch((error) => console.error('Error loading GeoJSON:', error));
+        const fetchData = async () => {
+            try {
+                const responsePNN = await fetch('/PNN.geojson');
+                const dataPNN = await responsePNN.json();
+                setPNN(dataPNN);
+
+                const responseNN = await fetch('/NN.geojson');
+                const dataNN = await responseNN.json();
+                setNN(dataNN);
+
+                const responseTQ = await fetch('/TQ.geojson');
+                const dataTQ = await responseTQ.json();
+                setTQ(dataTQ);
+            } catch (error) {
+                console.error('Error loading GeoJSON:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -238,11 +330,50 @@ function Content({ handleShowSidebar }) {
                         </div>
                     </div>
 
-                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
-                        <div className="map w-full h-full">{navBarList[isActive]}</div>
-                    </div>
+                    {showTab === 'googleMap' && (
+                        <div className="w-full">
+                            <MapComponent />
+                        </div>
+                    )}
+                    {showTab === 'satelliteMap' && (
+                        <div className="w-full">
+                            <MapShapeFile getJsonDataList={geoJSONDataList} />
+                            <div className="mt-[20px]" />
+                            <div className="card-control cursor-pointer">
+                                {DropDownLaneUseType.map((item) => {
+                                    return (
+                                        <li className="selection" key={item.path}>
+                                            <label className="flex items-center space-x-2 my-2 cursor-pointer">
+                                                <input
+                                                    type="checkbox"
+                                                    className="hidden peer"
+                                                    value={item.selected}
+                                                    onClick={() => {
+                                                        handleChangeSelected(item);
+                                                    }}
+                                                />
+                                                <div className="w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
+                                                    <div className="w-2 h-2 text-white peer-checked:block flex items-center justify-center">
+                                                        <FaCheck />
+                                                    </div>
+                                                </div>
+                                                <span className="text-gray-900">{item.value}</span>
+                                            </label>
+                                        </li>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+                    {/* <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
 
-                    <div className="hidden mid-custom:block card-control cursor-pointer">
+
+                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
+
+                        <div className="map w-full h-full">{navBarList[isActive]}</div>
+                    </div> */}
+
+                    {/* <div className="hidden mid-custom:block card-control cursor-pointer">
                         {Dropdowns.map((DropdownItem) => {
                             return (
                                 <Dropdown
@@ -253,7 +384,14 @@ function Content({ handleShowSidebar }) {
                                 />
                             );
                         })}
-                    </div>
+
+                    </div> */}
+                    {showTab === 'streetMap' && (
+                        <div className="w-full">
+                            <MapComponent />
+                        </div>
+                    )}
+
                 </div>
             </div>
         </div>

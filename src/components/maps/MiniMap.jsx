@@ -3,28 +3,42 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import L from 'leaflet';
 import 'leaflet-minimap';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const MiniMapControl = ({ geoJsonData }) => {
     const map = useMap();
+    const miniMapRef = useRef(null); // Reference to store the minimap instance
+    const geoJsonLayerRef = useRef(null); // Reference for geoJSON layer
 
     useEffect(() => {
-        const miniMapLayer = new L.TileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
-            minZoom: 0,
-            maxZoom: 13,
-        });
+        if (!miniMapRef.current) {
+            const miniMapLayer = new L.TileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+                minZoom: 0,
+                maxZoom: 13,
+            });
 
-        // Create the minimap control
-        const miniMap = new L.Control.MiniMap(miniMapLayer, {
-            toggleDisplay: true,
-            minimized: false,
-            position: 'bottomleft',
-        }).addTo(map);
+            // Create the minimap control and store it in the ref
+            miniMapRef.current = new L.Control.MiniMap(miniMapLayer, {
+                toggleDisplay: true,
+                minimized: false,
+                position: 'bottomleft',
+            }).addTo(map);
+        }
 
-        const geoJSONLayer = L.geoJSON(geoJsonData);
-        miniMap._miniMap.addLayer(geoJSONLayer);
+        // Create or update the geoJSON layer
+        if (geoJsonLayerRef.current) {
+            // If a geoJSON layer already exists, remove it before adding a new one
+            miniMapRef.current._miniMap.removeLayer(geoJsonLayerRef.current);
+        }
+        geoJsonLayerRef.current = L.geoJSON(geoJsonData);
+        miniMapRef.current._miniMap.addLayer(geoJsonLayerRef.current);
+
         return () => {
-            miniMap.remove();
+            // Clean up minimap when the component unmounts
+            if (miniMapRef.current) {
+                miniMapRef.current.remove();
+                miniMapRef.current = null;
+            }
         };
     }, [map, geoJsonData]);
 
