@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
+import { FaCheck } from 'react-icons/fa';
 
 import Button from '../../components/Button';
 import Dropdown from '../../components/Dropdown';
@@ -11,6 +12,8 @@ import HeaderComponent from '../../components/HeaderComponent';
 import MyMap from '../../components/maps/Mymap';
 import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
+import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
+import { useDispatch } from 'react-redux';
 
 const Dropdowns = [
     {
@@ -99,7 +102,7 @@ const Dropdowns = [
 const DropDownLaneUseType = [
     {
         value: 'Phi nông nghiệp',
-        selected: true,
+        selected: false,
         path: '/PNN.geojson',
     },
     {
@@ -118,12 +121,9 @@ function Content() {
     // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
     const [showTab, setShowTab] = useState('Bản đồ Google');
-    // const [geoJsonData, setGeoJsonData] = useState(null);
-    // const [geoJsonData2, setGeoJsonData2] = useState(null);
-    // const [geoJsonData3, setGeoJsonData3] = useState(null);
-    const [typeLandUseData, setTypeLandUseData] = useState('');
     const [geoJSONDataList, setGeoJSONDataList] = useState([]);
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
+    const dispatch = useDispatch();
 
     const handleActiveTab = async (title) => {
         setShowTab(title);
@@ -134,42 +134,78 @@ function Content() {
             .then((response) => response.json())
             .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
             .catch((error) => console.error('Error loading GeoJSON:', error));
+        dispatch(change(...geoJSONDataList));
     };
 
-    const handleRemoveGeoJSONDataList = (type) => {
-        setGeoJSONDataList(geoJSONDataList.filter((item) => item.features.type !== type));
+    const handleRemoveGeoJSONDataList = (landUseType) => {
+        const index = geoJSONDataList.indexOf(landUseType);
+        console.log(index);
+
+        const newGeoJSONDataList = geoJSONDataList.filter((item, i) => i !== index);
+        console.log(newGeoJSONDataList);
     };
 
-    const handleChangeDropDownTypeUseType = () => {};
-
-    const handleValueChange = (value) => {
-        setTypeLandUseData(value);
-        console.log(typeLandUseData);
+    const handleChangeSelected = (path) => {
+        setDropdownLaneUseType((prev) =>
+            prev.map((item) => (item.path === path ? { ...item, selected: !item.selected } : item)),
+        );
     };
+
+    const memoizedDropdownLaneUseType = useMemo(() => dropdownLaneUseType, [dropdownLaneUseType]);
 
     // useEffect(() => {
-    // fetch('/PNN.geojson')
-    //     .then((response) => response.json())
-    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //     .catch((error) => console.error('Error loading GeoJSON:', error));
-    // fetch('/NN.geojson')
-    //     .then((response) => response.json())
-    //     // .then((data) => setGeoJsonData2(data))
-    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //     .catch((error) => console.error('Error loading GeoJSON:', error));
-    // fetch('/TQ.geojson')
-    //     .then((response) => response.json())
-    //     // .then((data) => setGeoJsonData3(data))
-    //     .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //     .catch((error) => console.error('Error loading GeoJSON:', error));
-    // }, []);
+    //     memoizedDropdownLaneUseType.forEach((item) =>
+    //         item.selected === true ? ,
+    //     );
+    // }, [dropdownLaneUseType]);
+    const [PNN, setPNN] = useState(null);
+    const [NN, setNN] = useState(null);
+    const [TQ, setTQ] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const responsePNN = await fetch('/PNN.geojson');
+                const dataPNN = await responsePNN.json();
+                setPNN(dataPNN);
 
-    // useEffect(() => {
-    //     fetch('/NN.geojson')
-    //         .then((response) => response.json())
-    //         .then((data) => setGeoJSONDataList([...geoJSONDataList, data]))
-    //         .catch((error) => console.error('Error loading GeoJSON:', error));
-    // }, []);
+                const responseNN = await fetch('/NN.geojson');
+                const dataNN = await responseNN.json();
+                setNN(dataNN);
+
+                const responseTQ = await fetch('/TQ.geojson');
+                const dataTQ = await responseTQ.json();
+                setTQ(dataTQ);
+            } catch (error) {
+                console.error('Error loading GeoJSON:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const checkLandUseTypeByPath = (path) => {
+        switch (path) {
+            case '/PNN.geojson':
+                return PNN;
+            case '/NN.geojson':
+                return NN;
+            case '/TQ.geojson':
+                return TQ;
+            default:
+                return null;
+        }
+    };
+
+    const handleChangeGeoJSONDataList = (path) => {
+        const landUseType = checkLandUseTypeByPath(path);
+        // console.log(landUseType);
+
+        !geoJSONDataList.includes(landUseType)
+            ? setGeoJSONDataList([...geoJSONDataList, landUseType])
+            : handleRemoveGeoJSONDataList(landUseType);
+        dispatch(change(...geoJSONDataList));
+        // console.log(geoJSONDataList);
+    };
 
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">
@@ -281,21 +317,30 @@ function Content() {
 
                         {showTab === 'Vệ tinh' && (
                             <div className="w-full">
-                                <MapShapeFile
-                                    // geoJsonData={geoJsonData}
-                                    // geoJsonData2={geoJsonData2}
-                                    // geoJsonData3={geoJsonData3}
-                                    getJsonDataList={geoJSONDataList}
-                                />
-
+                                <MapShapeFile getJsonDataList={geoJSONDataList} />
                                 <div className="mt-[20px]" />
                                 <div className="card-control cursor-pointer">
-                                    <Dropdown
-                                        DropdownTitle={'Land use type'}
-                                        Selections={DropDownLaneUseType}
-                                        Show={show}
-                                        onValueChange={handleValueChange}
-                                    />
+                                    {DropDownLaneUseType.map((item) => {
+                                        return (
+                                            <li
+                                                className="selection"
+                                                key={item.path}
+                                                onClick={() => {
+                                                    handleChangeGeoJSONDataList(item.path);
+                                                }}
+                                            >
+                                                <label className="flex items-center space-x-2 my-2 cursor-pointer">
+                                                    <input type="checkbox" className="hidden peer" />
+                                                    <div className="w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
+                                                        <div className="w-2 h-2 text-white peer-checked:block flex items-center justify-center">
+                                                            <FaCheck />
+                                                        </div>
+                                                    </div>
+                                                    <span className="text-gray-900">{item.value}</span>
+                                                </label>
+                                            </li>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}

@@ -1,13 +1,23 @@
 /* eslint-disable no-unreachable */
 /* eslint-disable array-callback-return */
+import { useRef } from 'react';
 import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import 'leaflet-minimap';
+import Button from '../Button';
 
-import MiniMapControl from './MiniMap';
+// import MiniMapControl from './MiniMap';
 
-const MapShapeFile = ({ getJsonDataList }) => {
+function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
+    const layerRefs = useRef([]);
+
+    const removeLayer = (index) => {
+        if (layerRefs.current[index]) {
+            layerRefs.current[index].remove(); // Remove the layer with specific index
+        }
+    };
+
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.Type;
         layer.bindPopup(typeLand, {
@@ -34,27 +44,6 @@ const MapShapeFile = ({ getJsonDataList }) => {
         });
     };
 
-    // const CountryStyleFirst = {
-    //     fillColor: 'red',
-    //     fillOpacity: '0.1',
-    //     color: '#3c2a20',
-    //     fontWeight: '200',
-    // };
-
-    // const CountryStyleSecond = {
-    //     fillColor: 'blue',
-    //     fillOpacity: '0.25',
-    //     color: '#3c2a20',
-    //     fontWeight: '200',
-    // };
-
-    // const CountryStyleThird = {
-    //     fillColor: 'yellow',
-    //     fillOpacity: '0.5',
-    //     color: '#3c2a20',
-    //     fontWeight: '200',
-    // };
-
     const CountryStyleList = [
         {
             fillColor: 'black',
@@ -76,39 +65,44 @@ const MapShapeFile = ({ getJsonDataList }) => {
         },
     ];
 
+    console.log('getJsonDataList: ', getJsonDataList);
+
     return (
-        <MapContainer style={{ height: '600px', width: '100%' }} center={[9.675, 105.9043]} zoom={14}>
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
-            />
+        <>
+            <MapContainer style={{ height: '600px', width: '100%' }} center={[9.675, 105.9043]} zoom={14}>
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
+                />
+                {getJsonDataList.map((item, index) => {
+                    return (
+                        <GeoJSON
+                            style={CountryStyleList[index]}
+                            data={item.features}
+                            onEachFeature={onEachTypeLandUse}
+                            key={index}
+                            ref={(el) => (layerRefs.current[index] = el)}
+                        />
+                    );
+                })}
 
-            {/* {geoJsonData && (
-                <GeoJSON style={CountryStyleFirst} data={geoJsonData.features} onEachFeature={onEachTypeLandUse} />
-            )}
-            {geoJsonData2 && (
-                <GeoJSON style={CountryStyleSecond} data={geoJsonData2.features} onEachFeature={onEachTypeLandUse} />
-            )}
-            {geoJsonData3 && (
-                <GeoJSON style={CountryStyleThird} data={geoJsonData3.features} onEachFeature={onEachTypeLandUse} />
-            )} */}
-
-            {getJsonDataList.map((item, index) => {
-                return (
-                    <GeoJSON
-                        style={CountryStyleList[index]}
-                        data={item.features}
-                        onEachFeature={onEachTypeLandUse}
-                        key={index}
-                    />
-                );
-            })}
-
-            {getJsonDataList.map((item, index) => {
+                {/* {getJsonDataList.map((item, index) => {
                 return <MiniMapControl geoJsonData={item.features} key={index} />;
-            })}
-        </MapContainer>
+            })} */}
+            </MapContainer>
+            {getJsonDataList &&
+                getJsonDataList.map((item, index) => {
+                    return (
+                        <Button
+                            content={item.value}
+                            onClick={() => {
+                                removeLayer(index);
+                            }}
+                        ></Button>
+                    );
+                })}
+        </>
     );
-};
+}
 
 export default MapShapeFile;
