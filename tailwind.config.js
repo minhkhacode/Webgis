@@ -16,11 +16,21 @@ module.exports = {
             },
             screens: {
                 'max-custom': { max: '998px' },
+                'mid-custom': { max: '1280px' },
             },
             animation: {
                 wiggle: 'wiggle 1s ease-in-out infinite',
             },
+            fontFamily: {
+                sans: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+            },
         },
     },
-    plugins: [],
+    plugins: [
+        function ({ addBase, addUtilities }) {
+            addBase({
+                html: { scrollBehavior: 'smooth' },
+            });
+        },
+    ],
 };
