@@ -4,17 +4,20 @@ import Button from '../../components/Button.jsx';
 import { MdDashboard } from 'react-icons/md';
 import { FaChartBar } from 'react-icons/fa';
 import { FaCodeCompare } from 'react-icons/fa6';
+
+import { useLocation } from 'react-router-dom';
+
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { clickButton } from '../../features/button/buttonsStatusSlice.jsx';
+
 
 function Sidebar({ isShowSidebar }) {
     const { t, i18n } = useTranslation();
     const language = useSelector((state) => state.language.language);
     const { sidebarButton } = useSelector((state) => state.button);
     const dispatch = useDispatch();
-
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
@@ -33,7 +36,6 @@ function Sidebar({ isShowSidebar }) {
                 title={t('titleSidebar')}
                 fontStyle="uppercase text-[1.15rem] text-[#fff] font-medium leading-[30px] overflow-hidden text-center block whitespace-nowrap w-full"
             />
-
             <div className="card-container relative flex-grow">
                 <ul className="tools mt-5 ">
                     <li className="tools-item w-full px-5 mb-5">

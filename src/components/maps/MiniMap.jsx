@@ -16,7 +16,7 @@ const MiniMapControl = ({ geoJsonData }) => {
 
         // Create the minimap control
         const miniMap = new L.Control.MiniMap(miniMapLayer, {
-            toggleDisplay: false,
+            toggleDisplay: true,
             minimized: false,
             position: 'bottomleft',
         }).addTo(map);
