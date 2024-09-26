@@ -35,7 +35,7 @@ const PieChart = () => {
         responsive: true,
         plugins: {
             legend: {
-                position: 'left', // Position of the legend (top, bottom, left, right)
+                position: 'left',
             },
             tooltip: {
                 enabled: true,
@@ -44,7 +44,7 @@ const PieChart = () => {
     };
 
     return (
-        <div className="w-full max-custom:w-1/2 max-custom:w-1/3">
+        <div className="w-full h-full">
             <Pie data={data} options={options} />
         </div>
     );

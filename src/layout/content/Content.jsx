@@ -11,108 +11,8 @@ import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
-const Dropdowns = [
-    {
-        title: 'Hệ quy chiếu',
-        Selections: [
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-        ],
-    },
-    {
-        title: 'Năm',
-        Selections: [
-            {
-                value: 2020,
-            },
-            {
-                value: 2021,
-            },
-            {
-                value: 2022,
-            },
-            {
-                value: 2023,
-            },
-            {
-                value: 2024,
-            },
-        ],
-    },
-    {
-        title: 'Tháng',
-        Selections: [
-            {
-                value: 1,
-            },
-            {
-                value: 2,
-            },
-            {
-                value: 3,
-            },
-            {
-                value: 4,
-            },
-            {
-                value: 5,
-            },
-            {
-                value: 6,
-            },
-            {
-                value: 7,
-            },
-            {
-                value: 8,
-            },
-            {
-                value: 9,
-            },
-            {
-                value: 10,
-            },
-            {
-                value: 11,
-            },
-            {
-                value: 12,
-            },
-        ],
-    },
-];
-
-const DropDownLaneUseType = [
-    {
-        value: 'Phi nông nghiệp',
-        selected: false,
-        path: '/PNN.geojson',
-    },
-    {
-        value: 'Nông nghiệp',
-        selected: false,
-        path: '/NN.geojson',
-    },
-    {
-        value: 'Thổ quả',
-        selected: false,
-        path: '/TQ.geojson',
-    },
-];
+import Dropdowns from '../../services/DropdownsData.js';
+import Dropdown from '../../components/Dropdown.jsx';
 
 const DropDownLaneUseType = [
     {
@@ -133,22 +33,21 @@ const DropDownLaneUseType = [
 ];
 
 function Content({ handleShowSidebar }) {
-    // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
 
     const [isActive, setActivation] = useState('googleMap');
-    const [showTab, setShowTab] = useState('Bản đồ Google');
+    const [showTab, setShowTab] = useState('googleMap');
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
-    const [geoJSONDataList, setGeoJSONDataList] = useState([]);
-
-    const [showTab, setShowTab] = useState('googleMap');
     const [geoJsonData, setGeoJsonData] = useState(null);
-    const CRS = useSelector((state) => state.CRS.CRS);
     const [typeLandUseData, setTypeLandUseData] = useState('');
     const [geoJSONDataList, setGeoJSONDataList] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(null);
 
+    const handleShowDropdown = (title) => {
+        title === showDropdown ? setShowDropdown(null) : setShowDropdown(title);
+    };
 
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
 
@@ -165,14 +64,11 @@ function Content({ handleShowSidebar }) {
         setShowTab(title);
     };
 
-
-    const [isActive, setActivation] = useState('googleMap');
     const handleSetActivation = (value) => {
         setActivation(value);
     };
 
     const handleAddGeoJSONDataList = async (path) => {
-
         await fetch(path);
     };
 
@@ -210,13 +106,11 @@ function Content({ handleShowSidebar }) {
 
     const handleChangeGeoJSONDataList = (path) => {
         const landUseType = checkLandUseTypeByPath(path);
-        // console.log(landUseType);
 
         !geoJSONDataList.includes(landUseType)
             ? setGeoJSONDataList([...geoJSONDataList, landUseType])
             : handleRemoveGeoJSONDataList(landUseType);
         dispatch(change(...geoJSONDataList));
-        // console.log(geoJSONDataList);
     };
 
     useEffect(() => {
@@ -296,21 +190,22 @@ function Content({ handleShowSidebar }) {
                             </li>
                         </ul>
 
-                        <div className="card-control w-[450px] flex justify-end items-center gap-2 cursor-pointer mid-custom:hidden ">
+                        <div className="card-control min-w-450px flex justify-end items-center gap-2 cursor-pointer mid-custom:hidden ">
                             {Dropdowns.map((DropdownItem) => {
                                 return (
                                     <DropdownPC
                                         key={DropdownItem.title}
                                         DropdownTitle={t(DropdownItem.title)}
                                         Selections={DropdownItem.Selections}
-                                        Show={show}
+                                        isOpen={showDropdown === t(DropdownItem.title)}
+                                        handleShowDropdown={handleShowDropdown}
                                     />
                                 );
                             })}
                         </div>
                     </div>
 
-                    <div className="search">
+                    <div className="search mb-4">
                         <div className="search relative flex items-center">
                             <i
                                 className="absolute left-4 cursor-pointer"
@@ -342,7 +237,7 @@ function Content({ handleShowSidebar }) {
                             <div className="card-control cursor-pointer">
                                 {DropDownLaneUseType.map((item) => {
                                     return (
-                                        <li className="selection" key={item.path}>
+                                        <div className="selection" key={item.path}>
                                             <label className="flex items-center space-x-2 my-2 cursor-pointer">
                                                 <input
                                                     type="checkbox"
@@ -359,7 +254,7 @@ function Content({ handleShowSidebar }) {
                                                 </div>
                                                 <span className="text-gray-900">{item.value}</span>
                                             </label>
-                                        </li>
+                                        </div>
                                     );
                                 })}
                             </div>
@@ -372,8 +267,13 @@ function Content({ handleShowSidebar }) {
 
                         <div className="map w-full h-full">{navBarList[isActive]}</div>
                     </div> */}
+                    {showTab === 'streetMap' && (
+                        <div className="w-full">
+                            <MapComponent />
+                        </div>
+                    )}
 
-                    {/* <div className="hidden mid-custom:block card-control cursor-pointer">
+                    <div className="hidden mid-custom:block card-control cursor-pointer">
                         {Dropdowns.map((DropdownItem) => {
                             return (
                                 <Dropdown
@@ -384,14 +284,7 @@ function Content({ handleShowSidebar }) {
                                 />
                             );
                         })}
-
-                    </div> */}
-                    {showTab === 'streetMap' && (
-                        <div className="w-full">
-                            <MapComponent />
-                        </div>
-                    )}
-
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 
-function Dropdown({ DropdownTitle, Selections, childrents }) {
-    const [isOpen, setIsOpen] = useState(false);
-
+function Dropdown({ DropdownTitle, Selections, handleShowDropdown, isOpen, childrents }) {
     const toggleDropdown = () => {
-        setIsOpen(!isOpen);
+        handleShowDropdown(DropdownTitle);
     };
     const [show, setShow] = useState(false);
 
-    // const handleShow = () => {
-    //     setShow(!show);
-    // };
     return (
         <div className="dropdown">
             <div className="dropdown-list relative">
                 <h1
-                    className="dropdown-title w-full bg-[#999999] px-4 py-3 rounded text-white cursor-pointer hover:bg-[#888888] transition duration-300"
+                    className="dropdown-title w-full bg-[#999999] px-4 py-3 rounded text-white cursor-pointer hover:bg-[#888888] select-none transition duration-300"
                     onClick={toggleDropdown}
                 >
                     {DropdownTitle}

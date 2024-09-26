@@ -87,7 +87,7 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
 
     return (
         <>
-            <MapContainer style={{ height: '600px', width: '100%' }} center={[9.675, 105.9043]} zoom={14}>
+            <MapContainer style={{ height: '600px', width: '100%', zIndex: '0' }} center={[9.675, 105.9043]} zoom={14}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
