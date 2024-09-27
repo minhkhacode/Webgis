@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
 import { FaCheck } from 'react-icons/fa';
@@ -118,13 +120,14 @@ const DropDownLaneUseType = [
 function Content({ handleShowSidebar }) {
     // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
-    const [isActive, setActivation] = useState('googleMap');
+    const [isActivation, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('Bản đồ Google');
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
     const [geoJSONDataList, setGeoJSONDataList] = useState([]);
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
+    const [listLandUseType, setListLandUseType] = useState(DropDownLaneUseType);
 
     const dispatch = useDispatch();
     const { t, il8n } = useTranslation();
@@ -147,24 +150,57 @@ function Content({ handleShowSidebar }) {
         await fetch(path);
     };
 
-    const handleRemoveGeoJSONDataList = (landUseType) => {
+    const handleRemoveGeoJSONDataList = async (landUseType) => {
         const index = geoJSONDataList.indexOf(landUseType);
         const newGeoJSONDataList = geoJSONDataList.filter((item, i) => i !== index);
         setGeoJSONDataList(newGeoJSONDataList);
     };
 
+    const handleChangeChecked = (type) => {
+        setListLandUseType((prevItems) =>
+            prevItems.map((item) => (item.value === type ? { ...item, selected: !item.selected } : item)),
+        );
+    };
+
     const handleChangeSelected = (itemCheck) => {
         setDropdownLaneUseType((prev) =>
-            prev.map((item) => (item.path === itemCheck.path ? { ...item, selected: !item.selected } : item)),
+            prev.map((item) => {
+                if (item.path === itemCheck.path) {
+                    return { ...item, selected: !item.selected };
+                }
+                return item;
+            }),
         );
+        handleChangeEventCheckboxChangeShowTypeLineUse(itemCheck.selected, itemCheck);
+    };
 
-        if (itemCheck.selected === true) {
-            handleRemoveGeoJSONDataList(itemCheck.value);
-        }
-        if (itemCheck.selected === false) {
-            handleChangeGeoJSONDataList(itemCheck.path);
+    // const handleChangeSelected = (itemCheck) => {
+    //     setDropdownLaneUseType((prevItems) => {
+    //         return prevItems.map((item) => {
+    //             if (item.path === itemCheck.path) {
+    //                 const updatedItem = { ...item, selected: !item.selected };
+    //                 // Sử dụng giá trị đã được cập nhật
+    //                 handleChangeEventCheckboxChangeShowTypeLineUse(updatedItem.selected, updatedItem);
+    //                 return updatedItem;
+    //             }
+    //             return item;
+    //         });
+    //     });
+    // };
+
+    const handleChangeEventCheckboxChangeShowTypeLineUse = async (checked, item) => {
+        if (checked) {
+            // Xóa khỏi danh sách nếu đã được chọn (selected = true)
+            await handleRemoveGeoJSONDataList(item.value);
+        } else {
+            // Thêm vào danh sách nếu chưa được chọn (selected = false)
+            handleChangeGeoJSONDataList(item.path);
         }
     };
+
+    useEffect(() => {
+        console.log('Current dropdownLaneUseType state:', dropdownLaneUseType);
+    }, [dropdownLaneUseType]);
 
     const checkLandUseTypeByPath = (path) => {
         switch (path) {
@@ -181,14 +217,16 @@ function Content({ handleShowSidebar }) {
 
     const handleChangeGeoJSONDataList = (path) => {
         const landUseType = checkLandUseTypeByPath(path);
-        // console.log(landUseType);
 
         !geoJSONDataList.includes(landUseType)
             ? setGeoJSONDataList([...geoJSONDataList, landUseType])
             : handleRemoveGeoJSONDataList(landUseType);
         dispatch(change(...geoJSONDataList));
-        // console.log(geoJSONDataList);
     };
+
+    useEffect(() => {
+        console.log(dropdownLaneUseType);
+    }, [dropdownLaneUseType]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -235,7 +273,7 @@ function Content({ handleShowSidebar }) {
                                     content="googleMap"
                                     handleActiveTab={handleActiveTab}
                                     customStyle={
-                                        showTab === 'googleMap'
+                                        showTab === 'googleMap' || showTab === 'Bản đồ Google'
                                             ? 'w-30 !bg-[#6186c1] hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                             : 'w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
                                     }
@@ -300,7 +338,7 @@ function Content({ handleShowSidebar }) {
                             />
                         </div>
                     </div>
-                    {showTab === 'googleMap' && (
+                    {(showTab === 'googleMap' || showTab === 'Bản đồ Google') && (
                         <div className="w-full">
                             <MapComponent />
                         </div>
@@ -310,18 +348,19 @@ function Content({ handleShowSidebar }) {
                             <MapShapeFile getJsonDataList={geoJSONDataList} />
                             <div className="mt-[20px]" />
                             <div className="card-control cursor-pointer">
-                                {DropDownLaneUseType.map((item) => {
+                                {dropdownLaneUseType.map((item, index) => {
                                     return (
-                                        <li className="selection" key={item.path}>
+                                        <div className="selection" key={item.path}>
                                             <label className="flex items-center space-x-2 my-2 cursor-pointer">
                                                 <input
                                                     type="checkbox"
                                                     className="hidden peer"
-                                                    value={item.selected}
-                                                    onClick={() => {
-                                                        handleChangeSelected(item);
-                                                    }}
+                                                    checked={item.selected}
+                                                    onChange={() => handleChangeChecked(item.value)}
+                                                    // onChange={() => handleChangeChecked(item.value)} // Thay đổi trạng thái `selected`
+                                                    onClick={() => handleChangeSelected(item)} // Thay đổi checkbox khi click
                                                 />
+
                                                 <div className="w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
                                                     <div className="w-2 h-2 text-white peer-checked:block flex items-center justify-center">
                                                         <FaCheck />
@@ -329,7 +368,7 @@ function Content({ handleShowSidebar }) {
                                                 </div>
                                                 <span className="text-gray-900">{item.value}</span>
                                             </label>
-                                        </li>
+                                        </div>
                                     );
                                 })}
                             </div>
