@@ -1,65 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvent, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, WMSTileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const ScrollControlMap = () => {
-    const map = useMap();
-    const [geoData, setGeoData] = useState([
-        {
-            type: 'LineString',
-            coordinates: [
-                [-100, 40],
-                [-105, 45],
-                [-110, 55],
-            ],
-        },
-        {
-            type: 'LineString',
-            coordinates: [
-                [-105, 40],
-                [-110, 45],
-                [-115, 55],
-            ],
-        },
-    ]);
-
-    useEffect(() => {
-        const handleScroll = (e) => {
-            if (map && map.getContainer().contains(e.target)) {
-                map.scrollWheelZoom.enable();
-            } else {
-                map.scrollWheelZoom.disable();
-            }
-        };
-
-        window.addEventListener('wheel', handleScroll);
-        return () => window.removeEventListener('wheel', handleScroll);
-    }, [map]);
-
-    return null;
-};
-
-const MapComponent = () => {
+function MapComponent() {
     return (
         <MapContainer
-            center={[51.505, -0.09]}
+            center={[9.675, 105.9043]}
             zoom={13}
             scrollWheelZoom={false}
             style={{ height: '600px', width: '100%', zIndex: '0' }}
         >
-            <ScrollControlMap />
-            <TileLayer
+            {/* <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
+            /> */}
+            <WMSTileLayer
+                url="http://192.168.64.5:8080/geoserver/ne/wms"
+                layers="ne:boundary_lines"
+                format="image/png"
+                transparent={true}
+                attribution="&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
             />
-            {/* {geoData && <GeoJSON data={geoData} />} */}
-            {/* <Marker position={[51.505, -0.09]}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker> */}
+
+            {/* <GeoJSON data={geoData.features} style={CountryStyleList} /> */}
         </MapContainer>
     );
-};
+}
 
 export default MapComponent;

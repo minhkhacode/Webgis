@@ -104,20 +104,20 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                     );
                 })}
                 <MiniMapControl geoJsonData={getJsonDataList} />
+                {getJsonDataList &&
+                    getJsonDataList.map((item, index) => {
+                        return (
+                            <div
+                                className="bg-gray"
+                                key={index}
+                                content={item.value}
+                                onClick={() => {
+                                    removeLayer(index);
+                                }}
+                            ></div>
+                        );
+                    })}
             </MapContainer>
-            {getJsonDataList &&
-                getJsonDataList.map((item, index) => {
-                    return (
-                        <div
-                            className="bg-gray"
-                            key={index}
-                            content={item.value}
-                            onClick={() => {
-                                removeLayer(index);
-                            }}
-                        ></div>
-                    );
-                })}
         </>
     );
 }
