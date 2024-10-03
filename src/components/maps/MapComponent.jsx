@@ -25,8 +25,8 @@ function MapComponent() {
 
     return (
         <MapContainer
-            center={[9.675, 105.9043]} // Change the coordinates to fit your data
-            zoom={13}
+            center={[39.8283, -98.5795]} // Change the coordinates to fit your data
+            zoom={5}
             scrollWheelZoom={true}
             style={{ height: '600px', width: '100%', zIndex: '0' }}
         >
