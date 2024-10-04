@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
 import { FaCheck } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Button from '../../components/Button';
 import DropdownPC from '../../components/DropdownPC.jsx';
@@ -12,8 +15,6 @@ import HeaderComponent from '../../components/HeaderComponent';
 import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 
 const Dropdowns = [
     {
@@ -102,7 +103,7 @@ const Dropdowns = [
 const DropDownLaneUseType = [
     {
         value: 'Phi nông nghiệp',
-        selected: false,
+        selected: true,
         path: '/PNN.geojson',
     },
     {
@@ -120,12 +121,18 @@ const DropDownLaneUseType = [
 function Content({ handleShowSidebar }) {
     // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
-    const [isActivation, setActivation] = useState('googleMap');
+
+    const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('Bản đồ Google');
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
+
+    const [geoJsonData, setGeoJsonData] = useState(null);
+    const CRS = useSelector((state) => state.CRS.CRS);
+    const [typeLandUseData, setTypeLandUseData] = useState('');
     const [geoJSONDataList, setGeoJSONDataList] = useState([]);
+
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
     const [listLandUseType, setListLandUseType] = useState(DropDownLaneUseType);
 
@@ -338,7 +345,8 @@ function Content({ handleShowSidebar }) {
                             />
                         </div>
                     </div>
-                    {(showTab === 'googleMap' || showTab === 'Bản đồ Google') && (
+
+                    {showTab === 'googleMap' && (
                         <div className="w-full">
                             <MapComponent />
                         </div>
@@ -375,6 +383,10 @@ function Content({ handleShowSidebar }) {
                         </div>
                     )}
                     {/* <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
+
+
+                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
+
                         <div className="map w-full h-full">{navBarList[isActive]}</div>
                     </div> */}
 
@@ -389,6 +401,7 @@ function Content({ handleShowSidebar }) {
                                 />
                             );
                         })}
+
                     </div> */}
                     {showTab === 'streetMap' && (
                         <div className="w-full">
