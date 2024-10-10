@@ -121,28 +121,22 @@ const DropDownLaneUseType = [
 function Content({ handleShowSidebar }) {
     // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
-
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('Bản đồ Google');
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
-
     const [geoJsonData, setGeoJsonData] = useState(null);
     const CRS = useSelector((state) => state.CRS.CRS);
-    const [typeLandUseData, setTypeLandUseData] = useState('');
     const [geoJSONDataList, setGeoJSONDataList] = useState([]);
-
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
     const [listLandUseType, setListLandUseType] = useState(DropDownLaneUseType);
-
     const dispatch = useDispatch();
     const { t, il8n } = useTranslation();
-
     const navBarList = {
-        googleMap: <MapComponent></MapComponent>,
-        satelliteMap: <MapShapeFile getGeoJSONDataList={geoJSONDataList}></MapShapeFile>,
-        streetMap: <MapComponent></MapComponent>,
+        googleMap: <MapComponent />,
+        satelliteMap: <MapShapeFile getGeoJSONDataList={geoJSONDataList} />,
+        streetMap: <MapComponent />,
     };
 
     const handleActiveTab = async (title) => {
