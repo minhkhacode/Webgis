@@ -4,6 +4,7 @@ import geoJSONDataListReducer from '../features/counter/geoJSONDataListSlice/geo
 import languageReducer from '../features/language/languageSlice.jsx';
 import crsReducer from '../features/CRS/crsSlice.jsx';
 import buttonReducer from '../features/button/buttonsStatusSlice.jsx';
+import layerReducer from '../features/test/testSlice.jsx';
 
 const store = configureStore({
     reducer: {
@@ -12,7 +13,12 @@ const store = configureStore({
         language: languageReducer,
         CRS: crsReducer,
         button: buttonReducer,
+        layer: layerReducer,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false, // Disable the serializable state check
+        }),
 });
 
 export default store;

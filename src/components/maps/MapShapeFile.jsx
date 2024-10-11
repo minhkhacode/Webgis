@@ -98,8 +98,8 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
                 />
-                {getJsonDataList.map((item, index) => {
-                    return (
+                {getJsonDataList.map((item, index) =>
+                    item ? (
                         <GeoJSON
                             style={CountryStyleList[index]}
                             data={item.features}
@@ -107,10 +107,12 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                             key={index}
                             ref={(el) => (layerRefs.current[index] = el)}
                         />
-                    );
-                })}
+                    ) : (
+                        <></>
+                    ),
+                )}
 
-                <MiniMapControl geoJsonData={getJsonDataList} />
+                {/* <MiniMapControl geoJsonData={getJsonDataList} />
                 {getJsonDataList &&
                     getJsonDataList.map((item, index) => {
                         return (
@@ -123,7 +125,7 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                                 }}
                             ></div>
                         );
-                    })}
+                    })} */}
             </MapContainer>
         </>
     );
