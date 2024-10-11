@@ -1,6 +1,6 @@
 /* eslint-disable no-unreachable */
 /* eslint-disable array-callback-return */
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
@@ -11,12 +11,12 @@ import MiniMapControl from './MiniMap';
 
 function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
     const layerRefs = useRef([]);
-    const [dataGeoJsonTemp, setDataGeoJonTemp] = useState('');
+    // const [dataGeoJsonTemp, setDataGeoJonTemp] = useState('');
 
-    useEffect(() => {
-        fetch('/ThuanHoa2022GeoJson.json').then((data) => setDataGeoJonTemp(data.json()));
-        console.log('data', dataGeoJsonTemp);
-    }, []);
+    // useEffect(() => {
+    //     fetch('/ThuanHoa2022GeoJson.json').then((data) => setDataGeoJonTemp(data.json()));
+    //     console.log('data', dataGeoJsonTemp);
+    // }, []);
 
     const removeLayer = (index) => {
         if (layerRefs.current[index]) {

@@ -11,6 +11,7 @@ function MapComponent() {
         const geoJsonUrl = 'http://localhost:8082/api';
 
         // Fetch GeoJSON data from backend
+
         axios
             .get(geoJsonUrl)
             .then((response) => {

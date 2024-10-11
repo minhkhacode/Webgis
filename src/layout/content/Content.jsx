@@ -103,7 +103,7 @@ const Dropdowns = [
 const DropDownLaneUseType = [
     {
         value: 'Phi nông nghiệp',
-        selected: true,
+        selected: false,
         path: '/PNN.geojson',
     },
     {
