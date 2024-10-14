@@ -7,7 +7,7 @@ import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import 'leaflet-minimap';
 // import Button from '../Button';
 
-import MiniMapControl from './MiniMap';
+// import MiniMapControl from './MiniMap';
 
 function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
     const layerRefs = useRef([]);
@@ -18,11 +18,11 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
     //     console.log('data', dataGeoJsonTemp);
     // }, []);
 
-    const removeLayer = (index) => {
-        if (layerRefs.current[index]) {
-            layerRefs.current[index].remove(); // Remove the layer with specific index
-        }
-    };
+    // const removeLayer = (index) => {
+    //     if (layerRefs.current[index]) {
+    //         layerRefs.current[index].remove(); // Remove the layer with specific index
+    //     }
+    // };
 
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.Type;

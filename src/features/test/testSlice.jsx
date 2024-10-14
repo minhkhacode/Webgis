@@ -16,27 +16,18 @@ const layerSlice = createSlice({
     reducers: {
         toggleTQ: (state, action) => {
             // Không cần gán loading ở đây
-            if (state.compareLayer.TQ !== null) {
-                state.compareLayer.TQ = null;
-            } else {
-                state.compareLayer.TQ = action.payload;
-            }
+
+            state.compareLayer.TQ = state.compareLayer.TQ !== null ? null : action.payload;
         },
         toggleNN: (state, action) => {
             // Không cần gán loading ở đây
-            if (state.compareLayer.NN !== null) {
-                state.compareLayer.NN = null;
-            } else {
-                state.compareLayer.NN = action.payload;
-            }
+
+            state.compareLayer.NN = state.compareLayer.NN !== null ? null : action.payload;
         },
         togglePNN: (state, action) => {
             // Không cần gán loading ở đây
-            if (state.compareLayer.PNN !== null) {
-                state.compareLayer.PNN = null;
-            } else {
-                state.compareLayer.PNN = action.payload;
-            }
+
+            state.compareLayer.PNN = state.compareLayer.PNN !== null ? null : action.payload;
         },
     },
     extraReducers: (builder) => {

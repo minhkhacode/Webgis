@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLayerGeoJson } from '../app/action';
+// import { fetchLayerGeoJson } from '../app/action';
 import { useEffect, useState } from 'react';
-import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
+// import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
 import axios from 'axios';
 import { toggleNN, togglePNN, toggleTQ } from '../features/test/testSlice';
 import MapShapeFile from '../components/maps/MapShapeFile';
 
 function Test() {
     const dispatch = useDispatch();
-    const { layer, compareLayer } = useSelector((state) => state.layer);
+    const { compareLayer } = useSelector((state) => state.layer);
 
     // const [geoJsonData, setGeoJsonData] = useState(null);
 
@@ -34,6 +34,7 @@ function Test() {
     //             setGeoJsonData(data.data);
     //         });
     // }, []);
+
     const [NN, setNN] = useState(null);
     const [PNN, setPNN] = useState(null);
     const [TQ, setTQ] = useState(null);

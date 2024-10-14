@@ -4,10 +4,10 @@
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
-import { FaCheck } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 import Button from '../../components/Button';
 import DropdownPC from '../../components/DropdownPC.jsx';
@@ -15,6 +15,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
+import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
 
 const Dropdowns = [
     {
@@ -131,13 +132,15 @@ function Content({ handleShowSidebar }) {
     const [geoJSONDataList, setGeoJSONDataList] = useState([]);
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
     const [listLandUseType, setListLandUseType] = useState(DropDownLaneUseType);
-    const dispatch = useDispatch();
     const { t, il8n } = useTranslation();
     const navBarList = {
         googleMap: <MapComponent />,
         satelliteMap: <MapShapeFile getGeoJSONDataList={geoJSONDataList} />,
         streetMap: <MapComponent />,
     };
+
+    const dispatch = useDispatch();
+    const { compareLayer } = useSelector((state) => state.layer);
 
     const handleActiveTab = async (title) => {
         setShowTab(title);
@@ -225,31 +228,56 @@ function Content({ handleShowSidebar }) {
         dispatch(change(...geoJSONDataList));
     };
 
-    useEffect(() => {
-        console.log(dropdownLaneUseType);
-    }, [dropdownLaneUseType]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const responsePNN = await fetch('/PNN.geojson');
+    //             const dataPNN = await responsePNN.json();
+    //             setPNN(dataPNN);
+
+    //             const responseNN = await fetch('/NN.geojson');
+    //             const dataNN = await responseNN.json();
+    //             setNN(dataNN);
+
+    //             const responseTQ = await fetch('/TQ.geojson');
+    //             const dataTQ = await responseTQ.json();
+    //             setTQ(dataTQ);
+    //         } catch (error) {
+    //             console.error('Error loading GeoJSON:', error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const responsePNN = await fetch('/PNN.geojson');
-                const dataPNN = await responsePNN.json();
-                setPNN(dataPNN);
+        axios.get('/NN.geojson').then((data) => {
+            setNN(data.data);
+        });
 
-                const responseNN = await fetch('/NN.geojson');
-                const dataNN = await responseNN.json();
-                setNN(dataNN);
+        axios.get('/PNN.geojson').then((data) => {
+            setPNN(data.data);
+        });
 
-                const responseTQ = await fetch('/TQ.geojson');
-                const dataTQ = await responseTQ.json();
-                setTQ(dataTQ);
-            } catch (error) {
-                console.error('Error loading GeoJSON:', error);
-            }
-        };
-
-        fetchData();
+        axios.get('/TQ.geojson').then((data) => {
+            setTQ(data.data);
+        });
     }, []);
+
+    const handleToggleNN = () => {
+        dispatch(toggleNN({ ...NN }));
+        console.log(compareLayer);
+    };
+
+    const handleTogglePNN = () => {
+        dispatch(togglePNN({ ...PNN }));
+        console.log(compareLayer);
+    };
+
+    const handleToggleTQ = () => {
+        dispatch(toggleTQ({ ...TQ }));
+        console.log(compareLayer);
+    };
 
     return (
         <div className="content max-custom:w-screen relative">
@@ -319,7 +347,6 @@ function Content({ handleShowSidebar }) {
                             })}
                         </div>
                     </div>
-
                     <div className="search">
                         <div className="search relative flex items-center">
                             <i
@@ -339,7 +366,6 @@ function Content({ handleShowSidebar }) {
                             />
                         </div>
                     </div>
-
                     {showTab === 'googleMap' && (
                         <div className="w-full">
                             <MapComponent />
@@ -347,10 +373,10 @@ function Content({ handleShowSidebar }) {
                     )}
                     {showTab === 'satelliteMap' && (
                         <div className="w-full">
-                            <MapShapeFile getJsonDataList={geoJSONDataList} />
+                            {/* <MapShapeFile getJsonDataList={geoJSONDataList} /> */}
                             <div className="mt-[20px]" />
                             <div className="card-control cursor-pointer">
-                                {dropdownLaneUseType.map((item, index) => {
+                                {/* {dropdownLaneUseType.map((item, index) => {
                                     return (
                                         <div className="selection" key={item.path}>
                                             <label className="flex items-center space-x-2 my-2 cursor-pointer">
@@ -358,7 +384,9 @@ function Content({ handleShowSidebar }) {
                                                     type="checkbox"
                                                     className="hidden peer"
                                                     checked={item.selected}
-                                                    onChange={() => handleChangeChecked(item.value)}
+                                                    onChange={() => {
+                                                        handleToggleTQ;
+                                                    }}
                                                     // onChange={() => handleChangeChecked(item.value)} // Thay đổi trạng thái `selected`
                                                     onClick={() => handleChangeSelected(item)} // Thay đổi checkbox khi click
                                                 />
@@ -372,7 +400,28 @@ function Content({ handleShowSidebar }) {
                                             </label>
                                         </div>
                                     );
-                                })}
+                                })} */}
+                                <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
+                                <div className="grid justify-start gap-3 mt-4">
+                                    <div className="cursor-pointer">
+                                        <input type="checkbox" onChange={handleTogglePNN} value={'PNN'} id="PNN" />
+                                        <label className="cursor-pointer p-6" htmlFor="PNN">
+                                            PNN
+                                        </label>
+                                    </div>
+                                    <div className="cursor-pointer">
+                                        <input type="checkbox" onChange={handleToggleNN} value={'NN'} id="NN" />
+                                        <label className="cursor-pointer p-6" htmlFor="NN">
+                                            NN
+                                        </label>
+                                    </div>
+                                    <div className="cursor-pointer">
+                                        <input type="checkbox" onChange={handleToggleTQ} value={'TQ'} id="TQ" />
+                                        <label className="cursor-pointer p-6" htmlFor="TQ">
+                                            TQ
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -383,7 +432,6 @@ function Content({ handleShowSidebar }) {
 
                         <div className="map w-full h-full">{navBarList[isActive]}</div>
                     </div> */}
-
                     {/* <div className="hidden mid-custom:block card-control cursor-pointer">
                         {Dropdowns.map((DropdownItem) => {
                             return (
