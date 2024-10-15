@@ -15,8 +15,6 @@ export const languageSlice = createSlice({
     },
 });
 
-// Export các action được tự động tạo ra từ slice
 export const { change } = languageSlice.actions;
 
-// Export reducer của slice
 export default languageSlice.reducer;

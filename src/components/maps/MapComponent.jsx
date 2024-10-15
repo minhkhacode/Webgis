@@ -1,65 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvent, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const ScrollControlMap = () => {
-    const map = useMap();
-    const [geoData, setGeoData] = useState([
-        {
-            type: 'LineString',
-            coordinates: [
-                [-100, 40],
-                [-105, 45],
-                [-110, 55],
-            ],
-        },
-        {
-            type: 'LineString',
-            coordinates: [
-                [-105, 40],
-                [-110, 45],
-                [-115, 55],
-            ],
-        },
-    ]);
+function MapComponent() {
+    const [geoJsonData, setGeoJsonData] = useState(null);
 
     useEffect(() => {
-        const handleScroll = (e) => {
-            if (map && map.getContainer().contains(e.target)) {
-                map.scrollWheelZoom.enable();
-            } else {
-                map.scrollWheelZoom.disable();
-            }
-        };
+        // Replace with your GeoServer API URL
+        const geoJsonUrl = 'http://localhost:8082/api';
 
-        window.addEventListener('wheel', handleScroll);
-        return () => window.removeEventListener('wheel', handleScroll);
-    }, [map]);
+        // Fetch GeoJSON data from backend
 
-    return null;
-};
+        axios
+            .get(geoJsonUrl)
+            .then((response) => {
+                const geoJson = response.data.data;
+                console.log('GeoJSON Data:', geoJson);
+                setGeoJsonData(geoJson);
+            })
+            .catch((error) => {
+                console.error('Error fetching GeoJSON from backend:', error);
+            });
+    }, []);
 
-const MapComponent = () => {
     return (
         <MapContainer
-            center={[51.505, -0.09]}
-            zoom={13}
-            scrollWheelZoom={false}
+            center={[39.8283, -98.5795]} // Change the coordinates to fit your data
+            zoom={5}
+            scrollWheelZoom={true}
             style={{ height: '600px', width: '100%', zIndex: '0' }}
         >
-            <ScrollControlMap />
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
             />
-            {/* {geoData && <GeoJSON data={geoData} />} */}
-            {/* <Marker position={[51.505, -0.09]}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker> */}
+
+            {/* Conditionally render GeoJSON layer once data is fetched */}
+            {geoJsonData && <GeoJSON data={geoJsonData} />}
         </MapContainer>
     );
-};
+}
 
 export default MapComponent;

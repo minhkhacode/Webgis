@@ -11,6 +11,12 @@ import MiniMapControl from './MiniMap';
 
 function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
     const layerRefs = useRef([]);
+    // const [dataGeoJsonTemp, setDataGeoJonTemp] = useState('');
+
+    // useEffect(() => {
+    //     fetch('/ThuanHoa2022GeoJson.json').then((data) => setDataGeoJonTemp(data.json()));
+    //     console.log('data', dataGeoJsonTemp);
+    // }, []);
 
     const removeLayer = (index) => {
         if (layerRefs.current[index]) {
@@ -92,8 +98,8 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
                 />
-                {getJsonDataList.map((item, index) => {
-                    return (
+                {getJsonDataList.map((item, index) =>
+                    item ? (
                         <GeoJSON
                             style={CountryStyleList[index]}
                             data={item.features}
@@ -101,23 +107,26 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                             key={index}
                             ref={(el) => (layerRefs.current[index] = el)}
                         />
-                    );
-                })}
-                <MiniMapControl geoJsonData={getJsonDataList} />
+                    ) : (
+                        <></>
+                    ),
+                )}
+
+                {/* <MiniMapControl geoJsonData={getJsonDataList} />
+                {getJsonDataList &&
+                    getJsonDataList.map((item, index) => {
+                        return (
+                            <div
+                                className="bg-gray"
+                                key={index}
+                                content={item.value}
+                                onClick={() => {
+                                    removeLayer(index);
+                                }}
+                            ></div>
+                        );
+                    })} */}
             </MapContainer>
-            {getJsonDataList &&
-                getJsonDataList.map((item, index) => {
-                    return (
-                        <div
-                            className="bg-gray"
-                            key={index}
-                            content={item.value}
-                            onClick={() => {
-                                removeLayer(index);
-                            }}
-                        ></div>
-                    );
-                })}
         </>
     );
 }
