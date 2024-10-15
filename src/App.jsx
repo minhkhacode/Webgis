@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Map from './pages/Map.jsx';
-import Test from './pages/test.jsx';
+// import Test from './pages/test.jsx';
 import Chart from './pages/Chart.jsx';
 import NotFound from './pages/NotFound.jsx';
 

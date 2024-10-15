@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLayerGeoJson } from '../app/action';
+// import { fetchLayerGeoJson } from '../app/action';
 import { useEffect, useState } from 'react';
-import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
+// import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
 import axios from 'axios';
 import { toggleNN, togglePNN, toggleTQ } from '../features/test/testSlice';
 import MapShapeFile from '../components/maps/MapShapeFile';
@@ -9,7 +9,7 @@ import { CRS } from 'leaflet';
 
 function Test() {
     const dispatch = useDispatch();
-    const { layer, compareLayer } = useSelector((state) => state.layer);
+    const { compareLayer } = useSelector((state) => state.layer);
 
     // const [geoJsonData, setGeoJsonData] = useState(null);
     console.log(CRS.EPSG4326);
@@ -37,6 +37,12 @@ function Test() {
     //     };
     //     fetchTest();
     // }, []);
+
+
+    const [NN, setNN] = useState(null);
+    const [PNN, setPNN] = useState(null);
+    const [TQ, setTQ] = useState(null);
+
 
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.kh2003;
