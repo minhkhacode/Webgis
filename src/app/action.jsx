@@ -7,10 +7,13 @@ export const fetchLayerGeoJson = createAsyncThunk('layer/fetchLayerGeoJson', asy
             service: 'WFS',
             version: '1.0.0',
             request: 'GetFeature',
-            typeName: 'minhkha:thuanhoa2022_4326',
+            // typeName: 'minhkha:thuanhoa2022_4326',
+            typeName: 'minhkha:thuahoa_tkdd2022_crs4326',
             outputFormat: 'application/json',
         },
     });
+    // console.log(response);
+
     return response.data;
 });
 

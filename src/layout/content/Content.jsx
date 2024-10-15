@@ -15,6 +15,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
+import Dropdown from '../../components/DropdownPC.jsx';
 
 const Dropdowns = [
     {
@@ -119,7 +120,6 @@ const DropDownLaneUseType = [
 ];
 
 function Content({ handleShowSidebar }) {
-    // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('Bản đồ Google');
@@ -150,106 +150,6 @@ function Content({ handleShowSidebar }) {
     const handleAddGeoJSONDataList = async (path) => {
         await fetch(path);
     };
-
-    const handleRemoveGeoJSONDataList = async (landUseType) => {
-        const index = geoJSONDataList.indexOf(landUseType);
-        const newGeoJSONDataList = geoJSONDataList.filter((item, i) => i !== index);
-        setGeoJSONDataList(newGeoJSONDataList);
-    };
-
-    const handleChangeChecked = (type) => {
-        setListLandUseType((prevItems) =>
-            prevItems.map((item) => (item.value === type ? { ...item, selected: !item.selected } : item)),
-        );
-    };
-
-    const handleChangeSelected = (itemCheck) => {
-        setDropdownLaneUseType((prev) =>
-            prev.map((item) => {
-                if (item.path === itemCheck.path) {
-                    return { ...item, selected: !item.selected };
-                }
-                return item;
-            }),
-        );
-        handleChangeEventCheckboxChangeShowTypeLineUse(itemCheck.selected, itemCheck);
-    };
-
-    // const handleChangeSelected = (itemCheck) => {
-    //     setDropdownLaneUseType((prevItems) => {
-    //         return prevItems.map((item) => {
-    //             if (item.path === itemCheck.path) {
-    //                 const updatedItem = { ...item, selected: !item.selected };
-    //                 // Sử dụng giá trị đã được cập nhật
-    //                 handleChangeEventCheckboxChangeShowTypeLineUse(updatedItem.selected, updatedItem);
-    //                 return updatedItem;
-    //             }
-    //             return item;
-    //         });
-    //     });
-    // };
-
-    const handleChangeEventCheckboxChangeShowTypeLineUse = async (checked, item) => {
-        if (checked) {
-            // Xóa khỏi danh sách nếu đã được chọn (selected = true)
-            await handleRemoveGeoJSONDataList(item.value);
-        } else {
-            // Thêm vào danh sách nếu chưa được chọn (selected = false)
-            handleChangeGeoJSONDataList(item.path);
-        }
-    };
-
-    useEffect(() => {
-        console.log('Current dropdownLaneUseType state:', dropdownLaneUseType);
-    }, [dropdownLaneUseType]);
-
-    const checkLandUseTypeByPath = (path) => {
-        switch (path) {
-            case '/PNN.geojson':
-                return PNN;
-            case '/NN.geojson':
-                return NN;
-            case '/TQ.geojson':
-                return TQ;
-            default:
-                return null;
-        }
-    };
-
-    const handleChangeGeoJSONDataList = (path) => {
-        const landUseType = checkLandUseTypeByPath(path);
-
-        !geoJSONDataList.includes(landUseType)
-            ? setGeoJSONDataList([...geoJSONDataList, landUseType])
-            : handleRemoveGeoJSONDataList(landUseType);
-        dispatch(change(...geoJSONDataList));
-    };
-
-    useEffect(() => {
-        console.log(dropdownLaneUseType);
-    }, [dropdownLaneUseType]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const responsePNN = await fetch('/PNN.geojson');
-                const dataPNN = await responsePNN.json();
-                setPNN(dataPNN);
-
-                const responseNN = await fetch('/NN.geojson');
-                const dataNN = await responseNN.json();
-                setNN(dataNN);
-
-                const responseTQ = await fetch('/TQ.geojson');
-                const dataTQ = await responseTQ.json();
-                setTQ(dataTQ);
-            } catch (error) {
-                console.error('Error loading GeoJSON:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     return (
         <div className="content max-custom:w-screen relative">
@@ -349,42 +249,11 @@ function Content({ handleShowSidebar }) {
                         <div className="w-full">
                             <MapShapeFile getJsonDataList={geoJSONDataList} />
                             <div className="mt-[20px]" />
-                            <div className="card-control cursor-pointer">
-                                {dropdownLaneUseType.map((item, index) => {
-                                    return (
-                                        <div className="selection" key={item.path}>
-                                            <label className="flex items-center space-x-2 my-2 cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    className="hidden peer"
-                                                    checked={item.selected}
-                                                    onChange={() => handleChangeChecked(item.value)}
-                                                    // onChange={() => handleChangeChecked(item.value)} // Thay đổi trạng thái `selected`
-                                                    onClick={() => handleChangeSelected(item)} // Thay đổi checkbox khi click
-                                                />
-
-                                                <div className="w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
-                                                    <div className="w-2 h-2 text-white peer-checked:block flex items-center justify-center">
-                                                        <FaCheck />
-                                                    </div>
-                                                </div>
-                                                <span className="text-gray-900">{item.value}</span>
-                                            </label>
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                            <div className="card-control cursor-pointer"></div>
                         </div>
                     )}
-                    {/* <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
 
-
-                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
-
-                        <div className="map w-full h-full">{navBarList[isActive]}</div>
-                    </div> */}
-
-                    {/* <div className="hidden mid-custom:block card-control cursor-pointer">
+                    <div className="mid-custom:block card-control cursor-pointer">
                         {Dropdowns.map((DropdownItem) => {
                             return (
                                 <Dropdown
@@ -395,8 +264,7 @@ function Content({ handleShowSidebar }) {
                                 />
                             );
                         })}
-
-                    </div> */}
+                    </div>
                     {showTab === 'streetMap' && (
                         <div className="w-full">
                             <MapComponent />

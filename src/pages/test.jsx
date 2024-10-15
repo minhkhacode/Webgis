@@ -5,36 +5,38 @@ import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
 import axios from 'axios';
 import { toggleNN, togglePNN, toggleTQ } from '../features/test/testSlice';
 import MapShapeFile from '../components/maps/MapShapeFile';
+import { CRS } from 'leaflet';
 
 function Test() {
     const dispatch = useDispatch();
     const { layer, compareLayer } = useSelector((state) => state.layer);
 
     // const [geoJsonData, setGeoJsonData] = useState(null);
+    console.log(CRS.EPSG4326);
 
     useEffect(() => {
         dispatch(fetchLayerGeoJson());
     }, []);
-    const [test, setTest] = useState([]);
-    useEffect(() => {
-        const fetchTest = async () => {
-            const response = await axios
-                .get(`/geoserver/wfs`, {
-                    params: {
-                        service: 'WFS',
-                        version: '1.0.0',
-                        request: 'GetFeature',
-                        typeName: 'minhkha:thuanhoa_tkdd2022_crs84',
-                        outputFormat: 'application/json',
-                    },
-                })
-                .then((data) => {
-                    console.log(data);
-                    setTest({ ...data.data });
-                });
-        };
-        fetchTest();
-    }, []);
+    // const [test, setTest] = useState([]);
+    // useEffect(() => {
+    //     const fetchTest = async () => {
+    //         const response = await axios
+    //             .get(`/geoserver/wfs`, {
+    //                 params: {
+    //                     service: 'WFS',
+    //                     version: '1.0.0',
+    //                     request: 'GetFeature',
+    //                     typeName: 'minhkha:thuanhoa_tkdd2022_crs84',
+    //                     outputFormat: 'application/json',
+    //                 },
+    //             })
+    //             .then((data) => {
+    //                 console.log(data);
+    //                 setTest({ ...data.data });
+    //             });
+    //     };
+    //     fetchTest();
+    // }, []);
 
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.kh2003;
@@ -104,8 +106,9 @@ function Test() {
             <input type="checkbox" onChange={handleToggleTQ} />
             <MapShapeFile getJsonDataList={Object.values(compareLayer)} /> */}
             <MapContainer
+                // crs={CRS.EPSG4326}
                 center={[9.680258, 105.905196]}
-                zoom={13}
+                zoom={14}
                 scrollWheelZoom={true}
                 style={{ height: '100vh', width: '100%', zIndex: '0' }}
             >
@@ -119,9 +122,9 @@ function Test() {
                     <GeoJSON
                         key="my-geojson"
                         style={{
-                            fillColor: 'transparent',
-                            fillOpacity: '0.5',
-                            color: '#3c2a20',
+                            fillColor: '#95c9dc',
+                            fillOpacity: '0.2',
+                            color: '#95c9dc',
                             fontWeight: '100',
                         }}
                         onEachFeature={onEachTypeLandUse}

@@ -10,10 +10,10 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Test />} />
-                {/* <Route path="/" element={<Map />} />
+                {/* <Route path="/" element={<Test />} /> */}
+                <Route path="/" element={<Map />} />
                 <Route path="/chart" element={<Chart />} />
-                <Route path="*" element={<NotFound />} /> */}
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );
