@@ -30,6 +30,7 @@ export const crsSlice = createSlice({
             return state;
         },
     },
+    extraReducers: (builder) => {},
 });
 
 // Export các action được tự động tạo ra từ slice

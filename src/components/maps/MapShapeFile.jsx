@@ -1,6 +1,3 @@
-/* eslint-disable no-unreachable */
-/* eslint-disable array-callback-return */
-import { useRef } from 'react';
 import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
@@ -10,20 +7,6 @@ import 'leaflet-minimap';
 // import MiniMapControl from './MiniMap';
 
 function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
-    const layerRefs = useRef([]);
-    // const [dataGeoJsonTemp, setDataGeoJonTemp] = useState('');
-
-    // useEffect(() => {
-    //     fetch('/ThuanHoa2022GeoJson.json').then((data) => setDataGeoJonTemp(data.json()));
-    //     console.log('data', dataGeoJsonTemp);
-    // }, []);
-
-    // const removeLayer = (index) => {
-    //     if (layerRefs.current[index]) {
-    //         layerRefs.current[index].remove(); // Remove the layer with specific index
-    //     }
-    // };
-
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.Type;
         layer.bindPopup(typeLand, {
@@ -43,7 +26,7 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                 event.target.setStyle({
                     fillColor: 'red',
                     fillOpacity: '0.1',
-                    color: '#3c2a20',
+                    color: 'white',
                     fontWeight: '200',
                 });
             },
@@ -54,37 +37,37 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
         {
             fillColor: 'black',
             fillOpacity: '0.25',
-            color: '#3c2a20',
+            color: 'white',
             fontWeight: '200',
         },
         {
             fillColor: 'yellow',
             fillOpacity: '0.5',
-            color: '#3c2a20',
+            color: 'white',
             fontWeight: '200',
         },
         {
             fillColor: 'red',
             fillOpacity: '0.1',
-            color: '#3c2a20',
+            color: 'white',
             fontWeight: '200',
         },
         {
             fillColor: 'green',
             fillOpacity: '0.1',
-            color: '#3c2a20',
+            color: 'white',
             fontWeight: '200',
         },
         {
             fillColor: 'grey',
             fillOpacity: '0.1',
-            color: '#3c2a20',
+            color: 'white',
             fontWeight: '200',
         },
         {
             fillColor: 'purple',
             fillOpacity: '0.1',
-            color: '#3c2a20',
+            color: 'white',
             fontWeight: '200',
         },
     ];
@@ -105,7 +88,6 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                             data={item.features}
                             onEachFeature={onEachTypeLandUse}
                             key={index}
-                            ref={(el) => (layerRefs.current[index] = el)}
                         />
                     ) : (
                         <></>

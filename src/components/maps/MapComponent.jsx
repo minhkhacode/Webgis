@@ -6,23 +6,23 @@ import axios from 'axios';
 function MapComponent() {
     const [geoJsonData, setGeoJsonData] = useState(null);
 
-    useEffect(() => {
-        // Replace with your GeoServer API URL
-        const geoJsonUrl = 'http://localhost:8082/api';
+    // useEffect(() => {
+    //     // Replace with your GeoServer API URL
+    //     const geoJsonUrl = 'http://localhost:8082/api';
 
-        // Fetch GeoJSON data from backend
+    //     // Fetch GeoJSON data from backend
 
-        axios
-            .get(geoJsonUrl)
-            .then((response) => {
-                const geoJson = response.data.data;
-                console.log('GeoJSON Data:', geoJson);
-                setGeoJsonData(geoJson);
-            })
-            .catch((error) => {
-                console.error('Error fetching GeoJSON from backend:', error);
-            });
-    }, []);
+    //     axios
+    //         .get(geoJsonUrl)
+    //         .then((response) => {
+    //             const geoJson = response.data.data;
+    //             console.log('GeoJSON Data:', geoJson);
+    //             setGeoJsonData(geoJson);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error fetching GeoJSON from backend:', error);
+    //         });
+    // }, []);
 
     return (
         <MapContainer

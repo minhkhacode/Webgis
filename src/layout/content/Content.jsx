@@ -18,7 +18,6 @@ import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataL
 
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
 
-
 const Dropdowns = [
     {
         title: 'Hệ quy chiếu',
@@ -124,7 +123,7 @@ const DropDownLaneUseType = [
 function Content({ handleShowSidebar }) {
     const [show, setShow] = useState(false);
     const [isActive, setActivation] = useState('googleMap');
-    const [showTab, setShowTab] = useState('Bản đồ Google');
+    const [showTab, setShowTab] = useState('googleMap');
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
@@ -134,6 +133,7 @@ function Content({ handleShowSidebar }) {
     const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
     const [listLandUseType, setListLandUseType] = useState(DropDownLaneUseType);
     const { t, il8n } = useTranslation();
+
     const navBarList = {
         googleMap: <MapComponent />,
         satelliteMap: <MapShapeFile getGeoJSONDataList={geoJSONDataList} />,
@@ -155,7 +155,6 @@ function Content({ handleShowSidebar }) {
         await fetch(path);
     };
 
-
     const handleRemoveGeoJSONDataList = async (landUseType) => {
         const index = geoJSONDataList.indexOf(landUseType);
         const newGeoJSONDataList = geoJSONDataList.filter((item, i) => i !== index);
@@ -166,42 +165,6 @@ function Content({ handleShowSidebar }) {
         setListLandUseType((prevItems) =>
             prevItems.map((item) => (item.value === type ? { ...item, selected: !item.selected } : item)),
         );
-    };
-
-    const handleChangeSelected = (itemCheck) => {
-        setDropdownLaneUseType((prev) =>
-            prev.map((item) => {
-                if (item.path === itemCheck.path) {
-                    return { ...item, selected: !item.selected };
-                }
-                return item;
-            }),
-        );
-        handleChangeEventCheckboxChangeShowTypeLineUse(itemCheck.selected, itemCheck);
-    };
-
-    // const handleChangeSelected = (itemCheck) => {
-    //     setDropdownLaneUseType((prevItems) => {
-    //         return prevItems.map((item) => {
-    //             if (item.path === itemCheck.path) {
-    //                 const updatedItem = { ...item, selected: !item.selected };
-    //                 // Sử dụng giá trị đã được cập nhật
-    //                 handleChangeEventCheckboxChangeShowTypeLineUse(updatedItem.selected, updatedItem);
-    //                 return updatedItem;
-    //             }
-    //             return item;
-    //         });
-    //     });
-    // };
-
-    const handleChangeEventCheckboxChangeShowTypeLineUse = async (checked, item) => {
-        if (checked) {
-            // Xóa khỏi danh sách nếu đã được chọn (selected = true)
-            await handleRemoveGeoJSONDataList(item.value);
-        } else {
-            // Thêm vào danh sách nếu chưa được chọn (selected = false)
-            handleChangeGeoJSONDataList(item.path);
-        }
     };
 
     useEffect(() => {
@@ -221,50 +184,41 @@ function Content({ handleShowSidebar }) {
         }
     };
 
-    const handleChangeGeoJSONDataList = (path) => {
-        const landUseType = checkLandUseTypeByPath(path);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const responsePNN = await fetch('/PNN.geojson');
+                const dataPNN = await responsePNN.json();
+                setPNN(dataPNN);
 
-        !geoJSONDataList.includes(landUseType)
-            ? setGeoJSONDataList([...geoJSONDataList, landUseType])
-            : handleRemoveGeoJSONDataList(landUseType);
-        dispatch(change(...geoJSONDataList));
-    };
+                const responseNN = await fetch('/NN.geojson');
+                const dataNN = await responseNN.json();
+                setNN(dataNN);
+
+                const responseTQ = await fetch('/TQ.geojson');
+                const dataTQ = await responseTQ.json();
+                setTQ(dataTQ);
+            } catch (error) {
+                console.error('Error loading GeoJSON:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const responsePNN = await fetch('/PNN.geojson');
-    //             const dataPNN = await responsePNN.json();
-    //             setPNN(dataPNN);
+    //     axios.get('/NN.geojson').then((data) => {
+    //         setNN(data.data);
+    //     });
 
-    //             const responseNN = await fetch('/NN.geojson');
-    //             const dataNN = await responseNN.json();
-    //             setNN(dataNN);
+    //     axios.get('/PNN.geojson').then((data) => {
+    //         setPNN(data.data);
+    //     });
 
-    //             const responseTQ = await fetch('/TQ.geojson');
-    //             const dataTQ = await responseTQ.json();
-    //             setTQ(dataTQ);
-    //         } catch (error) {
-    //             console.error('Error loading GeoJSON:', error);
-    //         }
-    //     };
-
-    //     fetchData();
+    //     axios.get('/TQ.geojson').then((data) => {
+    //         setTQ(data.data);
+    //     });
     // }, []);
-
-    useEffect(() => {
-        axios.get('/NN.geojson').then((data) => {
-            setNN(data.data);
-        });
-
-        axios.get('/PNN.geojson').then((data) => {
-            setPNN(data.data);
-        });
-
-        axios.get('/TQ.geojson').then((data) => {
-            setTQ(data.data);
-        });
-    }, []);
 
     const handleToggleNN = () => {
         dispatch(toggleNN({ ...NN }));
@@ -280,7 +234,6 @@ function Content({ handleShowSidebar }) {
         dispatch(toggleTQ({ ...TQ }));
         console.log(compareLayer);
     };
-
 
     return (
         <div className="content max-custom:w-screen relative">
@@ -376,35 +329,9 @@ function Content({ handleShowSidebar }) {
                     )}
                     {showTab === 'satelliteMap' && (
                         <div className="w-full">
-                            {/* <MapShapeFile getJsonDataList={geoJSONDataList} /> */}
                             <div className="mt-[20px]" />
 
                             <div className="card-control cursor-pointer">
-                                {/* {dropdownLaneUseType.map((item, index) => {
-                                    return (
-                                        <div className="selection" key={item.path}>
-                                            <label className="flex items-center space-x-2 my-2 cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    className="hidden peer"
-                                                    checked={item.selected}
-                                                    onChange={() => {
-                                                        handleToggleTQ;
-                                                    }}
-                                                    // onChange={() => handleChangeChecked(item.value)} // Thay đổi trạng thái `selected`
-                                                    onClick={() => handleChangeSelected(item)} // Thay đổi checkbox khi click
-                                                />
-
-                                                <div className="w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
-                                                    <div className="w-2 h-2 text-white peer-checked:block flex items-center justify-center">
-                                                        <FaCheck />
-                                                    </div>
-                                                </div>
-                                                <span className="text-gray-900">{item.value}</span>
-                                            </label>
-                                        </div>
-                                    );
-                                })} */}
                                 <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
                                 <div className="grid justify-start gap-3 mt-4">
                                     <div className="cursor-pointer">
@@ -427,30 +354,15 @@ function Content({ handleShowSidebar }) {
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    )}
-
-
-                        <div className="map w-full h-full">{navBarList[isActive]}</div>
-
-                        {Dropdowns.map((DropdownItem) => {
-                            return (
-                                <Dropdown
-                                    key={DropdownItem.title}
-                                    DropdownTitle={t(DropdownItem.title)}
-                                    Selections={DropdownItem.Selections}
-                                    Show={show}
-                                />
-                            );
-                        })}
-                    </div>
-                    {showTab === 'streetMap' && (
-                        <div className="w-full">
-                            <MapComponent />
                         </div>
                     )}
                 </div>
+
+                {showTab === 'streetMap' && (
+                    <div className="w-full">
+                        <MapComponent />
+                    </div>
+                )}
             </div>
         </div>
     );
