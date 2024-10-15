@@ -15,7 +15,9 @@ import HeaderComponent from '../../components/HeaderComponent';
 import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
+
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
+
 
 const Dropdowns = [
     {
@@ -120,7 +122,6 @@ const DropDownLaneUseType = [
 ];
 
 function Content({ handleShowSidebar }) {
-    // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('Bản đồ Google');
@@ -153,6 +154,7 @@ function Content({ handleShowSidebar }) {
     const handleAddGeoJSONDataList = async (path) => {
         await fetch(path);
     };
+
 
     const handleRemoveGeoJSONDataList = async (landUseType) => {
         const index = geoJSONDataList.indexOf(landUseType);
@@ -279,6 +281,7 @@ function Content({ handleShowSidebar }) {
         console.log(compareLayer);
     };
 
+
     return (
         <div className="content max-custom:w-screen relative">
             <HeaderComponent
@@ -375,6 +378,7 @@ function Content({ handleShowSidebar }) {
                         <div className="w-full">
                             {/* <MapShapeFile getJsonDataList={geoJSONDataList} /> */}
                             <div className="mt-[20px]" />
+
                             <div className="card-control cursor-pointer">
                                 {/* {dropdownLaneUseType.map((item, index) => {
                                     return (
@@ -423,16 +427,13 @@ function Content({ handleShowSidebar }) {
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     )}
-                    {/* <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
 
-
-                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
 
                         <div className="map w-full h-full">{navBarList[isActive]}</div>
-                    </div> */}
-                    {/* <div className="hidden mid-custom:block card-control cursor-pointer">
+
                         {Dropdowns.map((DropdownItem) => {
                             return (
                                 <Dropdown
@@ -443,8 +444,7 @@ function Content({ handleShowSidebar }) {
                                 />
                             );
                         })}
-
-                    </div> */}
+                    </div>
                     {showTab === 'streetMap' && (
                         <div className="w-full">
                             <MapComponent />
