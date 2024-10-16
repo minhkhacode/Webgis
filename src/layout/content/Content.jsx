@@ -16,6 +16,7 @@ import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
+import { data } from 'autoprefixer';
 
 const Dropdowns = [
     {
@@ -124,6 +125,10 @@ function Content({ handleShowSidebar }) {
     const [show, setShow] = useState(false);
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('Bản đồ Google');
+    const [checkNN, setCheckNN] = useState(false);
+    const [checkPNN, setCheckPNN] = useState(false);
+    const [checkTQ, setCheckTQ] = useState(false);
+    const [PLD, setPLD] = useState(null);
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
@@ -261,6 +266,10 @@ function Content({ handleShowSidebar }) {
 
         axios.get('/TQ.geojson').then((data) => {
             setTQ(data.data);
+        });
+
+        axios.get('/kqlp.geojon').then((data) => {
+            setPLD(data.data);
         });
     }, []);
 
@@ -404,19 +413,46 @@ function Content({ handleShowSidebar }) {
                                 <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
                                 <div className="grid justify-start gap-3 mt-4">
                                     <div className="cursor-pointer">
-                                        <input type="checkbox" onChange={handleTogglePNN} value={'PNN'} id="PNN" />
+                                        <input
+                                            type="checkbox"
+                                            onChange={handleTogglePNN}
+                                            value={'PNN'}
+                                            id="PNN"
+                                            defaultChecked={checkPNN}
+                                            onClick={() => {
+                                                setCheckPNN(!checkPNN);
+                                            }}
+                                        />
                                         <label className="cursor-pointer p-6" htmlFor="PNN">
                                             PNN
                                         </label>
                                     </div>
                                     <div className="cursor-pointer">
-                                        <input type="checkbox" onChange={handleToggleNN} value={'NN'} id="NN" />
+                                        <input
+                                            type="checkbox"
+                                            onChange={handleToggleNN}
+                                            value={'NN'}
+                                            id="NN"
+                                            defaultChecked={checkNN}
+                                            onClick={() => {
+                                                setCheckNN(!checkNN);
+                                            }}
+                                        />
                                         <label className="cursor-pointer p-6" htmlFor="NN">
                                             NN
                                         </label>
                                     </div>
                                     <div className="cursor-pointer">
-                                        <input type="checkbox" onChange={handleToggleTQ} value={'TQ'} id="TQ" />
+                                        <input
+                                            type="checkbox"
+                                            onChange={handleToggleTQ}
+                                            value={'TQ'}
+                                            id="TQ"
+                                            defaultChecked={checkTQ}
+                                            onClick={() => {
+                                                setCheckTQ(!checkTQ);
+                                            }}
+                                        />
                                         <label className="cursor-pointer p-6" htmlFor="TQ">
                                             TQ
                                         </label>
