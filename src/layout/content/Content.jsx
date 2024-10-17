@@ -1,124 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unused-vars */
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 
-import Button from '../../components/Button';
-import DropdownPC from '../../components/DropdownPC.jsx';
-import HeaderComponent from '../../components/HeaderComponent';
-import MapComponent from '../../components/maps/MapComponent.jsx';
-import MapShapeFile from '../../components/maps/MapShapeFile';
-import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
+import { Button, HeaderComponent, MapComponent, MapShapeFile, Dropdown } from '../../components';
 
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
 
-const Dropdowns = [
-    {
-        title: 'Hệ quy chiếu',
-        Selections: [
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-            {
-                value: 'EPSG:4326',
-            },
-        ],
-    },
-    {
-        title: 'Năm',
-        Selections: [
-            {
-                value: 2020,
-            },
-            {
-                value: 2021,
-            },
-            {
-                value: 2022,
-            },
-            {
-                value: 2023,
-            },
-            {
-                value: 2024,
-            },
-        ],
-    },
-    {
-        title: 'Tháng',
-        Selections: [
-            {
-                value: 1,
-            },
-            {
-                value: 2,
-            },
-            {
-                value: 3,
-            },
-            {
-                value: 4,
-            },
-            {
-                value: 5,
-            },
-            {
-                value: 6,
-            },
-            {
-                value: 7,
-            },
-            {
-                value: 8,
-            },
-            {
-                value: 9,
-            },
-            {
-                value: 10,
-            },
-            {
-                value: 11,
-            },
-            {
-                value: 12,
-            },
-        ],
-    },
-];
-
-const DropDownLaneUseType = [
-    {
-        value: 'Phi nông nghiệp',
-        selected: false,
-        path: '/PNN.geojson',
-    },
-    {
-        value: 'Nông nghiệp',
-        selected: false,
-        path: '/NN.geojson',
-    },
-    {
-        value: 'Thổ quả',
-        selected: false,
-        path: '/TQ.geojson',
-    },
-];
+import Dropdowns from '../../dummyData/DropdownsData.js';
 
 function Content({ handleShowSidebar }) {
     const [show, setShow] = useState(false);
@@ -127,18 +18,7 @@ function Content({ handleShowSidebar }) {
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
-    const [geoJsonData, setGeoJsonData] = useState(null);
-    const CRS = useSelector((state) => state.CRS.CRS);
-    const [geoJSONDataList, setGeoJSONDataList] = useState([]);
-    const [dropdownLaneUseType, setDropdownLaneUseType] = useState(DropDownLaneUseType);
-    const [listLandUseType, setListLandUseType] = useState(DropDownLaneUseType);
-    const { t, il8n } = useTranslation();
-
-    const navBarList = {
-        googleMap: <MapComponent />,
-        satelliteMap: <MapShapeFile getGeoJSONDataList={geoJSONDataList} />,
-        streetMap: <MapComponent />,
-    };
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
@@ -149,39 +29,6 @@ function Content({ handleShowSidebar }) {
 
     const handleSetActivation = (value) => {
         setActivation(value);
-    };
-
-    const handleAddGeoJSONDataList = async (path) => {
-        await fetch(path);
-    };
-
-    const handleRemoveGeoJSONDataList = async (landUseType) => {
-        const index = geoJSONDataList.indexOf(landUseType);
-        const newGeoJSONDataList = geoJSONDataList.filter((item, i) => i !== index);
-        setGeoJSONDataList(newGeoJSONDataList);
-    };
-
-    const handleChangeChecked = (type) => {
-        setListLandUseType((prevItems) =>
-            prevItems.map((item) => (item.value === type ? { ...item, selected: !item.selected } : item)),
-        );
-    };
-
-    useEffect(() => {
-        console.log('Current dropdownLaneUseType state:', dropdownLaneUseType);
-    }, [dropdownLaneUseType]);
-
-    const checkLandUseTypeByPath = (path) => {
-        switch (path) {
-            case '/PNN.geojson':
-                return PNN;
-            case '/NN.geojson':
-                return NN;
-            case '/TQ.geojson':
-                return TQ;
-            default:
-                return null;
-        }
     };
 
     useEffect(() => {
@@ -205,20 +52,6 @@ function Content({ handleShowSidebar }) {
 
         fetchData();
     }, []);
-
-    // useEffect(() => {
-    //     axios.get('/NN.geojson').then((data) => {
-    //         setNN(data.data);
-    //     });
-
-    //     axios.get('/PNN.geojson').then((data) => {
-    //         setPNN(data.data);
-    //     });
-
-    //     axios.get('/TQ.geojson').then((data) => {
-    //         setTQ(data.data);
-    //     });
-    // }, []);
 
     const handleToggleNN = () => {
         dispatch(toggleNN({ ...NN }));
@@ -246,9 +79,9 @@ function Content({ handleShowSidebar }) {
             <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
                 <div className="card-header">
                     <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
-                        {showTab === 'Bản đồ Google' && 'Bản đồ Trường Đại Học Cần Thơ'}
-                        {showTab === 'Vệ tinh' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
-                        {showTab === 'OPENSTREETMAP' && 'OPENSTREETMAP tab'}
+                        {showTab === 'googleMap' && 'Bản đồ Trường Đại Học Cần Thơ'}
+                        {showTab === 'satelliteMap' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
+                        {showTab === 'streetMap' && 'OPENSTREETMAP tab'}
                     </h1>
                     <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block">
                         <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
@@ -289,28 +122,10 @@ function Content({ handleShowSidebar }) {
                                 ></Button>
                             </li>
                         </ul>
-
-                        <div className="card-control w-[450px] flex justify-end items-center gap-2 cursor-pointer mid-custom:hidden ">
-                            {Dropdowns.map((DropdownItem) => {
-                                return (
-                                    <DropdownPC
-                                        key={DropdownItem.title}
-                                        DropdownTitle={t(DropdownItem.title)}
-                                        Selections={DropdownItem.Selections}
-                                        Show={show}
-                                    />
-                                );
-                            })}
-                        </div>
                     </div>
                     <div className="search">
                         <div className="search relative flex items-center">
-                            <i
-                                className="absolute left-4 cursor-pointer"
-                                onClick={() => {
-                                    alert('hello');
-                                }}
-                            >
+                            <i className="absolute left-4 cursor-pointer">
                                 <GoSearch />
                             </i>
                             <input
@@ -322,47 +137,60 @@ function Content({ handleShowSidebar }) {
                             />
                         </div>
                     </div>
-                    {showTab === 'googleMap' && (
-                        <div className="w-full">
-                            <MapComponent />
+
+                    <div className="w-full mt-[20px]">
+                        <MapShapeFile type={showTab} getJsonDataList={Object.values(compareLayer)} />
+                    </div>
+                    {/* {showTab === 'googleMap' && (
+                        <div className="w-full mt-[20px]">
+                            <MapShapeFile type={'googleMap'} getJsonDataList={Object.values(compareLayer)} />
                         </div>
                     )}
                     {showTab === 'satelliteMap' && (
-                        <div className="w-full">
-                            <div className="mt-[20px]" />
-
-                            <div className="card-control cursor-pointer">
-                                <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
-                                <div className="grid justify-start gap-3 mt-4">
-                                    <div className="cursor-pointer">
-                                        <input type="checkbox" onChange={handleTogglePNN} value={'PNN'} id="PNN" />
-                                        <label className="cursor-pointer p-6" htmlFor="PNN">
-                                            PNN
-                                        </label>
-                                    </div>
-                                    <div className="cursor-pointer">
-                                        <input type="checkbox" onChange={handleToggleNN} value={'NN'} id="NN" />
-                                        <label className="cursor-pointer p-6" htmlFor="NN">
-                                            NN
-                                        </label>
-                                    </div>
-                                    <div className="cursor-pointer">
-                                        <input type="checkbox" onChange={handleToggleTQ} value={'TQ'} id="TQ" />
-                                        <label className="cursor-pointer p-6" htmlFor="TQ">
-                                            TQ
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="w-full mt-[20px]">
+                            <MapShapeFile type="satelliteMap" getJsonDataList={Object.values(compareLayer)} />
                         </div>
                     )}
+                    {showTab === 'streetMap' && (
+                        <div className="w-full mt-[20px]">
+                            <MapShapeFile type={'streetMap'} getJsonDataList={Object.values(compareLayer)} />
+                        </div>
+                    )} */}
                 </div>
 
-                {showTab === 'streetMap' && (
-                    <div className="w-full">
-                        <MapComponent />
+                <div className="flex justify-start mt-4">
+                    <div className="mr-4">
+                        <input type="checkbox" onChange={handleTogglePNN} value="PNN" id="PNN" />
+                        <label className="cursor-pointer px-3 py-2" htmlFor="PNN">
+                            PNN
+                        </label>
                     </div>
-                )}
+                    <div className="mr-4">
+                        <input type="checkbox" onChange={handleToggleNN} value="NN" id="NN" />
+                        <label className="cursor-pointer px-3 py-2" htmlFor="NN">
+                            NN
+                        </label>
+                    </div>
+                    <div className="mr-4">
+                        <input type="checkbox" onChange={handleToggleTQ} value="TQ" id="TQ" />
+                        <label className="cursor-pointer px-3 py-2" htmlFor="TQ">
+                            TQ
+                        </label>
+                    </div>
+                </div>
+
+                <div className="card-control w-full flex flex-col mt-4 gap-2 cursor-pointer ">
+                    {Dropdowns.map((DropdownItem) => {
+                        return (
+                            <Dropdown
+                                key={DropdownItem.title}
+                                DropdownTitle={t(DropdownItem.title)}
+                                Selections={DropdownItem.Selections}
+                                Show={show}
+                            />
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

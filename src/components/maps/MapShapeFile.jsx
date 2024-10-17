@@ -2,11 +2,8 @@ import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import 'leaflet-minimap';
-// import Button from '../Button';
 
-// import MiniMapControl from './MiniMap';
-
-function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
+function MapShapeFile({ getJsonDataList, type }) {
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.Type;
         layer.bindPopup(typeLand, {
@@ -19,14 +16,14 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
             click: (event) => {
                 event.target.setStyle({
                     fillColor: 'green',
-                    color: 'white',
+                    color: 'blue',
                 });
             },
             clickOutSide: (event) => {
                 event.target.setStyle({
                     fillColor: 'red',
                     fillOpacity: '0.1',
-                    color: 'white',
+                    color: 'blue',
                     fontWeight: '200',
                 });
             },
@@ -35,52 +32,62 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
 
     const CountryStyleList = [
         {
-            fillColor: 'black',
-            fillOpacity: '0.25',
-            color: 'white',
+            fillColor: 'pink',
+            fillOpacity: '0.5',
+            color: 'red',
             fontWeight: '200',
         },
         {
             fillColor: 'yellow',
             fillOpacity: '0.5',
-            color: 'white',
+            color: 'green',
             fontWeight: '200',
         },
         {
-            fillColor: 'red',
-            fillOpacity: '0.1',
-            color: 'white',
+            fillColor: 'purple',
+            fillOpacity: '0.5',
+            color: 'blue',
             fontWeight: '200',
         },
         {
             fillColor: 'green',
             fillOpacity: '0.1',
-            color: 'white',
+            color: 'blue',
             fontWeight: '200',
         },
         {
             fillColor: 'grey',
             fillOpacity: '0.1',
-            color: 'white',
+            color: 'blue',
             fontWeight: '200',
         },
         {
             fillColor: 'purple',
             fillOpacity: '0.1',
-            color: 'white',
+            color: 'blue',
             fontWeight: '200',
         },
     ];
 
-    // console.log('getJsonDataList: ', getJsonDataList);
+    const MapTypeList = {
+        googleMap: 'r',
+        satelliteMap: 's',
+        streetMap: 'y',
+    };
+
+    const checkMapType = (type) => MapTypeList[type];
 
     return (
         <>
             <MapContainer style={{ height: '600px', width: '100%' }} center={[9.675, 105.9043]} zoom={14}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
+                    url={`https://mt1.google.com/vt/lyrs=${checkMapType(type)}&x={x}&y={y}&z={z}`}
                 />
+                {/* <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CartoDB</a>'
+                    url="https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                /> */}
                 {getJsonDataList.map((item, index) =>
                     item ? (
                         <GeoJSON
@@ -93,21 +100,6 @@ function MapShapeFile({ getJsonDataList }, removeLayerFnc) {
                         <></>
                     ),
                 )}
-
-                {/* <MiniMapControl geoJsonData={getJsonDataList} />
-                {getJsonDataList &&
-                    getJsonDataList.map((item, index) => {
-                        return (
-                            <div
-                                className="bg-gray"
-                                key={index}
-                                content={item.value}
-                                onClick={() => {
-                                    removeLayer(index);
-                                }}
-                            ></div>
-                        );
-                    })} */}
             </MapContainer>
         </>
     );

@@ -9,7 +9,7 @@ import LineChart from '../../components/charts/LineChart';
 import { useTranslation } from 'react-i18next';
 
 function ChartContent({ handleShowSidebar }) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">

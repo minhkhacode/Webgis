@@ -10,7 +10,6 @@ function Dropdown({ DropdownTitle, Selections, onValueChange }) {
         setIsOpen(!isOpen);
     };
 
-
     const handleChange = (value) => {
         setInputValue(value);
     };
