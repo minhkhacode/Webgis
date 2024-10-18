@@ -1,48 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
-// import { fetchLayerGeoJson } from '../app/action';
+import { fetchLayerGeoJson } from '../app/action';
 import { useEffect, useState } from 'react';
-// import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
+import { GeoJSON, MapContainer, TileLayer } from 'react-leaflet';
 import axios from 'axios';
 import { toggleNN, togglePNN, toggleTQ } from '../features/test/testSlice';
 import MapShapeFile from '../components/maps/MapShapeFile';
-import { CRS } from 'leaflet';
 
 function Test() {
     const dispatch = useDispatch();
-    const { compareLayer } = useSelector((state) => state.layer);
-
-    // const [geoJsonData, setGeoJsonData] = useState(null);
-    console.log(CRS.EPSG4326);
+    const { layer, compareLayer } = useSelector((state) => state.layer);
 
     useEffect(() => {
         dispatch(fetchLayerGeoJson());
     }, []);
-    // const [test, setTest] = useState([]);
-    // useEffect(() => {
-    //     const fetchTest = async () => {
-    //         const response = await axios
-    //             .get(`/geoserver/wfs`, {
-    //                 params: {
-    //                     service: 'WFS',
-    //                     version: '1.0.0',
-    //                     request: 'GetFeature',
-    //                     typeName: 'minhkha:thuanhoa_tkdd2022_crs84',
-    //                     outputFormat: 'application/json',
-    //                 },
-    //             })
-    //             .then((data) => {
-    //                 console.log(data);
-    //                 setTest({ ...data.data });
-    //             });
-    //     };
-    //     fetchTest();
-    // }, []);
-
 
     const [NN, setNN] = useState(null);
     const [PNN, setPNN] = useState(null);
     const [TQ, setTQ] = useState(null);
-
 
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.kh2003;
@@ -70,49 +44,9 @@ function Test() {
         });
     };
 
-    // const [NN, setNN] = useState([]);
-    // const [PNN, setPNN] = useState(null);
-    // const [TQ, setTQ] = useState(null);
-
-    // useEffect(() => {
-    //     axios.get('/thuanhoa_tkdd2022.geojson').then((data) => {
-    //         setNN(data.data);
-    //         dispatch(fetchLayerGeoJson());
-    //         dispatch(toggleNN({ ...data.data }));
-    //     });
-
-    //     axios.get('/PNN.geojson').then((data) => {
-    //         setPNN(data.data);
-    //     });
-
-    //     axios.get('/TQ.geojson').then((data) => {
-    //         setTQ(data.data);
-    //     });
-    // }, []);
-
-    // const handleToggleNN = () => {
-    //     dispatch(toggleNN({ ...NN }));
-    //     console.log(compareLayer);
-    // };
-
-    // const handleTogglePNN = () => {
-    //     dispatch(togglePNN({ ...PNN }));
-    //     console.log(compareLayer);
-    // };
-
-    // const handleToggleTQ = () => {
-    //     dispatch(toggleTQ({ ...TQ }));
-    //     console.log(compareLayer);
-    // };
-
     return (
         <div>
-            {/* <input type="checkbox" onChange={handleToggleNN} />
-            <input type="checkbox" onChange={handleTogglePNN} />
-            <input type="checkbox" onChange={handleToggleTQ} />
-            <MapShapeFile getJsonDataList={Object.values(compareLayer)} /> */}
             <MapContainer
-                // crs={CRS.EPSG4326}
                 center={[9.680258, 105.905196]}
                 zoom={14}
                 scrollWheelZoom={true}
@@ -123,7 +57,6 @@ function Test() {
                     url="https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />
 
-                {/* {compareLayer.NN && <GeoJSON key="my-geojson" data={compareLayer.NN.features} />} */}
                 {layer.features && (
                     <GeoJSON
                         key="my-geojson"
@@ -137,19 +70,6 @@ function Test() {
                         data={layer.features}
                     />
                 )}
-                {/* {test.features && (
-                    <GeoJSON
-                        key="my-testgeojson"
-                        style={{
-                            fillColor: 'red',
-                            fillOpacity: '0.5',
-                            color: '#3c2a20',
-                            fontWeight: '200',
-                        }}
-                        onEachFeature={onEachTypeLandUse}
-                        data={test.features}
-                    />
-                )} */}
             </MapContainer>
         </div>
     );

@@ -16,7 +16,7 @@ function Map() {
                 {isShowSidebar && (
                     <div
                         onClick={() => setShowSidebar(!isShowSidebar)}
-                        className="fixed cursor-pointer inset-0 bg-black bg-opacity-50 z-10 transition-opacity duration-300"
+                        className="fixed cursor-pointer inset-0 bg-black bg-opacity-50 z-[1001] transition-opacity duration-300"
                     ></div>
                 )}
                 <div className="map-box bg-[#ededed] flex-grow relative ml-[260px] max-custom:ml-0">

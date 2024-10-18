@@ -11,14 +11,14 @@ function Dropdown({ DropdownTitle, Selections, onValueChange }) {
     };
 
     const handleChange = (value) => {
+        console.log(value);
+
         setInputValue(value);
     };
 
     const handleSubmit = () => {
         onValueChange(inputValue);
     };
-
-    // console.log(Selections);
 
     return (
         <div className="dropdown">
@@ -40,14 +40,15 @@ function Dropdown({ DropdownTitle, Selections, onValueChange }) {
                             <li className="selection" key={index} onClick={onclick}>
                                 <label className="flex items-center space-x-2 my-2 cursor-pointer">
                                     <input
-                                        type="checkbox"
+                                        name={selection.name}
+                                        type="radio"
                                         className="hidden peer"
                                         onChange={() => {
                                             handleChange(selection.value);
                                         }}
                                     />
-                                    <div className="w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
-                                        <div className="w-2 h-2 text-white peer-checked:block flex items-center justify-center">
+                                    <div className="rounded-lg w-4 h-4 bg-gray-200 border-2 border-gray-300 flex items-center justify-center peer-checked:bg-customBlue peer-checked:border-customBlue peer-focus:ring peer-focus:ring-blue-400">
+                                        <div className="w-2 h-2 text-[#e5e7eb] peer-checked:block flex items-center justify-center">
                                             <FaCheck />
                                         </div>
                                     </div>

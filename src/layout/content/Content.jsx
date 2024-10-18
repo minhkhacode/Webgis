@@ -141,21 +141,6 @@ function Content({ handleShowSidebar }) {
                     <div className="w-full mt-[20px]">
                         <MapShapeFile type={showTab} getJsonDataList={Object.values(compareLayer)} />
                     </div>
-                    {/* {showTab === 'googleMap' && (
-                        <div className="w-full mt-[20px]">
-                            <MapShapeFile type={'googleMap'} getJsonDataList={Object.values(compareLayer)} />
-                        </div>
-                    )}
-                    {showTab === 'satelliteMap' && (
-                        <div className="w-full mt-[20px]">
-                            <MapShapeFile type="satelliteMap" getJsonDataList={Object.values(compareLayer)} />
-                        </div>
-                    )}
-                    {showTab === 'streetMap' && (
-                        <div className="w-full mt-[20px]">
-                            <MapShapeFile type={'streetMap'} getJsonDataList={Object.values(compareLayer)} />
-                        </div>
-                    )} */}
                 </div>
 
                 <div className="flex justify-start mt-4">
