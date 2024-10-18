@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 function Button({ content, customStyle, icon, handleSetActivation, handleActiveTab }) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const handleClickButton = (content) => {
         console.log(content);

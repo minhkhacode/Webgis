@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
-import HeaderComponent from '../../components/HeaderComponent.jsx';
-import Button from '../../components/Button.jsx';
+import { useEffect } from 'react';
+import { Button, HeaderComponent } from '../../components';
 import { MdDashboard } from 'react-icons/md';
 import { FaChartBar } from 'react-icons/fa';
 import { FaCodeCompare } from 'react-icons/fa6';
-
-import { useLocation } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { clickButton } from '../../features/button/buttonsStatusSlice.jsx';
-
 
 function Sidebar({ isShowSidebar }) {
     const { t, i18n } = useTranslation();
@@ -28,7 +24,7 @@ function Sidebar({ isShowSidebar }) {
 
     return (
         <div
-            className={`sidebar flex flex-col bg-[#fff] w-[260px] text-white h-screen shadow-[8px_0_20px_rgba(0,0,0,0.1)] fixed top-0 left-0 z-20 transition duration-300 ease-in-out ${
+            className={`sidebar flex flex-col bg-[#fff] w-[260px] text-white h-screen shadow-[8px_0_20px_rgba(0,0,0,0.1)] fixed top-0 left-0 z-[9999] transition duration-300 ease-in-out ${
                 isShowSidebar ? 'max-custom:translate-x-0' : 'max-custom:-translate-x-full'
             }`}
         >
@@ -67,9 +63,9 @@ function Sidebar({ isShowSidebar }) {
                         </Link>
                     </li>
                     <li className="tools-item w-full px-5 mb-5">
-                        <Link to="/">
+                        <Link to="/test">
                             <Button
-                                content={t('compare')}
+                                content={t('layerManagement')}
                                 handleActiveTab={() => dispatch(clickButton('compare'))}
                                 customStyle={
                                     sidebarButton === 'compare'

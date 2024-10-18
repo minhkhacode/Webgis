@@ -1,5 +1,3 @@
-import { IoMenuSharp } from 'react-icons/io5';
-
 function HeaderComponent({ title, fontStyle, icon, handleShowSidebar }) {
     return (
         <div

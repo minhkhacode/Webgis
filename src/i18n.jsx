@@ -23,6 +23,7 @@ i18n.use(LanguageDetector)
                     month: 'Months',
                     year: 'Years',
                     inputPlaceHolder: 'Type something...',
+                    layerManagement: 'Layer Management',
                 },
             },
             vi: {
@@ -41,6 +42,7 @@ i18n.use(LanguageDetector)
                     month: 'Tháng',
                     year: 'Năm',
                     inputPlaceHolder: 'Hay go dieu gi do...',
+                    layerManagement: 'Quản lý layer',
                 },
             },
         },
