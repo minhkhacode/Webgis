@@ -16,7 +16,7 @@ import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
-import { data } from 'autoprefixer';
+// import { data } from 'autoprefixer';
 
 const Dropdowns = [
     {
@@ -301,7 +301,7 @@ function Content({ handleShowSidebar }) {
                     <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
                         {showTab === 'Bản đồ Google' && 'Bản đồ Trường Đại Học Cần Thơ'}
                         {showTab === 'Vệ tinh' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
-                        {showTab === 'OPENSTREETMAP' && 'OPENSTREETMAP tab'}
+                        {showTab === 'OPENSTREETMAP' && 'OPENSTREETMAP'}
                     </h1>
                     <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block">
                         <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
