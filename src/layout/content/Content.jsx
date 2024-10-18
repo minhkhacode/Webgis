@@ -5,7 +5,7 @@ import { GoSearch } from 'react-icons/go';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Button, HeaderComponent, MapComponent, MapShapeFile, Dropdown } from '../../components';
+import { Button, HeaderComponent, MapShapeFile, Dropdown } from '../../components';
 
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
 
