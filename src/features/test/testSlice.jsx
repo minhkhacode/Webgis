@@ -37,7 +37,6 @@ const layerSlice = createSlice({
             })
             .addCase(fetchLayerGeoJson.fulfilled, (state, action) => {
                 state.loading = false;
-                console.log('GeoJSON Data:', action.payload);
                 state.layer = action.payload;
             })
             .addCase(fetchLayerGeoJson.rejected, (state, action) => {

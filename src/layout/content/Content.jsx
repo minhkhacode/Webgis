@@ -15,6 +15,8 @@ import HeaderComponent from '../../components/HeaderComponent';
 import MapComponent from '../../components/maps/MapComponent.jsx';
 import MapShapeFile from '../../components/maps/MapShapeFile';
 import { change } from '../../features/counter/geoJSONDataListSlice/geoJSONDataListSlice.jsx';
+import Dropdown from '../../components/DropdownPC.jsx';
+
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
 // import { data } from 'autoprefixer';
 
@@ -121,7 +123,6 @@ const DropDownLaneUseType = [
 ];
 
 function Content({ handleShowSidebar }) {
-    // eslint-disable-next-line no-unused-vars
     const [show, setShow] = useState(false);
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('Bản đồ Google');
@@ -384,6 +385,7 @@ function Content({ handleShowSidebar }) {
                         <div className="w-full">
                             {/* <MapShapeFile getJsonDataList={geoJSONDataList} /> */}
                             <div className="mt-[20px]" />
+
                             <div className="card-control cursor-pointer">
                                 {/* {dropdownLaneUseType.map((item, index) => {
                                     return (
@@ -461,32 +463,25 @@ function Content({ handleShowSidebar }) {
                             </div>
                         </div>
                     )}
-                    {/* <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
 
+                    <div className="map w-full h-full">{navBarList[isActive]}</div>
 
-                    <div className="card-main w-full h-[600px] p-2 my-3 bg-blue">
-
-                        <div className="map w-full h-full">{navBarList[isActive]}</div>
-                    </div> */}
-                    {/* <div className="hidden mid-custom:block card-control cursor-pointer">
-                        {Dropdowns.map((DropdownItem) => {
-                            return (
-                                <Dropdown
-                                    key={DropdownItem.title}
-                                    DropdownTitle={t(DropdownItem.title)}
-                                    Selections={DropdownItem.Selections}
-                                    Show={show}
-                                />
-                            );
-                        })}
-
-                    </div> */}
-                    {showTab === 'streetMap' && (
-                        <div className="w-full">
-                            <MapComponent />
-                        </div>
-                    )}
+                    {Dropdowns.map((DropdownItem) => {
+                        return (
+                            <Dropdown
+                                key={DropdownItem.title}
+                                DropdownTitle={t(DropdownItem.title)}
+                                Selections={DropdownItem.Selections}
+                                Show={show}
+                            />
+                        );
+                    })}
                 </div>
+                {showTab === 'streetMap' && (
+                    <div className="w-full">
+                        <MapComponent />
+                    </div>
+                )}
             </div>
         </div>
     );
