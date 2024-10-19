@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
-import { Button, HeaderComponent } from '../../components';
 import { MdDashboard } from 'react-icons/md';
 import { FaChartBar } from 'react-icons/fa';
 import { FaCodeCompare } from 'react-icons/fa6';
-
+import { FaCodeMerge } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Button, HeaderComponent } from '../../components';
 import { clickButton } from '../../features/button/buttonsStatusSlice.jsx';
 
 function Sidebar({ isShowSidebar }) {
@@ -73,6 +74,20 @@ function Sidebar({ isShowSidebar }) {
                                         : 'w-full rounded shadow-custom'
                                 }
                                 icon={<FaCodeCompare />}
+                            />
+                        </Link>
+                    </li>
+                    <li className="tools-item w-full px-5 mb-5">
+                        <Link to="/test">
+                            <Button
+                                content={t('Form add layer from NDVI')}
+                                handleActiveTab={() => dispatch(clickButton('compare'))}
+                                customStyle={
+                                    sidebarButton === 'compare'
+                                        ? '!bg-[#6186c1] w-full rounded shadow-custom'
+                                        : 'w-full rounded shadow-custom'
+                                }
+                                icon={<FaCodeMerge />}
                             />
                         </Link>
                     </li>
