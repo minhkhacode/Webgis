@@ -43,14 +43,14 @@ function MapShapeFile({ getJsonDataList, type }) {
             click: (event) => {
                 event.target.setStyle({
                     fillColor: 'green',
-                    color: 'blue',
+                    color: '#515FDE',
                 });
             },
             clickOutSide: (event) => {
                 event.target.setStyle({
                     fillColor: 'red',
                     fillOpacity: '0.1',
-                    color: 'blue',
+                    color: '#515FDE',
                     fontWeight: '200',
                 });
             },
@@ -59,40 +59,40 @@ function MapShapeFile({ getJsonDataList, type }) {
 
     const CountryStyleList = [
         {
-            fillColor: 'pink',
-            fillOpacity: '0.5',
-            color: 'red',
-            fontWeight: '200',
+            fillColor: '#66586B',
+            fillOpacity: '0.3',
+            color: '#383539',
+            fontWeight: '50',
         },
         {
-            fillColor: 'yellow',
-            fillOpacity: '0.5',
-            color: 'green',
-            fontWeight: '200',
+            fillColor: '#D58BFF',
+            fillOpacity: '0.15',
+            color: '#D58BFF',
+            fontWeight: '50',
         },
         {
-            fillColor: 'purple',
-            fillOpacity: '0.5',
-            color: 'blue',
-            fontWeight: '200',
+            fillColor: '#66586B',
+            fillOpacity: '0.15',
+            color: '',
+            fontWeight: '50',
         },
         {
             fillColor: 'green',
-            fillOpacity: '0.1',
+            fillOpacity: '0.15',
             color: 'blue',
-            fontWeight: '200',
+            fontWeight: '50',
         },
         {
             fillColor: 'grey',
             fillOpacity: '0.1',
             color: 'blue',
-            fontWeight: '200',
+            fontWeight: '50',
         },
         {
             fillColor: 'purple',
             fillOpacity: '0.1',
             color: 'blue',
-            fontWeight: '200',
+            fontWeight: '50',
         },
     ];
 

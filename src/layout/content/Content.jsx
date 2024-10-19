@@ -6,9 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { Button, HeaderComponent, MapShapeFile, Dropdown } from '../../components';
-
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
-
 import Dropdowns from '../../dummyData/DropdownsData.js';
 
 function Content({ handleShowSidebar }) {
@@ -55,17 +53,17 @@ function Content({ handleShowSidebar }) {
 
     const handleToggleNN = () => {
         dispatch(toggleNN({ ...NN }));
-        console.log(compareLayer);
+        // console.log(compareLayer);
     };
 
     const handleTogglePNN = () => {
         dispatch(togglePNN({ ...PNN }));
-        console.log(compareLayer);
+        // console.log(compareLayer);
     };
 
     const handleToggleTQ = () => {
         dispatch(toggleTQ({ ...TQ }));
-        console.log(compareLayer);
+        // console.log(compareLayer);
     };
 
     return (

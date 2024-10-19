@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLayerGeoJson } from '../app/action';
 import { useEffect, useState } from 'react';
@@ -9,7 +10,7 @@ function Test() {
 
     useEffect(() => {
         dispatch(fetchLayerGeoJson());
-    }, []);
+    }, [dispatch]);
 
     const [NN, setNN] = useState(null);
     const [PNN, setPNN] = useState(null);
