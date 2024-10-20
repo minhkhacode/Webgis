@@ -145,19 +145,37 @@ function Content({ handleShowSidebar }) {
 
                 <div className="flex justify-start mt-4">
                     <div className="mr-4">
-                        <input type="checkbox" onChange={handleTogglePNN} value="PNN" id="PNN" />
+                        <input
+                            checked={compareLayer['PNN'] ? true : false}
+                            type="checkbox"
+                            onChange={handleTogglePNN}
+                            value="PNN"
+                            id="PNN"
+                        />
                         <label className="cursor-pointer px-3 py-2" htmlFor="PNN">
                             PNN
                         </label>
                     </div>
                     <div className="mr-4">
-                        <input type="checkbox" onChange={handleToggleNN} value="NN" id="NN" />
+                        <input
+                            checked={compareLayer['NN'] ? true : false}
+                            type="checkbox"
+                            onChange={handleToggleNN}
+                            value="NN"
+                            id="NN"
+                        />
                         <label className="cursor-pointer px-3 py-2" htmlFor="NN">
                             NN
                         </label>
                     </div>
                     <div className="mr-4">
-                        <input type="checkbox" onChange={handleToggleTQ} value="TQ" id="TQ" />
+                        <input
+                            checked={compareLayer['TQ'] ? true : false}
+                            type="checkbox"
+                            onChange={handleToggleTQ}
+                            value="TQ"
+                            id="TQ"
+                        />
                         <label className="cursor-pointer px-3 py-2" htmlFor="TQ">
                             TQ
                         </label>
