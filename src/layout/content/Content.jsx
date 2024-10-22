@@ -1,24 +1,24 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Button, HeaderComponent, MapComponent, MapShapeFile, Dropdown } from '../../components';
+import { Button, HeaderComponent, MapShapeFile } from '../../components';
 
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
 
-import Dropdowns from '../../dummyData/DropdownsData.js';
+import InputPrediction from '../../components/InputPredictionComponent.jsx';
 
 function Content({ handleShowSidebar }) {
-    const [show, setShow] = useState(false);
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('googleMap');
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
     const { t } = useTranslation();
+    const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
 
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
@@ -66,6 +66,10 @@ function Content({ handleShowSidebar }) {
     const handleToggleTQ = () => {
         dispatch(toggleTQ({ ...TQ }));
         console.log(compareLayer);
+    };
+
+    const handleOpenPredictForm = () => {
+        setIsPredictFormOpen(!isPredictFormOpen);
     };
 
     return (
@@ -182,18 +186,10 @@ function Content({ handleShowSidebar }) {
                     </div>
                 </div>
 
-                <div className="card-control w-full flex flex-col mt-4 gap-2 cursor-pointer ">
-                    {Dropdowns.map((DropdownItem) => {
-                        return (
-                            <Dropdown
-                                key={DropdownItem.title}
-                                DropdownTitle={t(DropdownItem.title)}
-                                Selections={DropdownItem.Selections}
-                                Show={show}
-                            />
-                        );
-                    })}
-                </div>
+                <button onClick={handleOpenPredictForm} className="bg-blue-600 text-white px-4 py-2 rounded-md">
+                    Mở Form Dự Báo
+                </button>
+                {isPredictFormOpen && <InputPrediction handleOpenPredictForm={handleOpenPredictForm} />}
             </div>
         </div>
     );
