@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { submitInputPrediction } from '../features/InputMapProperties/inputPredictionSlice';
 
 function InputPrediction({ handleOpenPredictForm }) {
@@ -19,6 +19,7 @@ function InputPrediction({ handleOpenPredictForm }) {
     const [selectedWard, setSelectedWard] = useState({});
 
     const dispatch = useDispatch();
+    const area = useSelector((state) => state.inputPrediction.area);
 
     const areaAPI = 'https://esgoo.net/api-tinhthanh';
 
@@ -50,7 +51,9 @@ function InputPrediction({ handleOpenPredictForm }) {
     };
 
     const handleSelecWard = (event) => {
-        setSelectedWard(event.target.value ? { ...JSON.parse(event.target.value) } : {});
+        const ward = wardsList.filter((ward) => ward.id === event.target.value)[0];
+        console.log(ward);
+        setSelectedWard(ward ? { ...ward } : {});
     };
 
     const checkDateValidity = (start, end) => {
@@ -80,6 +83,7 @@ function InputPrediction({ handleOpenPredictForm }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         const area = !isEmptyObject(selectedWard)
             ? selectedWard
             : !isEmptyObject(selectedDistrict)
@@ -87,6 +91,7 @@ function InputPrediction({ handleOpenPredictForm }) {
             : !isEmptyObject(selectedCity)
             ? selectedCity
             : null;
+
         dispatch(
             submitInputPrediction({
                 startDate: startDate,
@@ -104,10 +109,10 @@ function InputPrediction({ handleOpenPredictForm }) {
     };
 
     return (
-        <div onClick={handleCloseForm} className="fixed inset-0 z-[9998] bg-black bg-opacity-50">
+        <div onClick={handleCloseForm} className="fixed inset-0 z-[10000] bg-black bg-opacity-50">
             <div
                 onClick={(event) => event.stopPropagation()}
-                className="inputPrediction max-w-lg w-full mx-auto relative top-1/2  transform  -translate-y-1/2 z-[9999]"
+                className="inputPrediction max-w-lg w-full mx-auto relative top-1/2  transform  -translate-y-1/2 z-[10001]"
             >
                 <form className="space-y-4 bg-[#fff] p-6 rounded-lg">
                     <div className="flex space-x-4">
@@ -205,11 +210,12 @@ function InputPrediction({ handleOpenPredictForm }) {
                                 id="ward"
                                 name="ward"
                                 onChange={handleSelecWard}
+                                value={selectedWard.id}
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
                                 <option value="">-- {t('selectWard')} --</option>
                                 {wardsList.map((ward) => (
-                                    <option key={ward.id} value={JSON.stringify(ward)}>
+                                    <option key={ward.id} value={ward.id}>
                                         {i18n.language === 'en' ? ward.full_name_en : ward.full_name}
                                     </option>
                                 ))}
