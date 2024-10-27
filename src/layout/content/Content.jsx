@@ -51,17 +51,17 @@ function Content({ handleShowSidebar }) {
         fetchData();
     }, []);
 
-    const handleToggleNN = () => {
+    const handleToggleNN = (e) => {
         dispatch(toggleNN({ ...NN }));
         // console.log(compareLayer);
     };
 
-    const handleTogglePNN = () => {
+    const handleTogglePNN = (e) => {
         dispatch(togglePNN({ ...PNN }));
         // console.log(compareLayer);
     };
 
-    const handleToggleTQ = () => {
+    const handleToggleTQ = (e) => {
         dispatch(toggleTQ({ ...TQ }));
         // console.log(compareLayer);
     };
@@ -144,6 +144,7 @@ function Content({ handleShowSidebar }) {
                 <div className="flex justify-start mt-4">
                     <div className="mr-4">
                         <input type="checkbox" onChange={handleTogglePNN} value="PNN" id="PNN" />
+                        {/* <CheckBox value={'PNN'} id={'PNN'} /> */}
                         <label className="cursor-pointer px-3 py-2" htmlFor="PNN">
                             PNN
                         </label>
