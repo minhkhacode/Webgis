@@ -63,7 +63,7 @@ function Sidebar({ isShowSidebar }) {
                         </Link>
                     </li>
                     <li className="tools-item w-full px-5 mb-5">
-                        <Link to="/test">
+                        <Link to="/layermanagement">
                             <Button
                                 content={t('layerManagement')}
                                 handleActiveTab={() => dispatch(clickButton('compare'))}
