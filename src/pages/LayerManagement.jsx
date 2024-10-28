@@ -3,58 +3,66 @@ import axios from 'axios';
 
 function LayerManagement() {
     const [layers, setLayers] = useState([]);
+    const [stores, setStores] = useState([]); // Trạng thái cho danh sách stores
     const [currentLayer, setCurrentLayer] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const [formData, setFormData] = useState({ name: '', title: '', workspace: '' });
+    const [formData, setFormData] = useState({ name: '', title: '', workspace: '', store: '', shpFile: null });
 
     const API_AUTH = { auth: { username: 'admin', password: 'minhkha277' } };
 
     const fetchLayers = () => {
         axios
             .get('/geoserver/rest/layers', API_AUTH)
-            .then((response) => {
-                console.log(response);
-
-                setLayers(response.data.layers.layer);
-            })
+            .then((response) => setLayers(response.data.layers.layer))
             .catch((error) => console.error('Error fetching layers:', error));
     };
 
-    // Fetch all layers
+    const fetchStores = () => {
+        axios
+            .get('/geoserver/rest/workspaces/minhkha/datastores', API_AUTH)
+            .then((response) => setStores(response.data.dataStores.dataStore))
+            .catch((error) => console.error('Error fetching stores:', error));
+    };
+
     useEffect(() => {
         fetchLayers();
+        fetchStores();
     }, []);
 
-    // Handle form input
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevState) => ({ ...prevState, [name]: value }));
+        const { name, value, files } = e.target;
+        setFormData((prevState) => ({ ...prevState, [name]: files ? files[0] : value }));
     };
 
-    // Handle form submission (Add or Edit Layer)
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        const method = currentLayer ? 'put' : 'post';
-        const endpoint = currentLayer ? `/geoserver/rest/layers/${currentLayer.name}` : '/geoserver/rest/layers';
+        const endpoint = `/geoserver/rest/workspaces/minhkha/datastores/graduation_thesis/file.shp`;
 
-        axios[method](endpoint, formData, API_AUTH)
-            .then(() => {
-                fetchLayers();
-                setIsFormVisible(false);
-                setFormData({ name: '', title: '', workspace: '' });
-                setCurrentLayer(null);
-            })
-            .catch((error) => console.error('Error saving layer:', error));
+        if (formData.shpFile) {
+            const data = new FormData();
+            data.append('file', formData.shpFile);
+
+            axios
+                .put(endpoint, data, {
+                    ...API_AUTH,
+                    headers: { 'Content-Type': 'application/zip' },
+                })
+                .then(() => {
+                    fetchLayers();
+                    // resetForm();
+                })
+                .catch((error) => console.error('Error uploading SHP:', error));
+        } else {
+            console.log('No SHP file provided.');
+        }
     };
 
-    // Edit a layer
     const handleEditLayer = (layer) => {
         setCurrentLayer(layer);
-        setFormData({ name: layer.name, title: layer.title, workspace: layer.workspace });
+        setFormData({ name: layer.name, title: layer.title, workspace: layer.workspace, store: layer.store });
         setIsFormVisible(true);
     };
 
-    // Delete a layer
     const handleDeleteLayer = (layerName) => {
         axios
             .delete(`/geoserver/rest/layers/${layerName}`, API_AUTH)
@@ -62,10 +70,9 @@ function LayerManagement() {
             .catch((error) => console.error('Error deleting layer:', error));
     };
 
-    // Toggle form visibility
     const toggleForm = () => {
         setIsFormVisible(!isFormVisible);
-        setFormData({ name: '', title: '', workspace: '' });
+        setFormData({ name: '', title: '', workspace: '', store: '', shpFile: null });
         setCurrentLayer(null);
     };
 
@@ -82,39 +89,55 @@ function LayerManagement() {
                 <form onSubmit={handleFormSubmit} className="bg-white p-6 rounded-lg shadow-md mb-4">
                     <h2 className="text-xl font-semibold mb-4">{currentLayer ? 'Edit Layer' : 'Add Layer'}</h2>
                     <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Layer Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleInputChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Title</label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleInputChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Workspace</label>
-                            <input
-                                type="text"
-                                name="workspace"
-                                value={formData.workspace}
-                                onChange={handleInputChange}
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
+                            placeholder="Layer Name"
+                            className="input"
+                        />
+                        <input
+                            type="text"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleInputChange}
+                            required
+                            placeholder="Title"
+                            className="input"
+                        />
+                        <input
+                            type="text"
+                            name="workspace"
+                            value={formData.workspace}
+                            onChange={handleInputChange}
+                            required
+                            placeholder="Workspace"
+                            className="input"
+                        />
+
+                        {/* Select Store */}
+                        <select
+                            name="store"
+                            value={formData.store}
+                            onChange={handleInputChange}
+                            required
+                            className="input"
+                        >
+                            <option value="">Select Store</option>
+                            {stores.map((store) => (
+                                <option key={store.name} value={store.name}>
+                                    {store.name}
+                                </option>
+                            ))}
+                        </select>
+
+                        {/* Hiển thị trường upload file SHP nếu store là PostgreSQL */}
+                        {formData.store === 'graduation_thesis' && (
+                            <input type="file" name="shpFile" onChange={handleInputChange} className="input" />
+                        )}
+
                         <button type="submit" className="w-full px-4 py-2 mt-4 bg-green-600 text-white rounded-md">
                             {currentLayer ? 'Update Layer' : 'Add Layer'}
                         </button>
@@ -122,6 +145,7 @@ function LayerManagement() {
                 </form>
             )}
 
+            {/* Danh sách các layer hiện có với các nút Edit và Delete */}
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white rounded-lg shadow-md">
                     <thead>
@@ -140,6 +164,7 @@ function LayerManagement() {
                                 <td className="border px-4 py-2">{layer.workspace || 'No workspace'}</td>
                                 <td className="border px-4 py-2 text-center">
                                     <button
+                                        disabled
                                         onClick={() => handleEditLayer(layer)}
                                         className="bg-yellow-500 text-white px-3 py-1 rounded-md mr-2"
                                     >

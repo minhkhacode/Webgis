@@ -2,6 +2,12 @@ import { Chart } from 'react-google-charts';
 
 const SankeyChart = () => {
     // Define the data for the Sankey chart with years in the labels
+
+    const new_data = {
+        'Thổ cư': { 'Thổ cư': 70.0, 'Nông nghiệp': 20.0, 'Phi nông nghiệp': 10.0 },
+        'Nông nghiệp': { 'Thổ cư': 5.0, 'Nông nghiệp': 80.0, 'Phi nông nghiệp': 15.0 },
+        'Phi nông nghiệp': { 'Thổ cư': 10.0, 'Nông nghiệp': 5.0, 'Phi nông nghiệp': 85.0 },
+    };
     const data = [
         ['From', 'To', 'Weight'],
         ['Brazil (2020)', 'Portugal (2021)', 5],
