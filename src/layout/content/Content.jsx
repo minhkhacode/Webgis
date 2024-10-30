@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import { GoSearch } from 'react-icons/go';
@@ -7,16 +8,17 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, HeaderComponent, MapShapeFile, Dropdown } from '../../components';
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
-import Dropdowns from '../../dummyData/DropdownsData.js';
+
+import InputPrediction from '../../components/InputPredictionComponent.jsx';
 
 function Content({ handleShowSidebar }) {
-    const [show, setShow] = useState(false);
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('googleMap');
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
     const { t } = useTranslation();
+    const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
 
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
@@ -66,6 +68,10 @@ function Content({ handleShowSidebar }) {
         // console.log(compareLayer);
     };
 
+    const handleOpenPredictForm = () => {
+        setIsPredictFormOpen(!isPredictFormOpen);
+    };
+
     return (
         <div className="content max-custom:w-screen relative">
             <HeaderComponent
@@ -81,46 +87,54 @@ function Content({ handleShowSidebar }) {
                         {showTab === 'satelliteMap' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
                         {showTab === 'streetMap' && 'OPENSTREETMAP tab'}
                     </h1>
-                    <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block">
-                        <ul className="navbar inline-flex overflow-x-hidden py-2 max-custom:block max-custom:gap-y-2">
-                            <li className="nav-item">
+                    <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block mid-custom:mb-3">
+                        <ul className="navbar flex py-2 max-custom:block max-custom:gap-y-2 mid-custom:w-full">
+                            <li className="nav-item flex-grow">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="googleMap"
                                     handleActiveTab={handleActiveTab}
                                     customStyle={
-                                        showTab === 'googleMap' || showTab === 'Bản đồ Google'
-                                            ? 'w-30 !bg-[#6186c1] hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
-                                            : 'w-30 hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                        showTab === 'googleMap'
+                                            ? 'w-full !bg-[#6186c1] hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:h-14 max-custom:rounded-[5px] uppercase justify-center'
+                                            : 'w-full hover:shadow-custom rounded-tl-lg rounded-bl-lg max-custom:h-14 max-custom:rounded-[5px] uppercase justify-center'
                                     }
                                 ></Button>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item flex-grow">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="satelliteMap"
                                     handleActiveTab={handleActiveTab}
                                     customStyle={
                                         showTab === 'satelliteMap'
-                                            ? 'w-30 !bg-[#6186c1] hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
-                                            : 'w-30 hover:shadow-custom max-custom:w-[270px] max-custom:h-14 max-custom:rounded-[5px] max-custom:w-full uppercase'
+                                            ? 'w-full !bg-[#6186c1] hover:shadow-custom max-custom:h-14 max-custom:rounded-[5px] uppercase justify-center'
+                                            : 'w-full hover:shadow-custom max-custom:h-14 max-custom:rounded-[5px] uppercase justify-center'
                                     }
                                 ></Button>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item flex-grow">
                                 <Button
                                     handleSetActivation={handleSetActivation}
                                     content="streetMap"
                                     handleActiveTab={handleActiveTab}
                                     customStyle={
                                         showTab === 'streetMap'
-                                            ? 'w-30 !bg-[#6186c1] hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
-                                            : 'w-30 hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:w-[270px] max-custom:h-14 max-custom:w-full max-custom:rounded-[5px] uppercase'
+                                            ? 'w-full !bg-[#6186c1] hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:h-14 max-custom:rounded-[5px] uppercase justify-center'
+                                            : 'w-full hover:shadow-custom rounded-tr-lg rounded-br-lg max-custom:h-14 max-custom:rounded-[5px] uppercase justify-center'
                                     }
                                 ></Button>
                             </li>
                         </ul>
+                        <button
+                            onClick={handleOpenPredictForm}
+                            className="bg-blue-600 text-white px-4 py-2 rounded-md mid-custom:w-full sm:w-auto"
+                        >
+                            Mở Form Dự Đoán
+                        </button>
+                        {isPredictFormOpen && <InputPrediction handleOpenPredictForm={handleOpenPredictForm} />}
                     </div>
+
                     <div className="search">
                         <div className="search relative flex items-center">
                             <i className="absolute left-4 cursor-pointer">
@@ -143,37 +157,41 @@ function Content({ handleShowSidebar }) {
 
                 <div className="flex justify-start mt-4">
                     <div className="mr-4">
-                        <input type="checkbox" onChange={handleTogglePNN} value="PNN" id="PNN" />
-                        {/* <CheckBox value={'PNN'} id={'PNN'} /> */}
+                        <input
+                            checked={compareLayer['PNN'] ? true : false}
+                            type="checkbox"
+                            onChange={handleTogglePNN}
+                            value="PNN"
+                            id="PNN"
+                        />
                         <label className="cursor-pointer px-3 py-2" htmlFor="PNN">
                             PNN
                         </label>
                     </div>
                     <div className="mr-4">
-                        <input type="checkbox" onChange={handleToggleNN} value="NN" id="NN" />
+                        <input
+                            checked={compareLayer['NN'] ? true : false}
+                            type="checkbox"
+                            onChange={handleToggleNN}
+                            value="NN"
+                            id="NN"
+                        />
                         <label className="cursor-pointer px-3 py-2" htmlFor="NN">
                             NN
                         </label>
                     </div>
                     <div className="mr-4">
-                        <input type="checkbox" onChange={handleToggleTQ} value="TQ" id="TQ" />
+                        <input
+                            checked={compareLayer['TQ'] ? true : false}
+                            type="checkbox"
+                            onChange={handleToggleTQ}
+                            value="TQ"
+                            id="TQ"
+                        />
                         <label className="cursor-pointer px-3 py-2" htmlFor="TQ">
                             TQ
                         </label>
                     </div>
-                </div>
-
-                <div className="card-control w-full flex flex-col mt-4 gap-2 cursor-pointer ">
-                    {Dropdowns.map((DropdownItem) => {
-                        return (
-                            <Dropdown
-                                key={DropdownItem.title}
-                                DropdownTitle={t(DropdownItem.title)}
-                                Selections={DropdownItem.Selections}
-                                Show={show}
-                            />
-                        );
-                    })}
                 </div>
             </div>
         </div>

@@ -1,8 +1,9 @@
-import { MapContainer, GeoJSON, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import 'leaflet-minimap';
-import { useRef, useState } from 'react';
+import { MapContainer, GeoJSON, TileLayer, useMap } from 'react-leaflet';
+import { useRef, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const ResetCenterButton = ({ center }) => {
     const map = useMap();
@@ -30,7 +31,23 @@ const ResetCenterButton = ({ center }) => {
     );
 };
 
+const UpdateMapCenter = ({ center }) => {
+    const map = useMap();
+
+    useEffect(() => {
+        if (center) {
+            map.setView(center, map.getZoom());
+        }
+    }, [center, map]);
+
+    return null;
+};
+
 function MapShapeFile({ getJsonDataList, type }) {
+    const [ButtonResetCenter, setButtonResetCenter] = useState(false);
+
+    const { area } = useSelector((state) => state.inputPrediction);
+
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.Type;
         layer.bindPopup(typeLand, {
@@ -104,18 +121,21 @@ function MapShapeFile({ getJsonDataList, type }) {
 
     const checkMapType = (type) => MapTypeList[type];
 
+    const defaultCenter = [9.675, 105.9043];
+    const mapCenter = area ? [area.latitude, area.longitude] : defaultCenter;
+
+    const HandleDisplayButton = () => {
+        return defaultCenter === mapCenter;
+    };
     return (
         <>
-            <MapContainer style={{ height: '600px', width: '100%' }} center={[9.675, 105.9043]} zoom={14}>
-                <ResetCenterButton center={[9.675, 105.9043]} />
+            <MapContainer style={{ height: '600px', width: '100%' }} center={mapCenter} zoom={14}>
+                {HandleDisplayButton === false ? <ResetCenterButton center={mapCenter} /> : <></>}
+                <UpdateMapCenter center={mapCenter} />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url={`https://mt1.google.com/vt/lyrs=${checkMapType(type)}&x={x}&y={y}&z={z}`}
                 />
-                {/* <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CartoDB</a>'
-                    url="https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                /> */}
 
                 {getJsonDataList.map((item, index) =>
                     item ? (

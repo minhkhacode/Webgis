@@ -24,6 +24,7 @@ const layerSlice = createSlice({
         },
         togglePNN: (state, action) => {
             // Không cần gán loading ở đây
+
             state.compareLayer.PNN = state.compareLayer.PNN !== null ? null : action.payload;
         },
     },
@@ -41,7 +42,6 @@ const layerSlice = createSlice({
                 state.error = action.error.message;
             })
             .addCase(fetchNNGeoJson.pending, (state) => {
-                // Sửa 'addcase' thành 'addCase'
                 state.loading = true;
             })
             .addCase(fetchNNGeoJson.fulfilled, (state, action) => {
@@ -49,7 +49,6 @@ const layerSlice = createSlice({
                 state.layer = action.payload;
             })
             .addCase(fetchNNGeoJson.rejected, (state, action) => {
-                // Thêm phần xử lý lỗi cho fetchNNGeoJson
                 state.loading = false;
                 state.error = action.error.message;
             });
