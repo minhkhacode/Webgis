@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, HeaderComponent, MapShapeFile, Dropdown } from '../../components';
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
-
 import InputPrediction from '../../components/InputPredictionComponent.jsx';
 
 function Content({ handleShowSidebar }) {
@@ -19,7 +18,6 @@ function Content({ handleShowSidebar }) {
     const [TQ, setTQ] = useState(null);
     const { t } = useTranslation();
     const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
-
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
 

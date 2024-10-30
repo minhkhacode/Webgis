@@ -44,8 +44,6 @@ const UpdateMapCenter = ({ center }) => {
 };
 
 function MapShapeFile({ getJsonDataList, type }) {
-    const [ButtonResetCenter, setButtonResetCenter] = useState(false);
-
     const { area } = useSelector((state) => state.inputPrediction);
 
     const onEachTypeLandUse = (TypeLandUse, layer) => {

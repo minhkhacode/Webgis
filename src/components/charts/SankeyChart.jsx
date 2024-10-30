@@ -18,8 +18,6 @@ const SankeyChart = () => {
     data.push(['Loai đất chưa được xác định ', 'Nông nghiệp ', 10.0]);
     data.push(['Loai đất chưa được xác định ', 'Phi nông nghiệp ', 40.0]);
 
-    console.log(data);
-
     // Define the options for the chart
     const options = {
         sankey: {
@@ -34,8 +32,8 @@ const SankeyChart = () => {
     };
 
     return (
-        <div className="w-full">
-            <Chart chartType="Sankey" width="100%" height="270px" data={data} options={options} />
+        <div className="w-[600px] py-[50px]">
+            <Chart chartType="Sankey" width="400px" height="270px" data={data} options={options} />
         </div>
     );
 };

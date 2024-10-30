@@ -24,17 +24,14 @@ function ChartContent({ handleShowSidebar }) {
                     <h1 className="card-title text-sm text-[#3C4858] font-extralight">{t('titleChar')}</h1>
                     <div className="card-nav p-4">
                         <div className="chart-wrapper shadow-custom">
-                            <BarChart />
-                            <div className="my-[25px]" />
-                            <div className="flex">
-                                <PieChart />
-                                <PieChart />
-                                <PieChart />
+                            {/* <BarChart /> */}
+                            <div className="my-[25px] gap-7">
+                                <div className="flex">
+                                    <PieChart />
+                                    <SankeyChart />
+                                </div>
                             </div>
-                            <div className="my-[25px]" />
-                            <SankeyChart />
-                            <div className="my-[25px]" />
-                            <LineChart titleChart={'Biểu đồ đường thể hiện biến động giữa các đường trong Thuận Hòa'} />
+                            {/* <LineChart titleChart={'Biểu đồ đường thể hiện biến động giữa các đường trong Thuận Hòa'} /> */}
                         </div>
                     </div>
                 </div>

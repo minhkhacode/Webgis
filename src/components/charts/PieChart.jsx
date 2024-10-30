@@ -43,7 +43,7 @@ const PieChart = () => {
     };
 
     return (
-        <div className="w-full max-custom:w-1/2 max-custom:w-1/3">
+        <div className="w-[400px] max-custom:w-1/2 max-custom:w-1/3">
             <Pie data={data} options={options} />
         </div>
     );
