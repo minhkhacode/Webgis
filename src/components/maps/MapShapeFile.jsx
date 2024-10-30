@@ -4,6 +4,8 @@ import 'leaflet-minimap';
 import { MapContainer, GeoJSON, TileLayer, useMap } from 'react-leaflet';
 import { useRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import 'leaflet-toolbar/dist/leaflet.toolbar.css'; // CSS for toolbar
+import 'leaflet-toolbar'; // Import the toolbar functionality
 
 const ResetCenterButton = ({ center }) => {
     const map = useMap();
@@ -122,13 +124,36 @@ function MapShapeFile({ getJsonDataList, type }) {
     const defaultCenter = [9.675, 105.9043];
     const mapCenter = area ? [area.latitude, area.longitude] : defaultCenter;
 
-    const HandleDisplayButton = () => {
-        return defaultCenter === mapCenter;
-    };
+    // useEffect(() => {
+    //     const L = window.L; // Ensure Leaflet is available globally
+
+    //     // Add toolbar with controls on map load
+    //     const map = L.map('map').setView([9.675, 105.9043], 12);
+    //     new L.ToolbarControl({
+    //         position: 'topright',
+    //         actions: [
+    //             L.ToolbarAction.extend({
+    //                 options: { toolbarIcon: { className: 'leaflet-zoom-in', tooltip: 'Zoom In' } },
+    //                 addHooks: function () {
+    //                     map.zoomIn();
+    //                 },
+    //             }),
+    //             L.ToolbarAction.extend({
+    //                 options: { toolbarIcon: { className: 'leaflet-zoom-out', tooltip: 'Zoom Out' } },
+    //                 addHooks: function () {
+    //                     map.zoomOut();
+    //                 },
+    //             }),
+    //         ],
+    //     }).addTo(map);
+
+    //     return () => map.remove();
+    // }, []);
+
     return (
         <>
             <MapContainer style={{ height: '600px', width: '100%' }} center={mapCenter} zoom={14}>
-                {HandleDisplayButton === false ? <ResetCenterButton center={mapCenter} /> : <></>}
+                <ResetCenterButton center={mapCenter} />
                 <UpdateMapCenter center={mapCenter} />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

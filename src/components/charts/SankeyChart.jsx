@@ -2,9 +2,9 @@ import { Chart } from 'react-google-charts';
 
 const SankeyChart = () => {
     const new_data = {
-        'Thổ cư': { 'Thổ cư ': 70.0, 'Nông nghiệp ': 20.0, 'Phi nông nghiệp ': 10.0 },
-        'Nông nghiệp': { 'Thổ cư ': 5.0, 'Nông nghiệp ': 80.0, 'Phi nông nghiệp ': 15.0 },
-        'Phi nông nghiệp': { 'Thổ cư ': 10.0, 'Nông nghiệp ': 5.0, 'Phi nông nghiệp ': 85.0 },
+        'Thổ quả': { 'Thổ quả ': 70.0, 'Nông nghiệp ': 20.0, 'Phi nông nghiệp ': 10.0 },
+        'Nông nghiệp': { 'Thổ quả ': 5.0, 'Nông nghiệp ': 80.0, 'Phi nông nghiệp ': 15.0 },
+        'Phi nông nghiệp': { 'Thổ quả ': 10.0, 'Nông nghiệp ': 5.0, 'Phi nông nghiệp ': 85.0 },
     };
 
     const data = [['From', 'To', 'Percent']];
@@ -14,7 +14,7 @@ const SankeyChart = () => {
         });
     });
 
-    data.push(['Loai đất chưa được xác định ', 'Thổ cư ', 50.0]);
+    data.push(['Loai đất chưa được xác định ', 'Thổ quả ', 50.0]);
     data.push(['Loai đất chưa được xác định ', 'Nông nghiệp ', 10.0]);
     data.push(['Loai đất chưa được xác định ', 'Phi nông nghiệp ', 40.0]);
 
@@ -31,11 +31,7 @@ const SankeyChart = () => {
         },
     };
 
-    return (
-        <div className="w-[600px] py-[50px]">
-            <Chart chartType="Sankey" width="400px" height="270px" data={data} options={options} />
-        </div>
-    );
+    return <Chart chartType="Sankey" width="400px" height="270px" data={data} options={options} />;
 };
 
 export default SankeyChart;

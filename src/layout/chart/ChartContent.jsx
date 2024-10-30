@@ -25,10 +25,14 @@ function ChartContent({ handleShowSidebar }) {
                     <div className="card-nav p-4">
                         <div className="chart-wrapper shadow-custom">
                             {/* <BarChart /> */}
-                            <div className="my-[25px] gap-7">
-                                <div className="flex">
-                                    <PieChart />
-                                    <SankeyChart />
+                            <div className="my-[25px]">
+                                <div className="flex gap-[200px] max-custom:w-max">
+                                    <div className="w-max py-[30px]">
+                                        <PieChart />
+                                    </div>
+                                    <div className="w-max h-max py-[75px] justify-end">
+                                        <SankeyChart />
+                                    </div>
                                 </div>
                             </div>
                             {/* <LineChart titleChart={'Biểu đồ đường thể hiện biến động giữa các đường trong Thuận Hòa'} /> */}
