@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { FaBars } from 'react-icons/fa6';
+import { useTranslation } from 'react-i18next';
+
 import HeaderComponent from '../../components/HeaderComponent';
-import BarChart from '../../components/charts/BarChart';
 import PieChart from '../../components/charts/PieChart';
 import SankeyChart from '../../components/charts/SankeyChart';
-import LineChart from '../../components/charts/LineChart';
-import { useTranslation } from 'react-i18next';
+// import BarChart from '../../components/charts/BarChart';
+// import LineChart from '../../components/charts/LineChart';
 
 function ChartContent({ handleShowSidebar }) {
     const { t } = useTranslation();
