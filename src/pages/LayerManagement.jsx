@@ -8,7 +8,7 @@ function LayerManagement() {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [formData, setFormData] = useState({ name: '', title: '', workspace: '', store: '', shpFile: null });
 
-    const API_AUTH = { auth: { username: 'admin', password: 'minhkha277' } };
+    const API_AUTH = { auth: { username: 'admin', password: 'geoserver' } };
 
     const fetchLayers = () => {
         axios

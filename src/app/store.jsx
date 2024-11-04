@@ -4,7 +4,7 @@ import geoJSONDataListReducer from '../features/counter/geoJSONDataListSlice/geo
 import languageReducer from '../features/language/languageSlice.jsx';
 import crsReducer from '../features/CRS/crsSlice.jsx';
 import buttonReducer from '../features/button/buttonsStatusSlice.jsx';
-import layerReducer from '../features/test/testSlice.jsx';
+import layerReducer from '../features/layer/layerSlice.jsx';
 import inputPredictionReducer from '../features/InputMapProperties/inputPredictionSlice.jsx';
 
 const store = configureStore({
