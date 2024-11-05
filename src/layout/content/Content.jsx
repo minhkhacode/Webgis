@@ -7,16 +7,14 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, HeaderComponent, MapShapeFile } from '../../components';
 
-import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
-
 import InputPrediction from '../../components/InputPredictionComponent.jsx';
+
+import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 
 function Content({ handleShowSidebar }) {
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('googleMap');
-    const [PNN, setPNN] = useState(null);
-    const [NN, setNN] = useState(null);
-    const [TQ, setTQ] = useState(null);
+
     const { t } = useTranslation();
     const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
 
@@ -29,43 +27,6 @@ function Content({ handleShowSidebar }) {
 
     const handleSetActivation = (value) => {
         setActivation(value);
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const responsePNN = await fetch('/PNN.geojson');
-                const dataPNN = await responsePNN.json();
-                setPNN(dataPNN);
-
-                const responseNN = await fetch('/NN.geojson');
-                const dataNN = await responseNN.json();
-                setNN(dataNN);
-
-                const responseTQ = await fetch('/TQ.geojson');
-                const dataTQ = await responseTQ.json();
-                setTQ(dataTQ);
-            } catch (error) {
-                console.error('Error loading GeoJSON:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const handleToggleNN = () => {
-        dispatch(toggleNN({ ...NN }));
-        console.log(compareLayer);
-    };
-
-    const handleTogglePNN = () => {
-        dispatch(togglePNN({ ...PNN }));
-        console.log(compareLayer);
-    };
-
-    const handleToggleTQ = () => {
-        dispatch(toggleTQ({ ...TQ }));
-        console.log(compareLayer);
     };
 
     const handleOpenPredictForm = () => {
@@ -150,47 +111,9 @@ function Content({ handleShowSidebar }) {
                         </div>
                     </div>
 
-                    <div className="w-full mt-[20px]">
+                    <div className="w-full mt-[20px] relative">
+                        <LayerSelector />
                         <MapShapeFile type={showTab} getJsonDataList={Object.values(compareLayer)} />
-                    </div>
-                </div>
-
-                <div className="flex justify-start mt-4">
-                    <div className="mr-4">
-                        <input
-                            checked={compareLayer['PNN'] ? true : false}
-                            type="checkbox"
-                            onChange={handleTogglePNN}
-                            value="PNN"
-                            id="PNN"
-                        />
-                        <label className="cursor-pointer px-3 py-2" htmlFor="PNN">
-                            PNN
-                        </label>
-                    </div>
-                    <div className="mr-4">
-                        <input
-                            checked={compareLayer['NN'] ? true : false}
-                            type="checkbox"
-                            onChange={handleToggleNN}
-                            value="NN"
-                            id="NN"
-                        />
-                        <label className="cursor-pointer px-3 py-2" htmlFor="NN">
-                            NN
-                        </label>
-                    </div>
-                    <div className="mr-4">
-                        <input
-                            checked={compareLayer['TQ'] ? true : false}
-                            type="checkbox"
-                            onChange={handleToggleTQ}
-                            value="TQ"
-                            id="TQ"
-                        />
-                        <label className="cursor-pointer px-3 py-2" htmlFor="TQ">
-                            TQ
-                        </label>
                     </div>
                 </div>
             </div>
