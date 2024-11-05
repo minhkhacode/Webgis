@@ -13,7 +13,7 @@ function ChartContent({ handleShowSidebar }) {
 
     return (
         <div className="content h-screen overflow-y-scroll max-custom:w-screen">
-            <HeaderComponent
+            {/* <HeaderComponent
                 title={t('titleCTU')}
                 fontStyle="text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
                 icon={<FaBars className="h-[24px] w-[42px] cursor-pointer" />}
@@ -38,7 +38,8 @@ function ChartContent({ handleShowSidebar }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <SankeyChart />
         </div>
     );
 }
