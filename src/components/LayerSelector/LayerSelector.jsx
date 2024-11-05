@@ -57,7 +57,7 @@ function LayerSelector() {
     };
 
     return (
-        <div className="absolute z-[10000] right-2">
+        <div className="absolute z-[10000] right-[1%] top-[10%]">
             {/* Add gear icon for toggling map-list */}
             <div className="relative flex justify-end items-center space-x-4">
                 {/* Conditional rendering of map-list with animation */}
@@ -158,7 +158,7 @@ function LayerSelector() {
                 {/* Settings button */}
                 <button
                     onClick={toggleMapList}
-                    className="p-2 m-2 rounded-full bg-gradient hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"
+                    className="p-2 m-2 rounded-full bg-white hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"
                     title="Settings"
                 >
                     <IoIosSettings

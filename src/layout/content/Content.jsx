@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button, HeaderComponent, MapShapeFile } from '../../components';
 
-import InputPrediction from '../../components/InputPredictionComponent.jsx';
+import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
 
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 
@@ -34,21 +34,21 @@ function Content({ handleShowSidebar }) {
     };
 
     return (
-        <div className="content max-custom:w-screen relative">
-            <HeaderComponent
+        <div className="content max-custom:w-screen relative w-full h-full">
+            {/* <HeaderComponent
                 handleShowSidebar={handleShowSidebar}
                 title={t('titleCTU')}
                 fontStyle=" text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
                 icon={<FaBars className="h-6 w-6 cursor-pointer" />}
-            />
-            <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
+            /> */}
+            <div className="card rounded-lg ">
                 <div className="card-header">
-                    <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
+                    {/* <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
                         {showTab === 'googleMap' && 'Bản đồ Trường Đại Học Cần Thơ'}
                         {showTab === 'satelliteMap' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
                         {showTab === 'streetMap' && 'OPENSTREETMAP tab'}
-                    </h1>
-                    <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block mid-custom:mb-3">
+                    </h1> */}
+                    {/* <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block mid-custom:mb-3">
                         <ul className="navbar flex py-2 max-custom:block max-custom:gap-y-2 mid-custom:w-full">
                             <li className="nav-item flex-grow">
                                 <Button
@@ -94,9 +94,9 @@ function Content({ handleShowSidebar }) {
                             Mở Form Dự Đoán
                         </button>
                         {isPredictFormOpen && <InputPrediction handleOpenPredictForm={handleOpenPredictForm} />}
-                    </div>
+                    </div> */}
 
-                    <div className="search">
+                    {/* <div className="search">
                         <div className="search relative flex items-center">
                             <i className="absolute left-4 cursor-pointer">
                                 <GoSearch />
@@ -109,9 +109,9 @@ function Content({ handleShowSidebar }) {
                                 placeholder={t('inputPlaceHolder')}
                             />
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="w-full mt-[20px] relative">
+                    <div className="w-full h-full relative">
                         <LayerSelector />
                         <MapShapeFile type={showTab} getJsonDataList={Object.values(compareLayer)} />
                     </div>

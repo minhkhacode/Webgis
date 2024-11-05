@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { FaBars } from 'react-icons/fa6';
-import HeaderComponent from '../../components/HeaderComponent';
+import HeaderComponent from '../header/HeaderComponent';
 import BarChart from '../../components/charts/BarChart';
 import PieChart from '../../components/charts/PieChart';
 import SankeyChart from '../../components/charts/SankeyChart';

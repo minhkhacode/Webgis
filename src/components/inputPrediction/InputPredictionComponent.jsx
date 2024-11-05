@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitInputPrediction } from '../features/InputMapProperties/inputPredictionSlice';
+import { submitInputPrediction } from '../../features/InputMapProperties/inputPredictionSlice';
 
 function InputPrediction({ handleOpenPredictForm }) {
     const { t, i18n } = useTranslation();

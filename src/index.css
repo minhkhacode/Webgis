@@ -6,3 +6,9 @@
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     box-sizing: border-box;
 }
+
+.leaflet-bottom.leaflet-right {
+    right: auto;
+    left: 1%;
+    top: 10%;
+}
