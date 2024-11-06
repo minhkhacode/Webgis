@@ -3,14 +3,16 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import { AttributionControl, MapContainer, TileLayer } from 'react-leaflet';
 import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
 import MapLayers from './MapLayers';
 import ResetCenterButton from './ResetCenterButton';
 import CustomZoomControl from './CustomZoomControl';
 import UpdateMapCenter from './UpdateMapCenter';
 import ZoomLevelDisplay from './ZoomLevelDisplay';
 import MapHoverCoordinates from './MapHoverCoordinates';
+import MapResizeHandler from './MapResizeHandler';
 
-function MapShapeFile({ getJsonDataList, type }) {
+function MapShapeFile({ getJsonDataList, type, isSidebarOpen }) {
     const { area } = useSelector((state) => state.inputPrediction);
 
     const CountryStyleList = [
@@ -60,11 +62,11 @@ function MapShapeFile({ getJsonDataList, type }) {
             <UpdateMapCenter center={mapCenter} />
             <ResetCenterButton center={mapCenter} />
             <MapHoverCoordinates />
+            <MapResizeHandler isSidebarOpen={isSidebarOpen} />
             <TileLayer
                 attribution='Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Map tiles by <a href="https://stamen.com">Stamen Design</a>'
                 url={checkMapType(type)}
                 time={currentDate}
-                // time="2022-12-20"
             />
 
             <MapLayers getJsonDataList={getJsonDataList} styles={CountryStyleList} />

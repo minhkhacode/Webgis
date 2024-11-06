@@ -11,7 +11,7 @@ import InputPrediction from '../../components/inputPrediction/InputPredictionCom
 
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 
-function Content() {
+function Content({ isSidebarOpen }) {
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('googleMap');
 
@@ -113,7 +113,11 @@ function Content() {
 
                     <div className="w-full h-full relative">
                         <LayerSelector />
-                        <MapShapeFile type={showTab} getJsonDataList={Object.values(compareLayer)} />
+                        <MapShapeFile
+                            isSidebarOpen={isSidebarOpen}
+                            type={showTab}
+                            getJsonDataList={Object.values(compareLayer)}
+                        />
                     </div>
                 </div>
             </div>

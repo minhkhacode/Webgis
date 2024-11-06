@@ -3,26 +3,19 @@ import { IoMdCloudDownload, IoIosCloseCircleOutline } from 'react-icons/io';
 import { MdUpload } from 'react-icons/md';
 import { useState } from 'react';
 
-function Sidebar() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // state để theo dõi việc mở/đóng sidebar
-
-    // Hàm để đóng sidebar
-    const handleCloseSidebar = () => {
-        setIsSidebarOpen(false);
-    };
-
+function Sidebar({ toggleSidebar, isOpen }) {
     return (
         <div
             className={`relative h-screen bg-gray-800 text-white flex flex-col  transition-all duration-300 ease-in-out ${
-                isSidebarOpen ? 'transform-none' : '-translate-x-full opacity-0 pointer-events-none '
+                isOpen ? 'transform-none' : '-translate-x-full opacity-0 pointer-events-none '
             }`}
             style={{
-                width: isSidebarOpen ? '400px' : '0',
-                padding: isSidebarOpen ? '1rem' : '0',
+                width: isOpen ? '400px' : '0',
+                padding: isOpen ? '1rem' : '0',
             }}
         >
             {/* Nút đóng sidebar */}
-            <div className="close absolute top-2 right-2" onClick={handleCloseSidebar}>
+            <div className="close absolute top-2 right-2" onClick={toggleSidebar}>
                 <IoIosCloseCircleOutline className="text-2xl cursor-pointer" />
             </div>
 
