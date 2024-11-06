@@ -11,7 +11,7 @@ import InputPrediction from '../../components/inputPrediction/InputPredictionCom
 
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 
-function Content({ handleShowSidebar }) {
+function Content() {
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('googleMap');
 
@@ -34,14 +34,14 @@ function Content({ handleShowSidebar }) {
     };
 
     return (
-        <div className="content max-custom:w-screen relative w-full h-full">
+        <div className="content relative w-full h-full">
             {/* <HeaderComponent
                 handleShowSidebar={handleShowSidebar}
                 title={t('titleCTU')}
                 fontStyle=" text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
                 icon={<FaBars className="h-6 w-6 cursor-pointer" />}
             /> */}
-            <div className="card rounded-lg ">
+            <div className="card rounded-lg">
                 <div className="card-header">
                     {/* <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
                         {showTab === 'googleMap' && 'Bản đồ Trường Đại Học Cần Thơ'}

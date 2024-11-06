@@ -39,7 +39,7 @@ export default function ResetCenterButton({ center }) {
 
     return (
         <button
-            className={`bg-customBlue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 absolute bottom-5 left-5 z-[10000] opacity-[0.9] duration-300 ${
+            className={`bg-customBlue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 absolute bottom-5 left-5 z-[10000] opacity-[0.8] duration-300 ${
                 isResetting ? 'opacity-50' : 'opacity-100'
             }`}
             onClick={handleReset}

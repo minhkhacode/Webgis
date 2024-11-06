@@ -1,14 +1,14 @@
-// MapShapeFile.js
+import 'leaflet-minimap';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
-import 'leaflet-minimap';
 import { AttributionControl, MapContainer, TileLayer } from 'react-leaflet';
 import { useSelector } from 'react-redux';
+import MapLayers from './MapLayers';
 import ResetCenterButton from './ResetCenterButton';
 import CustomZoomControl from './CustomZoomControl';
 import UpdateMapCenter from './UpdateMapCenter';
-import MapLayers from './MapLayers';
 import ZoomLevelDisplay from './ZoomLevelDisplay';
+import MapHoverCoordinates from './MapHoverCoordinates';
 
 function MapShapeFile({ getJsonDataList, type }) {
     const { area } = useSelector((state) => state.inputPrediction);
@@ -23,12 +23,26 @@ function MapShapeFile({ getJsonDataList, type }) {
     ];
 
     const MapTypeList = {
-        googleMap: 'r',
-        satelliteMap: 's',
-        streetMap: 'y',
+        openStreetMap: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        esriWorldImagery:
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        esriWorldStreetMap:
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+        cartoDB: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
     };
 
-    const checkMapType = (type) => MapTypeList[type];
+    const checkMapType = (type) => MapTypeList[type] || MapTypeList.esriWorldImagery;
+
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    };
+
+    const currentDate = getCurrentDate();
 
     const defaultCenter = [9.675, 105.9043];
     const mapCenter = area ? [area.latitude, area.longitude] : defaultCenter;
@@ -41,14 +55,18 @@ function MapShapeFile({ getJsonDataList, type }) {
             attributionControl={false}
             zoomControl={false}
         >
-            <ResetCenterButton center={mapCenter} />
-            <UpdateMapCenter center={mapCenter} />
             <ZoomLevelDisplay />
             <CustomZoomControl />
+            <UpdateMapCenter center={mapCenter} />
+            <ResetCenterButton center={mapCenter} />
+            <MapHoverCoordinates />
             <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url={`https://mt1.google.com/vt/lyrs=${checkMapType(type)}&x={x}&y={y}&z={z}`}
+                attribution='Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Map tiles by <a href="https://stamen.com">Stamen Design</a>'
+                url={checkMapType(type)}
+                time={currentDate}
+                // time="2022-12-20"
             />
+
             <MapLayers getJsonDataList={getJsonDataList} styles={CountryStyleList} />
         </MapContainer>
     );
