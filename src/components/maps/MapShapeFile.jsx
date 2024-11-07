@@ -12,7 +12,7 @@ import ZoomLevelDisplay from './ZoomLevelDisplay';
 import MapHoverCoordinates from './MapHoverCoordinates';
 import MapResizeHandler from './MapResizeHandler';
 
-function MapShapeFile({ getJsonDataList, type, isSidebarOpen }) {
+function MapShapeFile({ getJsonDataList, url, isSidebarOpen }) {
     const { area } = useSelector((state) => state.inputPrediction);
 
     const CountryStyleList = [
@@ -24,16 +24,7 @@ function MapShapeFile({ getJsonDataList, type, isSidebarOpen }) {
         { fillColor: 'purple', fillOpacity: '0.1', color: 'blue', fontWeight: '200' },
     ];
 
-    const MapTypeList = {
-        openStreetMap: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        esriWorldImagery:
-            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        esriWorldStreetMap:
-            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-        cartoDB: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
-    };
-
-    const checkMapType = (type) => MapTypeList[type] || MapTypeList.esriWorldImagery;
+    // const checkMapType = (type) => MapTypeList[type] || MapTypeList.esriWorldImagery;
 
     const getCurrentDate = () => {
         const today = new Date();
@@ -65,7 +56,7 @@ function MapShapeFile({ getJsonDataList, type, isSidebarOpen }) {
             <MapResizeHandler isSidebarOpen={isSidebarOpen} />
             <TileLayer
                 attribution='Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Map tiles by <a href="https://stamen.com">Stamen Design</a>'
-                url={checkMapType(type)}
+                url={url}
                 time={currentDate}
             />
 

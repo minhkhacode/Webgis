@@ -12,8 +12,8 @@ import InputPrediction from '../../components/inputPrediction/InputPredictionCom
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 
 function Content({ toggleSidebar, isSidebarOpen }) {
-    const [isActive, setActivation] = useState('googleMap');
-    const [showTab, setShowTab] = useState('googleMap');
+    const [isActive, setActivation] = useState('esriWorldImagery');
+    const [mapType, setMapType] = useState('esriWorldImagery');
 
     const { t } = useTranslation();
     const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
@@ -21,17 +21,36 @@ function Content({ toggleSidebar, isSidebarOpen }) {
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
 
-    const handleActiveTab = async (title) => {
-        setShowTab(title);
+    const MapTypeList = {
+        openStreetMap: {
+            url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+        },
+        esriWorldImagery: {
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+        },
+        esriWorldStreetMap: {
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+        },
+        cartoDB: {
+            url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+        },
     };
 
-    const handleSetActivation = (value) => {
-        setActivation(value);
+    const handleChangeMapType = (type) => {
+        setMapType(type);
     };
 
-    const handleOpenPredictForm = () => {
-        setIsPredictFormOpen(!isPredictFormOpen);
-    };
+    // const handleSetActivation = (value) => {
+    //     setActivation(value);
+    // };
+
+    // const handleOpenPredictForm = () => {
+    //     setIsPredictFormOpen(!isPredictFormOpen);
+    // };
 
     return (
         <div
@@ -114,13 +133,19 @@ function Content({ toggleSidebar, isSidebarOpen }) {
                             />
                         </div>
                     </div> */}
-                    <HeaderComponent toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+                    <HeaderComponent
+                        toggleSidebar={toggleSidebar}
+                        isSidebarOpen={isSidebarOpen}
+                        mapType={mapType}
+                        MapTypeList={MapTypeList}
+                        handleChangeMapType={handleChangeMapType}
+                    />
 
                     <div className="w-full h-full">
-                        <LayerSelector />
+                        <LayerSelector handleChangeMapType={handleChangeMapType} />
                         <MapShapeFile
                             isSidebarOpen={isSidebarOpen}
-                            type={showTab}
+                            url={MapTypeList[mapType].url}
                             getJsonDataList={Object.values(compareLayer)}
                         />
                     </div>
