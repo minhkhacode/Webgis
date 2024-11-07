@@ -6,13 +6,9 @@ import { useState } from 'react';
 function Sidebar({ toggleSidebar, isOpen }) {
     return (
         <div
-            className={`relative h-screen bg-gray-800 text-white flex flex-col  transition-all duration-300 ease-in-out ${
-                isOpen ? 'transform-none' : '-translate-x-full opacity-0 pointer-events-none '
+            className={` relative h-screen bg-gray-800 text-white flex flex-col  transition-all duration-300  top-0 ${
+                isOpen ? 'p-4 w-[400px] left-[0]' : 'w-[0] p-0 left-[-100%] pointer-events-none '
             }`}
-            style={{
-                width: isOpen ? '400px' : '0',
-                padding: isOpen ? '1rem' : '0',
-            }}
         >
             {/* Nút đóng sidebar */}
             <div className="close absolute top-2 right-2" onClick={toggleSidebar}>

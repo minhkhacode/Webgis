@@ -8,7 +8,7 @@ function MapResizeHandler({ isSidebarOpen }) {
         if (map) {
             setTimeout(() => {
                 map.invalidateSize();
-            }, 300);
+            }, 500);
         }
     }, [isSidebarOpen, map]);
 

@@ -11,7 +11,7 @@ import InputPrediction from '../../components/inputPrediction/InputPredictionCom
 
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 
-function Content({ isSidebarOpen }) {
+function Content({ toggleSidebar, isSidebarOpen }) {
     const [isActive, setActivation] = useState('googleMap');
     const [showTab, setShowTab] = useState('googleMap');
 
@@ -34,7 +34,11 @@ function Content({ isSidebarOpen }) {
     };
 
     return (
-        <div className="content relative w-full h-full">
+        <div
+            className={`content relative right-0 h-full w-full transition-all duration-300 ${
+                isSidebarOpen ? 'w-[calc(100%-400px)]' : 'w-full'
+            }`}
+        >
             {/* <HeaderComponent
                 handleShowSidebar={handleShowSidebar}
                 title={t('titleCTU')}
@@ -110,8 +114,9 @@ function Content({ isSidebarOpen }) {
                             />
                         </div>
                     </div> */}
+                    <HeaderComponent toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
-                    <div className="w-full h-full relative">
+                    <div className="w-full h-full">
                         <LayerSelector />
                         <MapShapeFile
                             isSidebarOpen={isSidebarOpen}
