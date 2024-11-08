@@ -23,20 +23,29 @@ function Content({ toggleSidebar, isSidebarOpen }) {
 
     const MapTypeList = {
         openStreetMap: {
+            title: 'openStreetMap',
             url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+            image: 'images/mapStyles/openStreetMap.png',
         },
         esriWorldImagery: {
+            title: 'Esri World Imagery',
             url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+            image: 'images/mapStyles/esriWorldImagery.jpeg',
         },
         esriWorldStreetMap: {
+            title: 'Esri World Street Map',
             url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+            image: '/images/mapStyles/esriWorldStreetMap.jpeg',
         },
         cartoDB: {
+            title: 'CartoDB',
             url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
-            image: 'https://automating-gis-processes.github.io/CSC/_images/OSM_logo.png',
+            image: '/images/mapStyles/cartoDB.png',
+        },
+        cartoDBDarkMatter: {
+            title: 'CartoDB Dark Matter',
+            url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+            image: '/images/mapStyles/cartoDBDarkMatter.png',
         },
     };
 

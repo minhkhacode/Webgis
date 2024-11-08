@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaRegCheckCircle } from 'react-icons/fa';
 
-function MapSetting({ isOpen, mapType, MapTypeList, handleChangeMapType }) {
+function ChartSetting({ isOpen, mapType, MapTypeList, handleChangeMapType }) {
     const [heading, setHeading] = useState(MapTypeList[mapType].title);
     const [selectedType, setSelectedType] = useState(mapType);
 
@@ -47,4 +47,4 @@ function MapSetting({ isOpen, mapType, MapTypeList, handleChangeMapType }) {
     );
 }
 
-export default MapSetting;
+export default ChartSetting;
