@@ -6,7 +6,7 @@ export default function UpdateMapCenter({ center }) {
 
     useEffect(() => {
         if (center) {
-            map.setView(center, map.getZoom());
+            map.flyTo(center, map.getZoom());
         }
     }, [center, map]);
 

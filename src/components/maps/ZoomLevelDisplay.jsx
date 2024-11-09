@@ -18,7 +18,7 @@ const ZoomLevelDisplay = () => {
     }, [map]);
 
     return (
-        <div className="absolute bottom-5 right-[16rem] bg-white bg-opacity-80 p-2 rounded-lg shadow z-[10000] ">
+        <div className="absolute bottom-5 right-[16rem] bg-[#3f4854] bg-opacity-80 p-2 rounded-lg shadow z-[10000] ">
             <span className="">Zoom Level: {zoomLevel}</span>
         </div>
     );

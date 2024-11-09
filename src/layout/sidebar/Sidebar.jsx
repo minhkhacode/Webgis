@@ -10,7 +10,6 @@ function Sidebar({ toggleSidebar, isOpen }) {
                 isOpen ? 'p-4 w-[400px] left-[0]' : 'w-[0] p-0 left-[-100%] pointer-events-none '
             }`}
         >
-            {/* Nút đóng sidebar */}
             <div className="close absolute top-2 right-2" onClick={toggleSidebar}>
                 <IoIosCloseCircleOutline className="text-2xl cursor-pointer" />
             </div>

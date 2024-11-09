@@ -53,14 +53,12 @@ function LayerSelector() {
     };
 
     const handleRegionChange = (event) => {
-        setSelectedRegion(event.target.value); // Update the selected region
+        setSelectedRegion(event.target.value);
     };
 
     return (
         <div className="absolute z-[10000] right-[1%] top-[10%]">
-            {/* Add gear icon for toggling map-list */}
             <div className="relative flex justify-end items-center space-x-4">
-                {/* Conditional rendering of map-list with animation */}
                 <div
                     className={`map-list absolute top-10 right-10 bg-gray-100 p-4 rounded-lg shadow-lg flex items-center flex-col min-w-1 transition-opacity transition-transform duration-300 ${
                         isMapListVisible
@@ -155,7 +153,6 @@ function LayerSelector() {
                         </label>
                     </div>
                 </div>
-                {/* Settings button */}
                 <button
                     onClick={toggleMapList}
                     className="p-2 m-2 rounded-full bg-white hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"

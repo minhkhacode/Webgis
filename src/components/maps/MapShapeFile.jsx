@@ -1,16 +1,15 @@
 import 'leaflet-minimap';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
-import { AttributionControl, MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import { useSelector } from 'react-redux';
-import { useEffect, useRef } from 'react';
 import MapLayers from './MapLayers';
 import ResetCenterButton from './ResetCenterButton';
 import CustomZoomControl from './CustomZoomControl';
 import UpdateMapCenter from './UpdateMapCenter';
-import ZoomLevelDisplay from './ZoomLevelDisplay';
-import MapHoverCoordinates from './MapHoverCoordinates';
 import MapResizeHandler from './MapResizeHandler';
+import MapInfoDisplay from './MapInfoDisplay';
+import LocationMarker from './LocationMarker';
 
 function MapShapeFile({ getJsonDataList, url, isSidebarOpen }) {
     const { area } = useSelector((state) => state.inputPrediction);
@@ -24,14 +23,11 @@ function MapShapeFile({ getJsonDataList, url, isSidebarOpen }) {
         { fillColor: 'purple', fillOpacity: '0.1', color: 'blue', fontWeight: '200' },
     ];
 
-    // const checkMapType = (type) => MapTypeList[type] || MapTypeList.esriWorldImagery;
-
     const getCurrentDate = () => {
         const today = new Date();
         const year = today.getFullYear();
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
-
         return `${year}-${month}-${day}`;
     };
 
@@ -48,19 +44,18 @@ function MapShapeFile({ getJsonDataList, url, isSidebarOpen }) {
             attributionControl={false}
             zoomControl={false}
         >
-            <ZoomLevelDisplay />
             <CustomZoomControl />
             <UpdateMapCenter center={mapCenter} />
             <ResetCenterButton center={mapCenter} />
-            <MapHoverCoordinates />
+            <MapInfoDisplay />
             <MapResizeHandler isSidebarOpen={isSidebarOpen} />
             <TileLayer
                 attribution='Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Map tiles by <a href="https://stamen.com">Stamen Design</a>'
                 url={url}
                 time={currentDate}
             />
-
             <MapLayers getJsonDataList={getJsonDataList} styles={CountryStyleList} />
+            <LocationMarker />
         </MapContainer>
     );
 }
