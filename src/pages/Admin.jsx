@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Sidebar from '../layout/sidebar/Sidebar';
-import Content from '../layout/content/Content';
 import LayerManagement from './LayerManagement';
 
 function Map() {
