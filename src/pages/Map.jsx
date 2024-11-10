@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Content, HeaderComponent, Sidebar } from '../layout';
+import { Content, Sidebar } from '../layout';
 
 function Map() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);

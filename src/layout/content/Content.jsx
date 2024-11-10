@@ -1,24 +1,22 @@
 // import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa6';
-import { GoSearch } from 'react-icons/go';
-import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+// import { FaBars } from 'react-icons/fa6';
+// import { GoSearch } from 'react-icons/go';
+// import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { HeaderComponent, MapShapeFile } from '../../components';
 
-import { Button, HeaderComponent, MapShapeFile } from '../../components';
-
-import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
-
+// import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 
 function Content({ toggleSidebar, isSidebarOpen }) {
-    const [isActive, setActivation] = useState('esriWorldImagery');
+    // const [isActive, setActivation] = useState('esriWorldImagery');
     const [mapType, setMapType] = useState('esriWorldImagery');
 
-    const { t } = useTranslation();
-    const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
+    // const { t } = useTranslation();
+    // const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
 
     const MapTypeList = {
