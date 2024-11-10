@@ -22,7 +22,7 @@ export default function ResetCenterButton({ center }) {
     const handleReset = () => {
         if (isResetting) return;
         setIsResetting(true);
-        map.setView(center);
+        map.flyTo(center, map.getZoom());
 
         timeoutRef.current = setTimeout(() => {
             setIsResetting(false);

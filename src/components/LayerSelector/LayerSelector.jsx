@@ -57,7 +57,7 @@ function LayerSelector() {
     };
 
     return (
-        <div className="absolute z-[10000] right-[1%] top-[10%]">
+        <div className="absolute z-[10000] right-5 top-[10%]">
             <div className="relative flex justify-end items-center space-x-4">
                 <div
                     className={`map-list absolute top-10 right-10 bg-gray-100 p-4 rounded-lg shadow-lg flex items-center flex-col min-w-1 transition-opacity transition-transform duration-300 ${
@@ -155,7 +155,7 @@ function LayerSelector() {
                 </div>
                 <button
                     onClick={toggleMapList}
-                    className="p-2 m-2 rounded-full bg-white hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"
+                    className="p-2 rounded-full bg-white hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"
                     title="Settings"
                 >
                     <IoIosSettings
