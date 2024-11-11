@@ -13,7 +13,7 @@ const store = configureStore({
         button: buttonReducer,
         layer: layerReducer,
         inputPrediction: inputPredictionReducer,
-        setting: chartReducer,
+        settings: chartReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

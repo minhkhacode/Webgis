@@ -1,61 +1,22 @@
 // import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa6';
-import { GoSearch } from 'react-icons/go';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { Button, HeaderComponent, MapShapeFile } from '../../components';
+import { HeaderComponent, MapShapeFile } from '../../components';
 
 import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
 
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
+import { selectSidebarStatus } from '../../features/setting/settingSlice.jsx';
 
-function Content({ toggleSidebar, isSidebarOpen }) {
-    const [isActive, setActivation] = useState('esriWorldImagery');
-    const [mapType, setMapType] = useState('esriWorldImagery');
-
+function Content() {
     const { t } = useTranslation();
     const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
 
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
-
-    const MapTypeList = {
-        openStreetMap: {
-            title: 'openStreetMap',
-            url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            image: 'images/mapStyles/openStreetMap.png',
-        },
-        esriWorldImagery: {
-            title: 'Esri World Imagery',
-            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            image: 'images/mapStyles/esriWorldImagery.jpeg',
-        },
-        esriWorldStreetMap: {
-            title: 'Esri World Street Map',
-            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-            image: '/images/mapStyles/esriWorldStreetMap.jpeg',
-        },
-        cartoDB: {
-            title: 'CartoDB',
-            url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
-            image: '/images/mapStyles/cartoDB.png',
-        },
-        cartoDBDarkMatter: {
-            title: 'CartoDB Dark Matter',
-            url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-            image: '/images/mapStyles/cartoDBDarkMatter.png',
-        },
-    };
-
-    const handleChangeMapType = (type) => {
-        setMapType(type);
-    };
-
-    // const handleSetActivation = (value) => {
-    //     setActivation(value);
-    // };
+    const isSidebarOpen = useSelector(selectSidebarStatus);
 
     // const handleOpenPredictForm = () => {
     //     setIsPredictFormOpen(!isPredictFormOpen);
@@ -128,35 +89,11 @@ function Content({ toggleSidebar, isSidebarOpen }) {
                         {isPredictFormOpen && <InputPrediction handleOpenPredictForm={handleOpenPredictForm} />}
                     </div> */}
 
-                    {/* <div className="search">
-                        <div className="search relative flex items-center">
-                            <i className="absolute left-4 cursor-pointer">
-                                <GoSearch />
-                            </i>
-                            <input
-                                className="w-full rounded-lg bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
-                                type="text"
-                                name=""
-                                id=""
-                                placeholder={t('inputPlaceHolder')}
-                            />
-                        </div>
-                    </div> */}
-                    <HeaderComponent
-                        toggleSidebar={toggleSidebar}
-                        isSidebarOpen={isSidebarOpen}
-                        mapType={mapType}
-                        MapTypeList={MapTypeList}
-                        handleChangeMapType={handleChangeMapType}
-                    />
+                    <HeaderComponent />
 
                     <div className="w-full h-full">
-                        <LayerSelector handleChangeMapType={handleChangeMapType} />
-                        <MapShapeFile
-                            isSidebarOpen={isSidebarOpen}
-                            url={MapTypeList[mapType].url}
-                            getJsonDataList={Object.values(compareLayer)}
-                        />
+                        <LayerSelector />
+                        <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
                     </div>
                 </div>
             </div>

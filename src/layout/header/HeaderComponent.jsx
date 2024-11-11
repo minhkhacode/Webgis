@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaChartBar, FaInfoCircle, FaAngleRight, FaMapMarkedAlt } from 'react-icons/fa';
 import MapSetting from '../../components/mapSetting/MapSetting';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSidebarStatus, toggleSidebar } from '../../features/setting/settingSlice';
 
-function HeaderComponent({ toggleSidebar, isSidebarOpen, mapType, MapTypeList, handleChangeMapType }) {
-    const [isMapSettingOpen, setIsMapSettingOpen] = useState(false);
+function HeaderComponent() {
+    const dispatch = useDispatch();
     const mapSettingRef = useRef(null);
+    const [isMapSettingOpen, setIsMapSettingOpen] = useState(false);
+
+    const isSidebarOpen = useSelector(selectSidebarStatus);
 
     const toggleMapSetting = (event) => {
         event.stopPropagation();
@@ -33,7 +38,7 @@ function HeaderComponent({ toggleSidebar, isSidebarOpen, mapType, MapTypeList, h
         <div className="header flex justify-between items-center mx-5 z-[10000] absolute top-6 left-0 right-0">
             <div className="flex gap-x-2 items-center">
                 <button
-                    onClick={toggleSidebar}
+                    onClick={() => dispatch(toggleSidebar())}
                     className={`flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition ${
                         isSidebarOpen ? 'hidden' : ''
                     }`}
@@ -55,12 +60,7 @@ function HeaderComponent({ toggleSidebar, isSidebarOpen, mapType, MapTypeList, h
                         <FaMapMarkedAlt className="mr-2" />
                         <span className="text-sm">Map Setting</span>
                     </button>
-                    <MapSetting
-                        mapType={mapType}
-                        MapTypeList={MapTypeList}
-                        isOpen={isMapSettingOpen}
-                        handleChangeMapType={handleChangeMapType}
-                    />
+                    <MapSetting isOpen={isMapSettingOpen} />
                 </div>
                 <div className="relative">
                     <button className="chart-setting flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition">

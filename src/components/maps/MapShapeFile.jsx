@@ -10,9 +10,13 @@ import UpdateMapCenter from './UpdateMapCenter';
 import MapResizeHandler from './MapResizeHandler';
 import MapInfoDisplay from './MapInfoDisplay';
 import LocationMarker from './LocationMarker';
+import { selectMapType, selectMapTypeList, selectSidebarStatus } from '../../features/setting/settingSlice.jsx';
 
-function MapShapeFile({ getJsonDataList, url, isSidebarOpen }) {
+function MapShapeFile({ getJsonDataList }) {
     const { area } = useSelector((state) => state.inputPrediction);
+    const mapType = useSelector(selectMapType);
+    const mapTypeList = useSelector(selectMapTypeList);
+    const isSidebarOpen = useSelector(selectSidebarStatus);
 
     const CountryStyleList = [
         { fillColor: 'pink', fillOpacity: '0.5', color: 'red', fontWeight: '200' },
@@ -51,7 +55,7 @@ function MapShapeFile({ getJsonDataList, url, isSidebarOpen }) {
             <MapResizeHandler isSidebarOpen={isSidebarOpen} />
             <TileLayer
                 attribution='Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Map tiles by <a href="https://stamen.com">Stamen Design</a>'
-                url={url}
+                url={mapTypeList[mapType].url}
                 time={currentDate}
             />
             <MapLayers getJsonDataList={getJsonDataList} styles={CountryStyleList} />

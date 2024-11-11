@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { FaRegCheckCircle } from 'react-icons/fa';
+import { selectMapType, selectMapTypeList, setMapType } from '../../features/setting/settingSlice.jsx';
+import { useSelector, useDispatch } from 'react-redux';
 
-function MapSetting({ isOpen, mapType, MapTypeList, handleChangeMapType }) {
+function MapSetting({ isOpen }) {
+    const mapType = useSelector(selectMapType);
+    const MapTypeList = useSelector(selectMapTypeList);
+
+    const dispatch = useDispatch();
+
     const [heading, setHeading] = useState(MapTypeList[mapType].title);
     const [selectedType, setSelectedType] = useState(mapType);
 
     const handleSelectMapType = (type) => {
         setSelectedType(type);
-        handleChangeMapType(type);
+        dispatch(setMapType(type));
     };
 
     return (
@@ -29,12 +36,12 @@ function MapSetting({ isOpen, mapType, MapTypeList, handleChangeMapType }) {
                             <button
                                 onClick={() => handleSelectMapType(type)}
                                 className={`relative flex items-center justify-center p-2 rounded-lg transition-all duration-300 ease-in-out ${
-                                    selectedType === type
+                                    mapType === type
                                         ? 'border-2 border-blue-500 scale-105 shadow-lg'
                                         : 'border-2 border-transparent'
                                 } hover:scale-105 hover:border-gray-300`}
                             >
-                                {selectedType === type && (
+                                {mapType === type && (
                                     <FaRegCheckCircle className="absolute top-1 right-1 text-blue-500" />
                                 )}
                                 <img src={MapTypeList[type].image} alt="" className="w-full h-auto rounded-md" />
