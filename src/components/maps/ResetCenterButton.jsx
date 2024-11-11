@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useMap } from 'react-leaflet';
 import { FaHome } from 'react-icons/fa';
 
@@ -6,36 +6,16 @@ export default function ResetCenterButton({ center }) {
     const map = useMap();
     const [isResetting, setIsResetting] = useState(false);
     const timeoutRef = useRef(null);
-    const [currentCenter, setCurrentCenter] = useState(center);
-
-    useEffect(() => {
-        const updateCenter = () => {
-            setCurrentCenter([map.getCenter().lat, map.getCenter().lng]);
-        };
-
-        map.on('moveend', updateCenter);
-
-        return () => {
-            map.off('moveend', updateCenter);
-        };
-    }, [map]);
 
     const handleReset = () => {
         if (isResetting) return;
         setIsResetting(true);
-        map.flyTo(center, map.getZoom());
+        map.flyTo(center, Math.round(map.getZoom()));
 
         timeoutRef.current = setTimeout(() => {
             setIsResetting(false);
         }, 1000);
     };
-
-    const isCloseToCenter = (currentCenter, center, tolerance = 0.0001) => {
-        return Math.abs(currentCenter[0] - center[0]) < tolerance && Math.abs(currentCenter[1] - center[1]) < tolerance;
-    };
-
-    // const isAtCenter = isCloseToCenter(currentCenter, center);
-    // if (isAtCenter) return null;
 
     return (
         <>

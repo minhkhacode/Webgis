@@ -1,18 +1,36 @@
-import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
-import L from 'leaflet';
+import { FaPlus, FaMinus, FaReact } from 'react-icons/fa';
 
-export default function CustomZoomControl() {
+function CustomZoomControl() {
     const map = useMap();
 
-    useEffect(() => {
-        const zoomControl = L.control.zoom({
-            position: 'bottomright',
-        });
-        zoomControl.addTo(map);
+    const zoomIn = () => {
+        map.setZoom(map.getZoom() + 1);
+    };
 
-        return () => map.removeControl(zoomControl);
-    }, [map]);
+    const zoomOut = () => {
+        map.setZoom(map.getZoom() - 1);
+    };
 
-    return null;
+    return (
+        <div className="absolute top-[10%] left-5 flex flex-col z-[1000] bg-white rounded-2xl shadow-lg">
+            <button
+                onClick={zoomIn}
+                className="group flex justify-center items-center p-2 rounded-t-2xl hover:bg-blue-500 transition-all duration-300 text-gray-600 hover:text-white"
+            >
+                <FaPlus className="text-sm" />
+            </button>
+            <div className="w-full h-[40px] bg-gray-300 flex justify-center items-center text-xl group hover:bg-blue-500 transition-all duration-300 text-gray-600 hover:text-white">
+                <FaReact />
+            </div>
+            <button
+                onClick={zoomOut}
+                className="group flex justify-center items-center p-2 rounded-b-2xl hover:bg-blue-500 transition-all duration-300 text-gray-600 hover:text-white"
+            >
+                <FaMinus className="text-sm" />
+            </button>
+        </div>
+    );
 }
+
+export default CustomZoomControl;

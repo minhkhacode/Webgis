@@ -32,13 +32,21 @@ function LocationMarker() {
     };
 
     const handleLocate = () => {
-        map.locate().on('locationfound', (e) => {
-            const { lat, lng } = e.latlng;
-            setPosition(e.latlng);
-            map.flyTo(e.latlng, map.getZoom());
-            getAddress(lat, lng);
-            setShowLocation(false);
-        });
+        map.locate({
+            setView: false,
+            maxZoom: 16,
+        })
+            .on('locationfound', (e) => {
+                const { lat, lng } = e.latlng;
+                setPosition(e.latlng);
+                map.flyTo(e.latlng, 16);
+                getAddress(lat, lng);
+                setShowLocation(false);
+            })
+            .on('locationerror', (e) => {
+                console.error('Không thể xác định vị trí:', e);
+                setShowLocation(false);
+            });
     };
 
     useEffect(() => {
@@ -53,7 +61,7 @@ function LocationMarker() {
                 onClick={() => setShowLocation(true)}
                 className="absolute z-[10000] top-[16%] right-5 flex items-center text-xl px-2 py-2 rounded-3xl bg-white hover:bg-blue-500 transition-all duration-500 ease-in-out text-gray-600 hover:text-white group"
             >
-                <FaLocationDot className="transition-transform duration-500 ease-in-out" />
+                <FaLocationDot />
                 <span className="overflow-hidden text-sm max-w-0 opacity-0 transform group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2 group-hover:translate-x-0 transition-all duration-500 ease-in-out whitespace-nowrap">
                     Your Location
                 </span>
