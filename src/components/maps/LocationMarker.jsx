@@ -51,10 +51,12 @@ function LocationMarker() {
         <>
             <button
                 onClick={() => setShowLocation(true)}
-                className="absolute z-[10000] top-[16%] right-5 flex items-center gap-2 text-2xl p-2 rounded-full bg-white hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"
+                className="absolute z-[10000] top-[16%] right-5 flex items-center text-xl px-2 py-2 rounded-3xl bg-white hover:bg-blue-500 transition-all duration-500 ease-in-out text-gray-600 hover:text-white group"
             >
-                <FaLocationDot className="transition-transform duration-300 group-hover:-translate-x-1" />
-                <span className="opacity-0 transition-opacity duration-300 group-hover:opacity-100">Your Location</span>
+                <FaLocationDot className="transition-transform duration-500 ease-in-out" />
+                <span className="overflow-hidden text-sm max-w-0 opacity-0 transform group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2 group-hover:translate-x-0 transition-all duration-500 ease-in-out whitespace-nowrap">
+                    Your Location
+                </span>
             </button>
 
             {position && (

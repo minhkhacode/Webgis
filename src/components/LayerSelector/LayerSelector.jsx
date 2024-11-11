@@ -4,7 +4,7 @@ import { toggleNN, togglePNN, toggleTQ } from '../../features/layer/layerSlice.j
 import { IoIosSettings } from 'react-icons/io';
 
 function LayerSelector() {
-    const [isMapListVisible, setIsMapListVisible] = useState(false); // state to control map-list visibility
+    const [isMapListVisible, setIsMapListVisible] = useState(false);
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
@@ -13,7 +13,6 @@ function LayerSelector() {
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
 
-    // Toggle function
     const toggleMapList = () => {
         setIsMapListVisible(!isMapListVisible);
     };
@@ -155,11 +154,11 @@ function LayerSelector() {
                 </div>
                 <button
                     onClick={toggleMapList}
-                    className="p-2 rounded-full bg-white hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"
+                    className="p-2 rounded-3xl text-xl bg-white hover:bg-blue-500 transition duration-300 text-gray-600 hover:text-white"
                     title="Settings"
                 >
                     <IoIosSettings
-                        className={`h-6 w-6 transform transition-transform duration-300 ${
+                        className={` transform transition-transform duration-300 ${
                             isMapListVisible ? 'rotate-90' : 'rotate-0'
                         }`}
                     />

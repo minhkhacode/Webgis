@@ -63,7 +63,7 @@ function HeaderComponent({ toggleSidebar, isSidebarOpen, mapType, MapTypeList, h
                     />
                 </div>
                 <div className="relative">
-                    <button className="flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition">
+                    <button className="chart-setting flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition">
                         <FaChartBar className="mr-2" />
                         <span className="text-sm">Chart</span>
                     </button>
