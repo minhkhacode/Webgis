@@ -1,12 +1,7 @@
-import { useState } from 'react';
-import { FaRegCheckCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { selectChartTypeList, selectCurrentChart } from '../../features/setting/settingSlice';
 
 function ChartSetting({ isOpen }) {
-    const chart = useSelector(selectCurrentChart);
-    console.log(chart);
-
     const chartList = useSelector(selectChartTypeList);
 
     return (
@@ -15,7 +10,17 @@ function ChartSetting({ isOpen }) {
                 isOpen ? 'scale-100' : 'scale-0'
             }`}
         >
-            {chart.element}
+            {Object.values(chartList).map((chart) => {
+                return (
+                    <div className="text-nowrap">
+                        <h2 className="">{chart.title}</h2>
+                        <img
+                            src="https://user-images.githubusercontent.com/738805/35692348-145d9cae-07b6-11e8-8136-6f9666be6459.png"
+                            alt=""
+                        />
+                    </div>
+                );
+            })}
         </div>
     );
 }

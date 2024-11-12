@@ -5,7 +5,7 @@ import { BarChart, LineChart, PieChart, SankeyChart } from '../../components/cha
 const initialState = {
     chartType: 'line',
     mapType: 'esriWorldImagery',
-    chartType: 'barChart',
+    chartType: 'sankeyChart',
     isSidebarOpen: true,
     mapTypeList: {
         openStreetMap: {
@@ -36,20 +36,20 @@ const initialState = {
     },
     chartTypeList: {
         barChart: {
-            title: 'bar chart',
-            element: <BarChart />,
+            title: 'Biểu đồ thống kê diện tích từng loại đất',
+            element: BarChart,
         },
         lineChart: {
             title: 'line chart',
-            element: <LineChart />,
+            element: LineChart,
         },
         pieChart: {
             title: 'pie chart',
-            element: <PieChart />,
+            element: PieChart,
         },
         sankeyChart: {
             title: 'sankey chart',
-            element: <SankeyChart />,
+            element: SankeyChart,
         },
     },
 };

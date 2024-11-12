@@ -69,7 +69,9 @@ const SankeyChart = () => {
 
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <Chart chartType="Sankey" width="100%" height="800px" data={data} options={options} />
+            <div className="w-full h-full max-w-[800px] max-h-[600px] aspect-w-4 aspect-h-3">
+                <Chart chartType="Sankey" width="100%" height="100%" data={data} options={options} />
+            </div>
         </div>
     );
 };
