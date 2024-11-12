@@ -1,9 +1,11 @@
 // redux/settingsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+import { BarChart, LineChart, PieChart, SankeyChart } from '../../components/charts/';
 
 const initialState = {
     chartType: 'line',
     mapType: 'esriWorldImagery',
+    chartType: 'barChart',
     isSidebarOpen: true,
     mapTypeList: {
         openStreetMap: {
@@ -32,6 +34,24 @@ const initialState = {
             image: '/images/mapStyles/cartoDBDarkMatter.png',
         },
     },
+    chartTypeList: {
+        barChart: {
+            title: 'bar chart',
+            element: <BarChart />,
+        },
+        lineChart: {
+            title: 'line chart',
+            element: <LineChart />,
+        },
+        pieChart: {
+            title: 'pie chart',
+            element: <PieChart />,
+        },
+        sankeyChart: {
+            title: 'sankey chart',
+            element: <SankeyChart />,
+        },
+    },
 };
 
 const settingsSlice = createSlice({
@@ -45,8 +65,6 @@ const settingsSlice = createSlice({
             state.mapType = action.payload;
         },
         toggleSidebar: (state) => {
-            console.log(state.isSidebarOpen);
-
             state.isSidebarOpen = !state.isSidebarOpen;
         },
     },
@@ -57,6 +75,8 @@ export const selectChartType = (state) => state.settings.chartType;
 export const selectMapType = (state) => state.settings.mapType;
 export const selectMapTypeList = (state) => state.settings.mapTypeList;
 export const selectSidebarStatus = (state) => state.settings.isSidebarOpen;
+export const selectCurrentChart = (state) => state.settings.chartTypeList[state.settings.chartType];
+export const selectChartTypeList = (state) => state.settings.chartTypeList;
 
 export const { setChartType, setMapType, toggleSidebar } = settingsSlice.actions;
 export default settingsSlice.reducer;
