@@ -34,18 +34,40 @@ const PieChart = () => {
     const options = {
         responsive: true,
         plugins: {
-            legend: {
-                position: 'left', // Position of the legend (top, bottom, left, right)
-            },
             tooltip: {
                 enabled: true,
+            },
+            title: {
+                display: true,
+                text: 'Sales Data (2023)',
+            },
+            legend: {
+                display: false, // Disable the legend
+            },
+        },
+    };
+
+    const options2 = {
+        responsive: true,
+        plugins: {
+            tooltip: {
+                enabled: true,
+            },
+            title: {
+                display: true,
+                text: 'Sales Data (2023)',
             },
         },
     };
 
     return (
-        <div className="w-full max-custom:w-1/2 max-custom:w-1/3">
-            <Pie data={data} options={options} />
+        <div className="w-full h-full flex justify-between items-center">
+            <div className="w-[48%] h-full">
+                <Pie data={data} options={options} />
+            </div>
+            <div className="w-[48%] h-full">
+                <Pie data={data} options={options} />
+            </div>
         </div>
     );
 };
