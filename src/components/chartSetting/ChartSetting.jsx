@@ -1,8 +1,19 @@
-import { useSelector } from 'react-redux';
-import { selectChartTypeList, selectCurrentChart } from '../../features/setting/settingSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectChartTypeList, selectCurrentChart, setChartType } from '../../features/setting/settingSlice';
+import { useState } from 'react';
+import { FaRegCheckCircle } from 'react-icons/fa';
 
 function ChartSetting({ isOpen }) {
+    const currentChart = useSelector(selectCurrentChart);
     const chartList = useSelector(selectChartTypeList);
+    const dispatch = useDispatch();
+
+    const [selectedType, setSelectedType] = useState(currentChart.title);
+
+    const handleSelectChart = (chartName) => {
+        setSelectedType(chartList[chartName].title);
+        dispatch(setChartType(chartName));
+    };
 
     return (
         <div
@@ -10,17 +21,31 @@ function ChartSetting({ isOpen }) {
                 isOpen ? 'scale-100' : 'scale-0'
             }`}
         >
-            {Object.values(chartList).map((chart) => {
-                return (
-                    <div className="text-nowrap">
-                        <h2 className="">{chart.title}</h2>
+            <div className="flex flex-col gap-2 w-[250px] cursor-pointer">
+                {Object.keys(chartList).map((chartName, index) => (
+                    <div
+                        className={`relative text-nowrap rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:border-[#dadbd6] hover:bg-opacity-80 hover:shadow-lg ${
+                            selectedType === chartList[chartName].title
+                                ? 'border-2 border-blue-500'
+                                : 'border border-transparent'
+                        }`}
+                        key={index}
+                        onClick={() => handleSelectChart(chartName)}
+                    >
+                        <h2 className="absolute w-full p-1 bg-[#dadbd6] bg-opacity-[0.5] rounded-b bottom-0 text-white text-xs font-bold text-center transition-all duration-300">
+                            {chartList[chartName].title}
+                        </h2>
+                        {selectedType === chartList[chartName].title && (
+                            <FaRegCheckCircle className="absolute top-1 right-1 text-blue-500" />
+                        )}
                         <img
+                            className="w-full h-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105"
                             src="https://user-images.githubusercontent.com/738805/35692348-145d9cae-07b6-11e8-8136-6f9666be6459.png"
-                            alt=""
+                            alt={chartList[chartName].title}
                         />
                     </div>
-                );
-            })}
+                ))}
+            </div>
         </div>
     );
 }

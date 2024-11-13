@@ -9,6 +9,7 @@ import InputPrediction from '../../components/inputPrediction/InputPredictionCom
 
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 import { selectSidebarStatus } from '../../features/setting/settingSlice.jsx';
+import ChartTab from '../../components/charts/ChartTab.jsx';
 
 function Content() {
     const { t } = useTranslation();
@@ -94,6 +95,7 @@ function Content() {
                     <div className="w-full h-full">
                         <LayerSelector />
                         <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
+                        <ChartTab />
                     </div>
                 </div>
             </div>
