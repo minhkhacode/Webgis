@@ -56,7 +56,7 @@ function LayerSelector() {
     };
 
     return (
-        <div className="absolute z-[10000] right-5 top-[10%]">
+        <div className="absolute z-[9998] right-5 top-[10%]">
             <div className="relative flex justify-end items-center space-x-4">
                 <div
                     className={`map-list absolute top-10 right-10 bg-gray-100 p-4 rounded-lg shadow-lg flex items-center flex-col min-w-1 transition-opacity transition-transform duration-300 ${

@@ -32,17 +32,18 @@ const BarChart = () => {
     const options = {
         responsive: true,
         maintainAspectRatio: false,
-        animation: {
-            duration: 0,
-        },
         plugins: {
-            legend: {
-                position: 'top',
-            },
             title: {
                 display: true,
                 text: 'Sales Data (2023)',
             },
+            legend: {
+                display: false, // Disable the legend
+            },
+        },
+        animation: {
+            duration: 1000, // Duration of the animation in milliseconds
+            easing: 'easeInOutBounce', // Easing function for the animation
         },
     };
 

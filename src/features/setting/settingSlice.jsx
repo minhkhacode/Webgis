@@ -37,18 +37,22 @@ const initialState = {
     chartTypeList: {
         barChart: {
             title: 'Biểu đồ thống kê diện tích từng loại đất',
+            image: '/images/chartStyles/barChart.png',
             element: BarChart,
         },
         lineChart: {
             title: 'line chart',
+            image: '/images/chartStyles/lineChart.png',
             element: LineChart,
         },
         pieChart: {
             title: 'pie chart',
+            image: '/images/chartStyles/sankeyChart.png',
             element: PieChart,
         },
         sankeyChart: {
             title: 'sankey chart',
+            image: '/images/chartStyles/pieChart.png',
             element: SankeyChart,
         },
     },

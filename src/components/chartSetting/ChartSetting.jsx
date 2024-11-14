@@ -40,7 +40,7 @@ function ChartSetting({ isOpen }) {
                         )}
                         <img
                             className="w-full h-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105"
-                            src="https://user-images.githubusercontent.com/738805/35692348-145d9cae-07b6-11e8-8136-6f9666be6459.png"
+                            src={chartList[chartName].image}
                             alt={chartList[chartName].title}
                         />
                     </div>

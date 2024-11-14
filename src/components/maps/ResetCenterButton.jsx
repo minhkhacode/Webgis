@@ -20,7 +20,7 @@ export default function ResetCenterButton({ center }) {
     return (
         <>
             <button
-                className={`absolute z-[10000] top-[22%] right-5 flex items-center text-xl px-2 py-2 rounded-3xl bg-white hover:bg-blue-500 transition-all duration-500 ease-in-out text-gray-600 hover:text-white group ${
+                className={`absolute z-[9998] top-[22%] right-5 flex items-center text-xl px-2 py-2 rounded-3xl bg-white hover:bg-blue-500 transition-all duration-500 ease-in-out text-gray-600 hover:text-white group ${
                     isResetting ? 'opacity-50' : 'opacity-100'
                 }`}
                 onClick={handleReset}

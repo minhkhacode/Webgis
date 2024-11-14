@@ -2,8 +2,14 @@ import { useState } from 'react';
 import BarChart from './BarChart';
 import { FaCompressAlt, FaExpandAlt } from 'react-icons/fa';
 import PieChart from './PieChart';
+import SankeyChart from './SankeyChart';
+import { useSelector } from 'react-redux';
+import { selectCurrentChart } from '../../features/setting/settingSlice';
 
 function ChartTab() {
+    const ChartElement = useSelector(selectCurrentChart).element;
+    console.log('chart tab:', ChartElement);
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleExpand = () => {
@@ -30,8 +36,10 @@ function ChartTab() {
                     {isExpanded ? <FaCompressAlt /> : <FaExpandAlt />}
                 </button>
                 <div className={`transition-all w-full h-full flex justify-center items-center`}>
-                    {/* <BarChart /> */}
-                    <PieChart />
+                    {/* <BarChart isExpanded={isExpanded} /> */}
+                    {/* <PieChart isExpanded={isExpanded} /> */}
+                    {/* <SankeyChart isExpanded={isExpanded} /> */}
+                    <ChartElement isExpanded={isExpanded} />
                 </div>
             </div>
         </div>
