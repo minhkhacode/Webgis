@@ -23,6 +23,13 @@ const layerSlice = createSlice({
         togglePNN: (state, action) => {
             state.compareLayer.PNN = state.compareLayer.PNN !== null ? null : action.payload;
         },
+        resetCompareLayer: (state) => {
+            state.compareLayer = {
+                NN: null,
+                PNN: null,
+                TQ: null,
+            };
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -51,6 +58,6 @@ const layerSlice = createSlice({
     },
 });
 
-export const { toggleTQ, toggleNN, togglePNN } = layerSlice.actions;
+export const { toggleTQ, toggleNN, togglePNN, resetCompareLayer } = layerSlice.actions;
 
 export default layerSlice.reducer;

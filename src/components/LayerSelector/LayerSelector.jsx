@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleNN, togglePNN, toggleTQ } from '../../features/layer/layerSlice.jsx';
+import { toggleNN, togglePNN, toggleTQ, resetCompareLayer } from '../../features/layer/layerSlice.jsx';
 import { IoIosSettings } from 'react-icons/io';
 import { FaRegCheckCircle } from 'react-icons/fa';
 
 function LayerSelector() {
     const [isMapListVisible, setIsMapListVisible] = useState(false);
-    const mapListRef = useRef(null); // Tạo ref để kiểm tra click bên ngoài
+    const mapListRef = useRef(null);
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
-    const [selectedRegion, setSelectedRegion] = useState('');
+    const [selectedRegion, setSelectedRegion] = useState('thuanhoa');
 
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
@@ -22,7 +22,7 @@ function LayerSelector() {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (mapListRef.current && !mapListRef.current.contains(event.target)) {
-                setIsMapListVisible(false); // Đóng LayerSelector khi click ngoài component
+                setIsMapListVisible(false);
             }
         };
 
@@ -40,24 +40,35 @@ function LayerSelector() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responsePNN = await fetch('/PNN.geojson');
+                const responsePNN = await fetch(
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_nn_2022&outputFormat=application%2Fjson`,
+                );
+
                 const dataPNN = await responsePNN.json();
+
                 setPNN(dataPNN);
 
-                const responseNN = await fetch('/NN.geojson');
+                const responseNN = await fetch(
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_pnn_2022&outputFormat=application%2Fjson`,
+                );
                 const dataNN = await responseNN.json();
+
                 setNN(dataNN);
 
-                const responseTQ = await fetch('/TQ.geojson');
+                const responseTQ = await fetch(
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_2022&outputFormat=application%2Fjson`,
+                );
                 const dataTQ = await responseTQ.json();
                 setTQ(dataTQ);
             } catch (error) {
-                console.error('Error loading GeoJSON:', error);
+                setPNN((prev) => null);
+                setNN((prev) => null);
+                setTQ((prev) => null);
+                // console.error('Error loading GeoJSON:', error);
             }
         };
-
         fetchData();
-    }, []);
+    }, [selectedRegion]);
 
     const handleToggleNN = () => {
         dispatch(toggleNN({ ...NN }));
@@ -72,6 +83,7 @@ function LayerSelector() {
     };
 
     const handleRegionChange = (event) => {
+        dispatch(resetCompareLayer());
         setSelectedRegion(event.target.value);
     };
 
@@ -92,9 +104,9 @@ function LayerSelector() {
                             className="w-full border border-gray-300 rounded-lg p-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
                         >
                             <option value="">{'-- Select Region --'}</option>
-                            <option value="region1">Region 1</option>
-                            <option value="region2">Region 2</option>
-                            <option value="region3">Region 3</option>
+                            <option value="thuanhoa">Thuận Hòa</option>
+                            <option value="chauthanh">Châu Thành</option>
+                            <option value="culaodung">Cù Lao Dung</option>
                         </select>
                     </div>
                     <div className="flex flex-col gap-2">
