@@ -15,19 +15,20 @@ const layerSlice = createSlice({
     },
     reducers: {
         toggleTQ: (state, action) => {
-            // Không cần gán loading ở đây
-
             state.compareLayer.TQ = state.compareLayer.TQ !== null ? null : action.payload;
         },
         toggleNN: (state, action) => {
-            // Không cần gán loading ở đây
-
             state.compareLayer.NN = state.compareLayer.NN !== null ? null : action.payload;
         },
         togglePNN: (state, action) => {
-            // Không cần gán loading ở đây
-
             state.compareLayer.PNN = state.compareLayer.PNN !== null ? null : action.payload;
+        },
+        resetCompareLayer: (state) => {
+            state.compareLayer = {
+                NN: null,
+                PNN: null,
+                TQ: null,
+            };
         },
     },
     extraReducers: (builder) => {
@@ -44,7 +45,6 @@ const layerSlice = createSlice({
                 state.error = action.error.message;
             })
             .addCase(fetchNNGeoJson.pending, (state) => {
-                // Sửa 'addcase' thành 'addCase'
                 state.loading = true;
             })
             .addCase(fetchNNGeoJson.fulfilled, (state, action) => {
@@ -52,13 +52,12 @@ const layerSlice = createSlice({
                 state.layer = action.payload;
             })
             .addCase(fetchNNGeoJson.rejected, (state, action) => {
-                // Thêm phần xử lý lỗi cho fetchNNGeoJson
                 state.loading = false;
                 state.error = action.error.message;
             });
     },
 });
 
-export const { toggleTQ, toggleNN, togglePNN } = layerSlice.actions;
+export const { toggleTQ, toggleNN, togglePNN, resetCompareLayer } = layerSlice.actions;
 
 export default layerSlice.reducer;
