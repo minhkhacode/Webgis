@@ -1,13 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { selectChartTypeList, selectCurrentChart, setChartType } from '../../features/setting/settingSlice';
 import { useState } from 'react';
 import { FaRegCheckCircle } from 'react-icons/fa';
 
-function ChartSetting({ isOpen, mapType, MapTypeList, handleChangeMapType }) {
-    const [heading, setHeading] = useState(MapTypeList[mapType].title);
-    const [selectedType, setSelectedType] = useState(mapType);
+function ChartSetting({ isOpen }) {
+    const currentChart = useSelector(selectCurrentChart);
+    const chartList = useSelector(selectChartTypeList);
+    const dispatch = useDispatch();
 
-    const handleSelectMapType = (type) => {
-        setSelectedType(type);
-        handleChangeMapType(type);
+    const [selectedType, setSelectedType] = useState(currentChart.title);
+
+    const handleSelectChart = (chartName) => {
+        setSelectedType(chartList[chartName].title);
+        dispatch(setChartType(chartName));
     };
 
     return (
@@ -16,32 +21,30 @@ function ChartSetting({ isOpen, mapType, MapTypeList, handleChangeMapType }) {
                 isOpen ? 'scale-100' : 'scale-0'
             }`}
         >
-            <div>
-                <h2 className="text-lg text-white font-semibold mb-3">{heading}</h2>
-                <ul className="map-type-list flex flex-wrap min-w-[300px]">
-                    {Object.keys(MapTypeList).map((type, index) => (
-                        <li
-                            key={index}
-                            className="w-1/3 p-2 relative"
-                            onMouseOver={() => setHeading(MapTypeList[type].title)}
-                            onMouseLeave={() => setHeading(MapTypeList[mapType].title)}
-                        >
-                            <button
-                                onClick={() => handleSelectMapType(type)}
-                                className={`relative flex items-center justify-center p-2 rounded-lg transition-all duration-300 ease-in-out ${
-                                    selectedType === type
-                                        ? 'border-2 border-blue-500 scale-105 shadow-lg'
-                                        : 'border-2 border-transparent'
-                                } hover:scale-105 hover:border-gray-300`}
-                            >
-                                {selectedType === type && (
-                                    <FaRegCheckCircle className="absolute top-1 right-1 text-blue-500" />
-                                )}
-                                <img src={MapTypeList[type].image} alt="" className="w-full h-auto rounded-md" />
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+            <div className="flex flex-col gap-2 w-[250px] cursor-pointer">
+                {Object.keys(chartList).map((chartName, index) => (
+                    <div
+                        className={`relative text-nowrap rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:border-[#dadbd6] hover:bg-opacity-80 hover:shadow-lg ${
+                            selectedType === chartList[chartName].title
+                                ? 'border-2 border-blue-500'
+                                : 'border border-transparent'
+                        }`}
+                        key={index}
+                        onClick={() => handleSelectChart(chartName)}
+                    >
+                        <h2 className="absolute w-full p-1 bg-[#dadbd6] bg-opacity-[0.5] rounded-b bottom-0 text-white text-xs font-bold text-center transition-all duration-300">
+                            {chartList[chartName].title}
+                        </h2>
+                        {selectedType === chartList[chartName].title && (
+                            <FaRegCheckCircle className="absolute top-1 right-1 text-blue-500" />
+                        )}
+                        <img
+                            className="w-full h-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105"
+                            src={chartList[chartName].image}
+                            alt={chartList[chartName].title}
+                        />
+                    </div>
+                ))}
             </div>
         </div>
     );

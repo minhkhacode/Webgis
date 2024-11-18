@@ -1,19 +1,35 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaChartBar, FaInfoCircle, FaAngleRight, FaMapMarkedAlt } from 'react-icons/fa';
 import MapSetting from '../../components/mapSetting/MapSetting';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSidebarStatus, toggleSidebar } from '../../features/setting/settingSlice';
+import ChartSetting from '../../components/chartSetting/ChartSetting';
 
-function HeaderComponent({ toggleSidebar, isSidebarOpen, mapType, MapTypeList, handleChangeMapType }) {
-    const [isMapSettingOpen, setIsMapSettingOpen] = useState(false);
+function HeaderComponent() {
+    const dispatch = useDispatch();
     const mapSettingRef = useRef(null);
+    const chartSettingRef = useRef(null);
+    const [isMapSettingOpen, setIsMapSettingOpen] = useState(false);
+    const [isChartSettingOpen, setIsChartSettingOpen] = useState(false);
+
+    const isSidebarOpen = useSelector(selectSidebarStatus);
 
     const toggleMapSetting = (event) => {
         event.stopPropagation();
         setIsMapSettingOpen((prev) => !prev);
     };
 
+    const toggleChartSetting = (event) => {
+        event.stopPropagation();
+        setIsChartSettingOpen((prev) => !prev);
+    };
+
     const handleClickOutside = (event) => {
-        if (mapSettingRef.current && !mapSettingRef.current.contains(event.target)) {
+        if (isMapSettingOpen && mapSettingRef.current && !mapSettingRef.current.contains(event.target)) {
             setIsMapSettingOpen(false);
+        }
+        if (isChartSettingOpen && chartSettingRef.current && !chartSettingRef.current.contains(event.target)) {
+            setIsChartSettingOpen(false);
         }
     };
 
@@ -29,11 +45,23 @@ function HeaderComponent({ toggleSidebar, isSidebarOpen, mapType, MapTypeList, h
         };
     }, [isMapSettingOpen]);
 
+    useEffect(() => {
+        if (isChartSettingOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isChartSettingOpen]);
+
     return (
         <div className="header flex justify-between items-center mx-5 z-[10000] absolute top-6 left-0 right-0">
             <div className="flex gap-x-2 items-center">
                 <button
-                    onClick={toggleSidebar}
+                    onClick={() => dispatch(toggleSidebar())}
                     className={`flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition ${
                         isSidebarOpen ? 'hidden' : ''
                     }`}
@@ -55,18 +83,17 @@ function HeaderComponent({ toggleSidebar, isSidebarOpen, mapType, MapTypeList, h
                         <FaMapMarkedAlt className="mr-2" />
                         <span className="text-sm">Map Setting</span>
                     </button>
-                    <MapSetting
-                        mapType={mapType}
-                        MapTypeList={MapTypeList}
-                        isOpen={isMapSettingOpen}
-                        handleChangeMapType={handleChangeMapType}
-                    />
+                    <MapSetting isOpen={isMapSettingOpen} />
                 </div>
-                <div className="relative">
-                    <button className="flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition">
+                <div ref={chartSettingRef} className="relative">
+                    <button
+                        onClick={toggleChartSetting}
+                        className="chart-setting flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition"
+                    >
                         <FaChartBar className="mr-2" />
                         <span className="text-sm">Chart</span>
                     </button>
+                    <ChartSetting isOpen={isChartSettingOpen} />
                 </div>
             </div>
         </div>

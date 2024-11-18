@@ -1,16 +1,19 @@
 import { CiSearch } from 'react-icons/ci';
 import { IoMdCloudDownload, IoIosCloseCircleOutline } from 'react-icons/io';
 import { MdUpload } from 'react-icons/md';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSidebarStatus, toggleSidebar } from '../../features/setting/settingSlice';
 
-function Sidebar({ toggleSidebar, isOpen }) {
+function Sidebar() {
+    const dispatch = useDispatch();
+    const isOpen = useSelector(selectSidebarStatus);
     return (
         <div
             className={` relative h-screen bg-gray-800 text-white flex flex-col  transition-all duration-300  top-0 ${
                 isOpen ? 'p-4 w-[400px] left-[0]' : 'w-[0] p-0 left-[-100%] pointer-events-none '
             }`}
         >
-            <div className="close absolute top-2 right-2" onClick={toggleSidebar}>
+            <div className="close absolute top-2 right-2" onClick={() => dispatch(toggleSidebar())}>
                 <IoIosCloseCircleOutline className="text-2xl cursor-pointer" />
             </div>
 

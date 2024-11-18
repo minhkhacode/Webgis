@@ -1,75 +1,126 @@
-import { Chart } from 'react-google-charts';
+import { useEffect, useRef } from 'react';
+import { Chart } from 'chart.js';
+import 'chartjs-chart-sankey'; // Import the Sankey plugin
+import { SankeyController, Flow } from 'chartjs-chart-sankey';
 
-const SankeyChart = () => {
-    const data = [
-        ['From', 'To', 'Weight'],
-        ['BHK', 'Cay lau nam', 1833],
-        ['BHK', 'Lua', 1344],
-        ['BHK', 'Rung', 526],
-        ['CLN', 'Cay hang nam', 515],
-        ['CLN', 'Dat xay dung', 360],
-        ['CLN', 'Lua', 847],
-        ['CLN', 'Rung', 776],
-        ['DGT', 'Cay hang nam', 1273],
-        ['DGT', 'Cay lau nam', 2492],
-        ['DGT', 'Lua', 2544],
-        ['DGT', 'Rung', 538],
-        ['DRA', 'Cay lau nam', 108],
-        ['DTL', 'Cay hang nam', 1038],
-        ['DTL', 'Cay lau nam', 2736],
-        ['DTL', 'Dat xay dung', 255],
-        ['DTL', 'Lua', 2482],
-        ['DTL', 'Rung', 401],
-        ['LUC', 'Cay hang nam', 1586],
-        ['LUC', 'Cay lau nam', 4359],
-        ['LUC', 'Dat xay dung', 188],
-        ['LUC', 'Rung', 727],
-        ['NKH', 'Cay hang nam', 453],
-        ['NKH', 'Dat xay dung', 490],
-        ['NKH', 'Lua', 376],
-        ['NKH', 'Rung', 138],
-        ['NTS', 'Cay hang nam', 211],
-        ['NTS', 'Cay lau nam', 332],
-        ['NTS', 'Lua', 398],
-        ['ONT', 'Cay hang nam', 118],
-        ['ONT', 'Cay lau nam', 266],
-        ['SKC', 'Cay hang nam', 356],
-        ['SKC', 'Cay lau nam', 236],
-        ['SKC', 'Rung', 693],
-        ['SON', 'Cay hang nam', 1129],
-        ['SON', 'Cay lau nam', 795],
-        ['SON', 'Dat xay dung', 386],
-        ['SON', 'Rung', 475],
-        ['TQ', 'Cay hang nam', 1638],
-        ['TQ', 'Cay lau nam', 7314],
-        ['TQ', 'Dat xay dung', 2336],
-        ['TQ', 'Lua', 2919],
-        ['TQ', 'Rung', 991],
-    ];
+Chart.register(SankeyController, Flow);
 
-    const options = {
-        sankey: {
-            node: {
-                label: {
-                    fontSize: 14,
-                    bold: true,
-                    color: '#333333',
+const SankeyChart = ({ isExpanded }) => {
+    const chartRef = useRef(null);
+    const chartInstance = useRef(null);
+
+    useEffect(() => {
+        const ctx = chartRef.current.getContext('2d');
+
+        const colors = {
+            BHK: 'red',
+            CLN: 'green',
+            DGT: 'blue',
+            DRA: 'gray',
+            DTL: 'orange',
+            LUC: 'purple',
+            NKH: 'brown',
+            NTS: 'yellow',
+            ONT: 'cyan',
+            SKC: 'pink',
+            SON: 'teal',
+            TQ: 'gold',
+            'Cay lau nam': 'darkgreen',
+            Lua: 'lightgreen',
+            Rung: 'forestgreen',
+            'Cay hang nam': 'lightblue',
+            'Dat xay dung': 'gray',
+        };
+
+        const getHover = (key) => colors[key] || 'gray';
+        const getColor = (key) => colors[key] || 'gray';
+
+        if (chartInstance.current) chartInstance.current.destroy();
+
+        chartInstance.current = new Chart(ctx, {
+            type: 'sankey',
+            data: {
+                datasets: [
+                    {
+                        label: 'My Sankey Chart',
+                        data: [
+                            { from: 'BHK', to: 'Cay lau nam', flow: 1833 },
+                            { from: 'BHK', to: 'Lua', flow: 1344 },
+                            { from: 'BHK', to: 'Rung', flow: 526 },
+                            { from: 'CLN', to: 'Cay hang nam', flow: 515 },
+                            { from: 'CLN', to: 'Dat xay dung', flow: 360 },
+                            { from: 'CLN', to: 'Lua', flow: 847 },
+                            { from: 'CLN', to: 'Rung', flow: 776 },
+                            { from: 'DGT', to: 'Cay hang nam', flow: 1273 },
+                            { from: 'DGT', to: 'Cay lau nam', flow: 2492 },
+                            { from: 'DGT', to: 'Lua', flow: 2544 },
+                            { from: 'DGT', to: 'Rung', flow: 538 },
+                            { from: 'DRA', to: 'Cay lau nam', flow: 108 },
+                            { from: 'DTL', to: 'Cay hang nam', flow: 1038 },
+                            { from: 'DTL', to: 'Cay lau nam', flow: 2736 },
+                            { from: 'DTL', to: 'Dat xay dung', flow: 255 },
+                            { from: 'DTL', to: 'Lua', flow: 2482 },
+                            { from: 'DTL', to: 'Rung', flow: 401 },
+                            { from: 'LUC', to: 'Cay hang nam', flow: 1586 },
+                            { from: 'LUC', to: 'Cay lau nam', flow: 4359 },
+                            { from: 'LUC', to: 'Dat xay dung', flow: 188 },
+                            { from: 'LUC', to: 'Rung', flow: 727 },
+                            { from: 'NKH', to: 'Cay hang nam', flow: 453 },
+                            { from: 'NKH', to: 'Dat xay dung', flow: 490 },
+                            { from: 'NKH', to: 'Lua', flow: 376 },
+                            { from: 'NKH', to: 'Rung', flow: 138 },
+                            { from: 'NTS', to: 'Cay hang nam', flow: 211 },
+                            { from: 'NTS', to: 'Cay lau nam', flow: 332 },
+                            { from: 'NTS', to: 'Lua', flow: 398 },
+                            { from: 'ONT', to: 'Cay hang nam', flow: 118 },
+                            { from: 'ONT', to: 'Cay lau nam', flow: 266 },
+                            { from: 'SKC', to: 'Cay hang nam', flow: 356 },
+                            { from: 'SKC', to: 'Cay lau nam', flow: 236 },
+                            { from: 'SKC', to: 'Rung', flow: 693 },
+                            { from: 'SON', to: 'Cay hang nam', flow: 1129 },
+                            { from: 'SON', to: 'Cay lau nam', flow: 795 },
+                            { from: 'SON', to: 'Dat xay dung', flow: 386 },
+                            { from: 'SON', to: 'Rung', flow: 475 },
+                            { from: 'TQ', to: 'Cay hang nam', flow: 1638 },
+                            { from: 'TQ', to: 'Cay lau nam', flow: 7314 },
+                            { from: 'TQ', to: 'Dat xay dung', flow: 2336 },
+                            { from: 'TQ', to: 'Lua', flow: 2919 },
+                            { from: 'TQ', to: 'Rung', flow: 991 },
+                        ],
+                        colorFrom: (c) => getColor(c.dataset.data[c.dataIndex].from),
+                        colorTo: (c) => getColor(c.dataset.data[c.dataIndex].to),
+                        hoverColorFrom: (c) => getHover(c.dataset.data[c.dataIndex].from),
+                        hoverColorTo: (c) => getHover(c.dataset.data[c.dataIndex].to),
+                        colorMode: 'gradient',
+                        alpha: 1,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Sankey Diagram of Land Use Changes',
+                        font: {
+                            size: isExpanded ? 18 : 10,
+                            weight: 'bold',
+                        },
+                        color: '#333', // Title color
+                    },
                 },
-                interactivity: true,
-                width: 15,
-                colors: ['#6baed6', '#3182bd', '#9ecae1', '#31a354', '#a1d99b', '#d62728'],
             },
-            link: {
-                colorMode: 'gradient',
-                colors: ['#d73027', '#fee08b', '#1a9850'],
-                opacity: 0.6,
-            },
-        },
-    };
+        });
+
+        return () => {
+            if (chartInstance.current) chartInstance.current.destroy();
+        };
+    }, [isExpanded]);
 
     return (
-        <div className="w-full h-full flex justify-center items-center">
-            <Chart chartType="Sankey" width="100%" height="800px" data={data} options={options} />
+        <div className={`w-full h-full ${isExpanded ? 'p-4' : 'p-2'}`}>
+            <canvas ref={chartRef}></canvas>
         </div>
     );
 };
