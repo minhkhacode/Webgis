@@ -17,6 +17,99 @@
     width: calc(100% - 400px);
 }
 
+
+@keyframes zoomFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-zoomFadeIn {
+    animation: zoomFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes zoomFadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+.animate-zoomFadeIn {
+    animation: zoomFadeIn 0.6s ease-out forwards;
+}
+
+.animate-zoomFadeOut {
+    animation: zoomFadeOut 0.6s ease-out forwards;
+}
+
+.custom-td-hover:hover {
+    background-color: #fff842;
+    color: #403e10;
+    font-weight: bold;
+
+    /* Multiple box shadows */
+    box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px, #7f7c21 -4px 4px, #7f7c21 -5px 5px,
+        #7f7c21 -6px 6px;
+    transform: translate3d(6px, -6px, 0);
+
+    /* Transition properties */
+    transition-delay: 0s;
+    transition-duration: 0.4s;
+    transition-property: all;
+    transition-timing-function: linear;
+}
+
+.custom-td-hover-delete:hover {
+    background-color: #fff842;
+    color: #d22b2b;
+    font-weight: bold;
+
+    /* Multiple box shadows */
+    box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px, #7f7c21 -4px 4px, #7f7c21 -5px 5px,
+        #7f7c21 -6px 6px;
+    transform: translate3d(6px, -6px, 0);
+
+    /* Transition properties */
+    transition-delay: 0s;
+    transition-duration: 0.4s;
+    transition-property: all;
+    transition-timing-function: linear;
+}
+
+.custom-td-hover-edit:hover {
+    background-color: #fff842;
+    color: #60a3d9;
+    font-weight: bold;
+
+    /* Multiple box shadows */
+    box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px, #7f7c21 -4px 4px, #7f7c21 -5px 5px,
+        #7f7c21 -6px 6px;
+    transform: translate3d(6px, -6px, 0);
+
+    /* Transition properties */
+    transition-delay: 0s;
+    transition-duration: 0.4s;
+    transition-property: all;
+    transition-timing-function: linear;
+}
+
+@media (max-width: 800px) {
+    .container td:nth-child(4),
+    .container th:nth-child(4) {
+        display: none;
+    }
+}
+
 .chart-tab {
     position: absolute;
     background: rgba(63, 72, 84, 0.9);
@@ -75,3 +168,4 @@
         transform: scale(0.8);
     }
 }
+
