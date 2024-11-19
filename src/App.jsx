@@ -1,6 +1,7 @@
 import React from 'react';
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+
 import Map from './pages/Map.jsx';
 import Chart from './pages/Chart.jsx';
 import NotFound from './pages/NotFound.jsx';
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/layermanagement" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
+            <Toaster />
         </BrowserRouter>
     );
 }

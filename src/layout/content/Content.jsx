@@ -1,4 +1,5 @@
 // import axios from 'axios';
+
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +8,7 @@ import { HeaderComponent, MapShapeFile } from '../../components';
 
 import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
 
+// import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 import { selectSidebarStatus } from '../../features/setting/settingSlice.jsx';
 import ChartTab from '../../components/charts/ChartTab.jsx';
@@ -15,7 +17,7 @@ function Content() {
     const { t } = useTranslation();
     const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
     const isSidebarOpen = useSelector(selectSidebarStatus);
 
