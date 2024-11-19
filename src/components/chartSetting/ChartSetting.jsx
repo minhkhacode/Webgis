@@ -1,12 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    selectChartTypeList,
-    selectCurrentChart,
-    setChartType,
-    toggleChartTab,
-} from '../../features/setting/settingSlice';
+import { selectChartTypeList, selectCurrentChart, setChartType } from '../../features/setting/settingSlice';
 import { useState } from 'react';
-import { FaRegCheckCircle, FaCheck } from 'react-icons/fa';
+import { FaRegCheckCircle } from 'react-icons/fa';
 
 function ChartSetting({ isOpen }) {
     const currentChart = useSelector(selectCurrentChart);
@@ -18,10 +13,6 @@ function ChartSetting({ isOpen }) {
     const handleSelectChart = (chartName) => {
         setSelectedType(chartList[chartName].title);
         dispatch(setChartType(chartName));
-    };
-
-    const handleShowChartTab = () => {
-        dispatch(toggleChartTab());
     };
 
     return (
@@ -54,25 +45,6 @@ function ChartSetting({ isOpen }) {
                         />
                     </div>
                 ))}
-            </div>
-            <div className="flex items-center mt-4">
-                {/* Simplified Checkbox */}
-                <div className="relative">
-                    <input
-                        onChange={handleShowChartTab}
-                        className=" w-4 h-4 border-2 border-gray-400 rounded-sm bg-transparent focus:outline-none cursor-pointer transition duration-300 ease-in-out"
-                        type="checkbox"
-                        name="showChartTab"
-                        id="showChartTab"
-                    />
-                </div>
-                {/* Label */}
-                <label
-                    htmlFor="showChartTab"
-                    className="ml-2 text-sm text-white font-medium cursor-pointer hover:text-blue-400 transition duration-300 ease-in-out"
-                >
-                    Show Chart
-                </label>
             </div>
         </div>
     );
