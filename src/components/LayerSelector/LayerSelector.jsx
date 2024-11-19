@@ -11,7 +11,6 @@ function LayerSelector() {
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
     const [selectedRegion, setSelectedRegion] = useState('thuanhoa');
-    const [selectedYear, setSelectedYear] = useState(2022);
 
     const dispatch = useDispatch();
     const { compareLayer } = useSelector((state) => state.layer);
@@ -42,7 +41,7 @@ function LayerSelector() {
         const fetchData = async () => {
             try {
                 const responsePNN = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_nn_${selectedYear}&outputFormat=application%2Fjson`,
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_nn_2022&outputFormat=application%2Fjson`,
                 );
 
                 const dataPNN = await responsePNN.json();
@@ -50,14 +49,14 @@ function LayerSelector() {
                 setPNN(dataPNN);
 
                 const responseNN = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_pnn_${selectedYear}&outputFormat=application%2Fjson`,
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_pnn_2022&outputFormat=application%2Fjson`,
                 );
                 const dataNN = await responseNN.json();
 
                 setNN(dataNN);
 
                 const responseTQ = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_${selectedYear}&outputFormat=application%2Fjson`,
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_2022&outputFormat=application%2Fjson`,
                 );
                 const dataTQ = await responseTQ.json();
                 setTQ(dataTQ);
@@ -65,10 +64,11 @@ function LayerSelector() {
                 setPNN((prev) => null);
                 setNN((prev) => null);
                 setTQ((prev) => null);
+                // console.error('Error loading GeoJSON:', error);
             }
         };
         fetchData();
-    }, [selectedRegion, selectedYear]);
+    }, [selectedRegion]);
 
     const handleToggleNN = () => {
         dispatch(toggleNN({ ...NN }));
@@ -87,10 +87,6 @@ function LayerSelector() {
         setSelectedRegion(event.target.value);
     };
 
-    const handleYearChange = (event) => {
-        setSelectedYear(event.target.value);
-    };
-
     return (
         <div className="absolute z-[9998] right-5 top-[10%]">
             <div className="relative flex justify-end items-center space-x-4" ref={mapListRef}>
@@ -99,36 +95,19 @@ function LayerSelector() {
                         isMapListVisible ? 'scale-100' : 'scale-0'
                     } border border-gray-200`}
                 >
-                    <div className="flex flex-col items-center gap-y-3 w-full mb-4">
-                        <label className="w-full" htmlFor="region">
-                            Region
-                            <select
-                                name="region"
-                                id="region"
-                                value={selectedRegion}
-                                onChange={handleRegionChange}
-                                className="w-full border border-gray-300 rounded-lg p-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
-                            >
-                                <option value="thuanhoa">Thuận Hòa</option>
-                                <option value="chauthanh">Châu Thành</option>
-                                <option value="culaodung">Cù Lao Dung</option>
-                            </select>
-                        </label>
-                        <label className="w-full" htmlFor="region">
-                            Year
-                            <select
-                                name="year"
-                                id="year"
-                                value={selectedYear}
-                                onChange={handleYearChange}
-                                className="w-full border border-gray-300 rounded-lg p-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
-                            >
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
-                        </label>
+                    <div className="flex items-center w-full mb-4">
+                        <select
+                            name="region"
+                            id="region"
+                            value={selectedRegion}
+                            onChange={handleRegionChange}
+                            className="w-full border border-gray-300 rounded-lg p-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
+                        >
+                            <option value="">{'-- Select Region --'}</option>
+                            <option value="thuanhoa">Thuận Hòa</option>
+                            <option value="chauthanh">Châu Thành</option>
+                            <option value="culaodung">Cù Lao Dung</option>
+                        </select>
                     </div>
                     <div className="flex flex-col gap-2">
                         <button
