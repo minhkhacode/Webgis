@@ -4,6 +4,7 @@ import MapSetting from '../../components/mapSetting/MapSetting';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSidebarStatus, toggleSidebar } from '../../features/setting/settingSlice';
 import ChartSetting from '../../components/chartSetting/ChartSetting';
+import { togglePredictionForm } from '../../features/InputMapProperties/inputPredictionSlice';
 
 function HeaderComponent() {
     const dispatch = useDispatch();
@@ -62,14 +63,17 @@ function HeaderComponent() {
             <div className="flex gap-x-2 items-center">
                 <button
                     onClick={() => dispatch(toggleSidebar())}
-                    className={`flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition ${
+                    className={`flex items-center bg-[#05a0bd] bg-opacity-80 text-white hover:bg-[#3f4854] shadow focus:outline-none py-2 px-3 rounded-2xl transition ${
                         isSidebarOpen ? 'hidden' : ''
                     }`}
                 >
                     <FaAngleRight className="mr-2 text-lg" />
                     <span className="text-sm">Show Toolbar</span>
                 </button>
-                <button className="flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition">
+                <button
+                    onClick={() => dispatch(togglePredictionForm())}
+                    className="flex items-center bg-[#05a0bd] bg-opacity-80 text-white hover:bg-[#3f4854] shadow focus:outline-none py-2 px-3 rounded-2xl transition"
+                >
                     <FaInfoCircle className="mr-2" />
                     <span className="text-sm">Show Workbench</span>
                 </button>
@@ -78,7 +82,7 @@ function HeaderComponent() {
                 <div ref={mapSettingRef} className="relative">
                     <button
                         onClick={toggleMapSetting}
-                        className="flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition"
+                        className="flex items-center bg-[#05a0bd] bg-opacity-80 text-white hover:bg-[#3f4854] shadow focus:outline-none py-2 px-3 rounded-2xl transition"
                     >
                         <FaMapMarkedAlt className="mr-2" />
                         <span className="text-sm">Map Setting</span>
@@ -88,7 +92,7 @@ function HeaderComponent() {
                 <div ref={chartSettingRef} className="relative">
                     <button
                         onClick={toggleChartSetting}
-                        className="chart-setting flex items-center bg-[#3f4854] bg-opacity-80 text-white hover:bg-[#05a0bd] shadow focus:outline-none py-2 px-3 rounded-2xl transition"
+                        className="chart-setting flex items-center bg-[#05a0bd] bg-opacity-80 text-white hover:bg-[#3f4854] shadow focus:outline-none py-2 px-3 rounded-2xl transition"
                     >
                         <FaChartBar className="mr-2" />
                         <span className="text-sm">Chart</span>

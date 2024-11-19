@@ -95,6 +95,7 @@ function Content() {
                     <HeaderComponent />
 
                     <div className="w-full h-full">
+                        <InputPrediction />
                         <LayerSelector />
                         <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
                         <ChartTab />

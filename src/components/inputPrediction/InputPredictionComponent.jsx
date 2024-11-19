@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitInputPrediction } from '../../features/InputMapProperties/inputPredictionSlice';
+import {
+    selectPredictionFormStatus,
+    submitInputPrediction,
+    togglePredictionForm,
+} from '../../features/InputMapProperties/inputPredictionSlice';
 
-function InputPrediction({ handleOpenPredictForm }) {
+function InputPrediction() {
     const { t, i18n } = useTranslation();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -20,6 +24,7 @@ function InputPrediction({ handleOpenPredictForm }) {
 
     const dispatch = useDispatch();
     const area = useSelector((state) => state.inputPrediction.area);
+    const isPredictionFormOpen = useSelector(selectPredictionFormStatus);
 
     const areaAPI = 'https://esgoo.net/api-tinhthanh';
 
@@ -52,7 +57,6 @@ function InputPrediction({ handleOpenPredictForm }) {
 
     const handleSelecWard = (event) => {
         const ward = wardsList.filter((ward) => ward.id === event.target.value)[0];
-        console.log(ward);
         setSelectedWard(ward ? { ...ward } : {});
     };
 
@@ -100,16 +104,16 @@ function InputPrediction({ handleOpenPredictForm }) {
                 area,
             }),
         );
-        handleOpenPredictForm();
-        console.log('Submit');
     };
 
-    const handleCloseForm = (event) => {
-        handleOpenPredictForm();
+    const handleTogglePredictForm = () => {
+        dispatch(togglePredictionForm());
     };
+
+    if (!isPredictionFormOpen) return <></>;
 
     return (
-        <div onClick={handleCloseForm} className="fixed inset-0 z-[10000] bg-black bg-opacity-50">
+        <div onClick={handleTogglePredictForm} className="fixed inset-0 z-[10000] bg-black bg-opacity-50">
             <div
                 onClick={(event) => event.stopPropagation()}
                 className="inputPrediction max-w-lg w-full mx-auto relative top-1/2  transform  -translate-y-1/2 z-[10001]"
