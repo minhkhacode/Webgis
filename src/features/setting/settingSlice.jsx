@@ -1,9 +1,9 @@
 // redux/settingsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { BarChart, LineChart, PieChart, SankeyChart } from '../../components/charts/';
+import { BarChart, PieChart, SankeyChart } from '../../components/charts/';
 
 const initialState = {
-    mapType: 'esriWorldImagery',
+    mapType: 'openStreetMap',
     chartType: 'sankeyChart',
     isShowChartTab: false,
     isSidebarOpen: true,
