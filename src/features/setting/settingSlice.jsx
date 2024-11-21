@@ -40,11 +40,6 @@ const initialState = {
             image: '/images/chartStyles/barChart.png',
             element: BarChart,
         },
-        lineChart: {
-            title: 'line chart',
-            image: '/images/chartStyles/lineChart.png',
-            element: LineChart,
-        },
         pieChart: {
             title: 'pie chart',
             image: '/images/chartStyles/pieChart.png',

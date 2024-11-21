@@ -5,28 +5,38 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({ isExpanded }) => {
-    const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    const colors = [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+        'rgba(255, 159, 64, 0.6)',
+        'rgba(201, 203, 207, 0.6)',
+        'rgba(100, 181, 246, 0.6)',
+    ];
+
+    const data1 = {
+        labels: ['Lua tom', 'Lua', 'Cay hang nam', 'Cay lau nam', 'Thuy san', 'Song', 'Dat xay dung', 'Rung'],
         datasets: [
             {
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
+                label: 'Fruit Sales 2023 (in tons)',
+                data: [68, 91, 4, 16, 91, 56, 59, 10],
+                backgroundColor: colors,
+                borderColor: colors.map((color) => color.replace('0.6', '1')),
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const data2 = {
+        labels: ['Lua tom', 'Lua', 'Cay hang nam', 'Cay lau nam', 'Thuy san', 'Song', 'Dat xay dung', 'Rung'],
+        datasets: [
+            {
+                label: 'Fruit Sales Duplicate (in tons)',
+                data: [22, 75, 57, 38, 1, 40, 92, 6],
+                backgroundColor: colors,
+                borderColor: colors.map((color) => color.replace('0.6', '1')),
                 borderWidth: 1,
             },
         ],
@@ -54,10 +64,10 @@ const PieChart = ({ isExpanded }) => {
             {/* Two Pie Charts Side by Side */}
             <div className={`w-full h-[70%] flex justify-center grow items-center ${isExpanded ? 'mb-4' : 'mb-0'}`}>
                 <div className="w-[48%] h-full flex items-center justify-center">
-                    <Pie data={data} options={options} />
+                    <Pie data={data1} options={options} />
                 </div>
                 <div className="w-[48%] h-full flex items-center justify-center">
-                    <Pie data={data} options={options} />
+                    <Pie data={data2} options={options} />
                 </div>
             </div>
 
@@ -70,11 +80,11 @@ const PieChart = ({ isExpanded }) => {
                     transition: 'transform 0.3s ease-in-out',
                 }}
             >
-                {data.labels.map((label, index) => (
+                {data1.labels.map((label, index) => (
                     <div key={label} className="flex items-center space-x-2">
                         <div
                             style={{
-                                backgroundColor: data.datasets[0].backgroundColor[index],
+                                backgroundColor: data1.datasets[0].backgroundColor[index],
                             }}
                             className="w-4 h-4"
                         ></div>
