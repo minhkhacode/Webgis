@@ -41,27 +41,34 @@ function LayerSelector() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responsePNN = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_nn_${selectedYear}&outputFormat=application%2Fjson`,
-                );
+                // const responsePNN = await fetch(
+                //     `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_nn_${selectedYear}&outputFormat=application%2Fjson`
+                // );
+                const responsePNN = await fetch('/PNN.geojson');
 
                 const dataPNN = await responsePNN.json();
 
                 setPNN(dataPNN);
 
-                const responseNN = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_pnn_${selectedYear}&outputFormat=application%2Fjson`,
-                );
+                // const responseNN = await fetch(
+                //     `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_pnn_${selectedYear}&outputFormat=application%2Fjson`,
+                // );
+                const responseNN = await fetch('/NN.geojson');
+
                 const dataNN = await responseNN.json();
 
                 setNN(dataNN);
 
-                const responseTQ = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_${selectedYear}&outputFormat=application%2Fjson`,
-                );
+                // const responseTQ = await fetch(
+                //     `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_${selectedYear}&outputFormat=application%2Fjson`,
+                // );
+                const responseTQ = await fetch('/TQ.geojson');
+
                 const dataTQ = await responseTQ.json();
                 setTQ(dataTQ);
             } catch (error) {
+                console.log('error');
+
                 setPNN((prev) => null);
                 setNN((prev) => null);
                 setTQ((prev) => null);
