@@ -8,6 +8,7 @@ import {
     submitInputPrediction,
     togglePredictionForm,
 } from '../../features/InputMapProperties/inputPredictionSlice';
+import { toggleShowPredictionSteps } from '../../features/predictionSteps/predictionStepsSlice';
 
 function InputPrediction() {
     const { t, i18n } = useTranslation();
@@ -110,6 +111,7 @@ function InputPrediction() {
 
         // Dispatch thông tin qua async thunk
         dispatch(submitInputPrediction(formData));
+        dispatch(toggleShowPredictionSteps());
     };
 
     const handleChangeLatitudeRange = (key, value) => {
