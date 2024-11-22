@@ -81,11 +81,6 @@ function Content() {
     const handleOpenPredictForm = () => {
         setIsPredictFormOpen(!isPredictFormOpen);
     };
-=======
-    // const handleOpenPredictForm = () => {
-    //     setIsPredictFormOpen(!isPredictFormOpen);
-    // };
->>>>>>> main
 
     return (
         <div
@@ -154,7 +149,6 @@ function Content() {
                         {isPredictFormOpen && <InputPrediction handleOpenPredictForm={handleOpenPredictForm} />}
                     </div> */}
 
-<<<<<<< HEAD
                     <div className="search">
                         <div className="search relative flex items-center">
                             <i className="absolute left-4 cursor-pointer">
@@ -169,15 +163,13 @@ function Content() {
                             />
                         </div>
                     </div>
-=======
                     <HeaderComponent />
->>>>>>> main
 
-                    <div className="w-full h-full">
+                    {/* <div className="w-full h-full">
                         <LayerSelector />
                         <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
                         <ChartTab />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

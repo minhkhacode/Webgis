@@ -1,14 +1,9 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { FaBars } from 'react-icons/fa6';
-<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
-
-import HeaderComponent from '../../components/HeaderComponent';
-=======
 import HeaderComponent from '../header/HeaderComponent';
 import BarChart from '../../components/charts/BarChart';
->>>>>>> main
 import PieChart from '../../components/charts/PieChart';
 import SankeyChart from '../../components/charts/SankeyChart';
 // import BarChart from '../../components/charts/BarChart';
@@ -31,21 +26,17 @@ function ChartContent({ handleShowSidebar }) {
                     <div className="card-nav p-4">
                         <div className="chart-wrapper shadow-custom">
                             {/* <BarChart /> */}
-                            <div className="my-[25px]">
-                                <div className="flex gap-[200px] max-custom:w-max">
-                                    <div className="w-max py-[30px]">
-                                        <PieChart />
-                                    </div>
-                                    <div className="w-max h-max py-[75px] justify-end">
-                                        <SankeyChart />
-                                    </div>
-                                </div>
-                            </div>
-                            {/* <LineChart titleChart={'Biểu đồ đường thể hiện biến động giữa các đường trong Thuận Hòa'} /> */}
-                        </div>
+            <div className="my-[25px]">
+                <div className="flex gap-[200px] max-custom:w-max">
+                    <div className="w-max py-[30px]">
+                        <PieChart />
+                    </div>
+                    <div className="w-max h-max py-[75px] justify-end">
+                        <SankeyChart />
                     </div>
                 </div>
-            </div> */}
+            </div>
+            {/* <LineChart titleChart={'Biểu đồ đường thể hiện biến động giữa các đường trong Thuận Hòa'} /> */}
             <SankeyChart />
         </div>
     );

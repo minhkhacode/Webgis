@@ -49,10 +49,6 @@ const PieChart = ({ isExpanded }) => {
     };
 
     return (
-<<<<<<< HEAD
-        <div className="w-[400px] max-custom:w-1/2 max-custom:w-1/3">
-            <Pie data={data} options={options} />
-=======
         <div className={`w-full h-full flex flex-col items-center justify-center ${isExpanded ? 'p-4' : 'p-0'}`}>
             {/* Two Pie Charts Side by Side */}
             <div className={`w-full h-[70%] flex justify-center grow items-center ${isExpanded ? 'mb-4' : 'mb-0'}`}>
@@ -85,7 +81,6 @@ const PieChart = ({ isExpanded }) => {
                     </div>
                 ))}
             </div>
->>>>>>> main
         </div>
     );
 };

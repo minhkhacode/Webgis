@@ -3,31 +3,11 @@ import { Chart } from 'chart.js';
 import 'chartjs-chart-sankey'; // Import the Sankey plugin
 import { SankeyController, Flow } from 'chartjs-chart-sankey';
 
-<<<<<<< HEAD
-const SankeyChart = () => {
-    const new_data = {
-        'Thổ quả': { 'Thổ quả ': 70.0, 'Nông nghiệp ': 20.0, 'Phi nông nghiệp ': 10.0 },
-        'Nông nghiệp': { 'Thổ quả ': 5.0, 'Nông nghiệp ': 80.0, 'Phi nông nghiệp ': 15.0 },
-        'Phi nông nghiệp': { 'Thổ quả ': 10.0, 'Nông nghiệp ': 5.0, 'Phi nông nghiệp ': 85.0 },
-    };
-
-    const data = [['From', 'To', 'Percent']];
-    Object.entries(new_data).forEach(([from, destinations]) => {
-        Object.entries(destinations).forEach(([to, percent]) => {
-            data.push([from, to, percent]);
-        });
-    });
-
-    data.push(['Loai đất chưa được xác định ', 'Thổ quả ', 50.0]);
-    data.push(['Loai đất chưa được xác định ', 'Nông nghiệp ', 10.0]);
-    data.push(['Loai đất chưa được xác định ', 'Phi nông nghiệp ', 40.0]);
-=======
 Chart.register(SankeyController, Flow);
 
 const SankeyChart = ({ isExpanded }) => {
     const chartRef = useRef(null);
     const chartInstance = useRef(null);
->>>>>>> main
 
     useEffect(() => {
         const ctx = chartRef.current.getContext('2d');
@@ -138,15 +118,11 @@ const SankeyChart = ({ isExpanded }) => {
         };
     }, [isExpanded]);
 
-<<<<<<< HEAD
-    return <Chart chartType="Sankey" width="400px" height="270px" data={data} options={options} />;
-=======
     return (
         <div className={`w-full h-full ${isExpanded ? 'p-4' : 'p-2'}`}>
             <canvas ref={chartRef}></canvas>
         </div>
     );
->>>>>>> main
 };
 
 export default SankeyChart;
