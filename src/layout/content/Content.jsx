@@ -1,26 +1,38 @@
 /* eslint-disable no-unused-vars */
 // import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa6';
-import { GoSearch } from 'react-icons/go';
+
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+<<<<<<< HEAD
 import { Button, HeaderComponent, MapShapeFile, Dropdown } from '../../components';
 import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
 import InputPrediction from '../../components/InputPredictionComponent.jsx';
+=======
+import { HeaderComponent, MapShapeFile } from '../../components';
 
-function Content({ handleShowSidebar }) {
-    const [isActive, setActivation] = useState('googleMap');
-    const [showTab, setShowTab] = useState('googleMap');
-    const [PNN, setPNN] = useState(null);
-    const [NN, setNN] = useState(null);
-    const [TQ, setTQ] = useState(null);
+import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
+
+// import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
+import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
+import { selectSidebarStatus } from '../../features/setting/settingSlice.jsx';
+import ChartTab from '../../components/charts/ChartTab.jsx';
+>>>>>>> main
+
+function Content() {
     const { t } = useTranslation();
     const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
+<<<<<<< HEAD
     const dispatch = useDispatch();
-    const { compareLayer } = useSelector((state) => state.layer);
+=======
 
+    // const dispatch = useDispatch();
+>>>>>>> main
+    const { compareLayer } = useSelector((state) => state.layer);
+    const isSidebarOpen = useSelector(selectSidebarStatus);
+
+<<<<<<< HEAD
     const handleActiveTab = async (title) => {
         setShowTab(title);
     };
@@ -69,23 +81,32 @@ function Content({ handleShowSidebar }) {
     const handleOpenPredictForm = () => {
         setIsPredictFormOpen(!isPredictFormOpen);
     };
+=======
+    // const handleOpenPredictForm = () => {
+    //     setIsPredictFormOpen(!isPredictFormOpen);
+    // };
+>>>>>>> main
 
     return (
-        <div className="content max-custom:w-screen relative">
-            <HeaderComponent
+        <div
+            className={`content relative right-0 h-full w-full transition-all duration-300 ${
+                isSidebarOpen ? 'w-[calc(100%-400px)]' : 'w-full'
+            }`}
+        >
+            {/* <HeaderComponent
                 handleShowSidebar={handleShowSidebar}
                 title={t('titleCTU')}
                 fontStyle=" text-[1rem] text-[#fff] font-light leading-[30px] overflow-hidden text-left block whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.3)] max-custom:w-full"
                 icon={<FaBars className="h-6 w-6 cursor-pointer" />}
-            />
-            <div className="card mx-8 my-12 p-4 rounded-lg bg-white">
+            /> */}
+            <div className="card rounded-lg">
                 <div className="card-header">
-                    <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
+                    {/* <h1 className="card-title text-sm text-[#3C4858] font-extralight font-[500]">
                         {showTab === 'googleMap' && 'Bản đồ Trường Đại Học Cần Thơ'}
                         {showTab === 'satelliteMap' && 'Bản đồ kết quả phân loại đất của xã Thuận Hòa Sóc Trăng'}
                         {showTab === 'streetMap' && 'OPENSTREETMAP tab'}
-                    </h1>
-                    <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block mid-custom:mb-3">
+                    </h1> */}
+                    {/* <div className="card-nav relative flex items-center justify-between flex-wrap max-custom:block mid-custom:mb-3">
                         <ul className="navbar flex py-2 max-custom:block max-custom:gap-y-2 mid-custom:w-full">
                             <li className="nav-item flex-grow">
                                 <Button
@@ -131,8 +152,9 @@ function Content({ handleShowSidebar }) {
                             Mở Form Dự Đoán
                         </button>
                         {isPredictFormOpen && <InputPrediction handleOpenPredictForm={handleOpenPredictForm} />}
-                    </div>
+                    </div> */}
 
+<<<<<<< HEAD
                     <div className="search">
                         <div className="search relative flex items-center">
                             <i className="absolute left-4 cursor-pointer">
@@ -147,48 +169,14 @@ function Content({ handleShowSidebar }) {
                             />
                         </div>
                     </div>
+=======
+                    <HeaderComponent />
+>>>>>>> main
 
-                    <div className="w-full mt-[20px]">
-                        <MapShapeFile type={showTab} getJsonDataList={Object.values(compareLayer)} />
-                    </div>
-                </div>
-
-                <div className="flex justify-start mt-4">
-                    <div className="mr-4">
-                        <input
-                            checked={compareLayer['PNN'] ? true : false}
-                            type="checkbox"
-                            onChange={handleTogglePNN}
-                            value="PNN"
-                            id="PNN"
-                        />
-                        <label className="cursor-pointer px-3 py-2" htmlFor="PNN">
-                            PNN
-                        </label>
-                    </div>
-                    <div className="mr-4">
-                        <input
-                            checked={compareLayer['NN'] ? true : false}
-                            type="checkbox"
-                            onChange={handleToggleNN}
-                            value="NN"
-                            id="NN"
-                        />
-                        <label className="cursor-pointer px-3 py-2" htmlFor="NN">
-                            NN
-                        </label>
-                    </div>
-                    <div className="mr-4">
-                        <input
-                            checked={compareLayer['TQ'] ? true : false}
-                            type="checkbox"
-                            onChange={handleToggleTQ}
-                            value="TQ"
-                            id="TQ"
-                        />
-                        <label className="cursor-pointer px-3 py-2" htmlFor="TQ">
-                            TQ
-                        </label>
+                    <div className="w-full h-full">
+                        <LayerSelector />
+                        <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
+                        <ChartTab />
                     </div>
                 </div>
             </div>

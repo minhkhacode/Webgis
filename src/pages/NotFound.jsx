@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import Button from '../components/Button';
+import Button from '../components/button/Button';
 
 function NotFound() {
     useEffect(() => {

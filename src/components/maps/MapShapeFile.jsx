@@ -1,52 +1,25 @@
+import 'leaflet-minimap';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
-import 'leaflet-minimap';
-import { MapContainer, GeoJSON, TileLayer, useMap } from 'react-leaflet';
-import { useRef, useEffect, useState } from 'react';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import { useSelector } from 'react-redux';
+<<<<<<< HEAD
 import 'leaflet-toolbar/dist/leaflet.toolbar.css'; // CSS for toolbar
 import 'leaflet-toolbar'; // Import the toolbar functionality
+=======
+import MapLayers from './MapLayers';
+import ResetCenterButton from './ResetCenterButton';
+import CustomZoomControl from './CustomZoomControl';
+import UpdateMapCenter from './UpdateMapCenter';
+import MapResizeHandler from './MapResizeHandler';
+import MapInfoDisplay from './MapInfoDisplay';
+import LocationMarker from './LocationMarker';
+import { selectMapType, selectMapTypeList, selectSidebarStatus } from '../../features/setting/settingSlice.jsx';
+>>>>>>> main
 
-const ResetCenterButton = ({ center }) => {
-    const map = useMap();
-    const [isResetting, setIsResetting] = useState(false);
-    const timeoutRef = useRef(null);
-
-    const handleReset = () => {
-        if (isResetting) return;
-        setIsResetting(true);
-        map.setView(center);
-
-        timeoutRef.current = setTimeout(() => {
-            setIsResetting(false);
-        }, 1000);
-    };
-
-    return (
-        <button
-            className="bg-customBlue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 absolute bottom-5 left-5 z-[401]"
-            onClick={handleReset}
-            disabled={isResetting}
-        >
-            Reset Center
-        </button>
-    );
-};
-
-const UpdateMapCenter = ({ center }) => {
-    const map = useMap();
-
-    useEffect(() => {
-        if (center) {
-            map.setView(center, map.getZoom());
-        }
-    }, [center, map]);
-
-    return null;
-};
-
-function MapShapeFile({ getJsonDataList, type }) {
+function MapShapeFile({ getJsonDataList }) {
     const { area } = useSelector((state) => state.inputPrediction);
+<<<<<<< HEAD
 
     const onEachTypeLandUse = (TypeLandUse, layer) => {
         const typeLand = TypeLandUse.properties.Type;
@@ -111,15 +84,30 @@ function MapShapeFile({ getJsonDataList, type }) {
             color: 'blue',
             fontWeight: '50',
         },
+=======
+    const mapType = useSelector(selectMapType);
+    const mapTypeList = useSelector(selectMapTypeList);
+    const isSidebarOpen = useSelector(selectSidebarStatus);
+
+    const CountryStyleList = [
+        { fillColor: 'pink', fillOpacity: '0.5', color: 'red', fontWeight: '200' },
+        { fillColor: 'yellow', fillOpacity: '0.5', color: 'green', fontWeight: '200' },
+        { fillColor: 'purple', fillOpacity: '0.5', color: 'blue', fontWeight: '200' },
+        { fillColor: 'green', fillOpacity: '0.1', color: 'blue', fontWeight: '200' },
+        { fillColor: 'grey', fillOpacity: '0.1', color: 'blue', fontWeight: '200' },
+        { fillColor: 'purple', fillOpacity: '0.1', color: 'blue', fontWeight: '200' },
+>>>>>>> main
     ];
 
-    const MapTypeList = {
-        googleMap: 'r',
-        satelliteMap: 's',
-        streetMap: 'y',
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     };
 
-    const checkMapType = (type) => MapTypeList[type];
+    const currentDate = getCurrentDate();
 
     const defaultCenter = [9.675, 105.9043];
     const mapCenter = area ? [area.latitude, area.longitude] : defaultCenter;
@@ -151,29 +139,26 @@ function MapShapeFile({ getJsonDataList, type }) {
     // }, []);
 
     return (
-        <>
-            <MapContainer style={{ height: '600px', width: '100%' }} center={mapCenter} zoom={14}>
-                <ResetCenterButton center={mapCenter} />
-                <UpdateMapCenter center={mapCenter} />
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url={`https://mt1.google.com/vt/lyrs=${checkMapType(type)}&x={x}&y={y}&z={z}`}
-                />
-
-                {getJsonDataList.map((item, index) =>
-                    item ? (
-                        <GeoJSON
-                            style={CountryStyleList[index]}
-                            data={item.features}
-                            onEachFeature={onEachTypeLandUse}
-                            key={index}
-                        />
-                    ) : (
-                        <></>
-                    ),
-                )}
-            </MapContainer>
-        </>
+        <MapContainer
+            style={{ height: '100vh', width: '100%' }}
+            center={mapCenter}
+            zoom={14}
+            attributionControl={false}
+            zoomControl={false}
+        >
+            <CustomZoomControl />
+            <UpdateMapCenter center={mapCenter} />
+            <ResetCenterButton center={mapCenter} />
+            <MapInfoDisplay />
+            <MapResizeHandler isSidebarOpen={isSidebarOpen} />
+            <TileLayer
+                attribution='Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Map tiles by <a href="https://stamen.com">Stamen Design</a>'
+                url={mapTypeList[mapType].url}
+                time={currentDate}
+            />
+            <MapLayers getJsonDataList={getJsonDataList} styles={CountryStyleList} />
+            <LocationMarker />
+        </MapContainer>
     );
 }
 
