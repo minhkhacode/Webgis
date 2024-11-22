@@ -111,6 +111,7 @@ function InputPrediction() {
 
         // Dispatch thông tin qua async thunk
         dispatch(submitInputPrediction(formData));
+        dispatch(togglePredictionForm());
         dispatch(toggleShowPredictionSteps());
     };
 

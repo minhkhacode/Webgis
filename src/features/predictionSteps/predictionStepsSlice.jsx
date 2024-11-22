@@ -5,9 +5,9 @@ const initialState = {
     isShowPredictionSteps: false,
     status: 'success',
     steps: [
-        { label: 'Step 1: Data Upload', description: 'Upload your data files.' },
-        { label: 'Step 2: Preprocessing', description: 'Prepare the data for prediction.' },
-        { label: 'Step 3: Success', description: 'Prediction process completed successfully.' },
+        { label: 'Step 1: Data Preparing', description: 'Preparing your data files.' },
+        { label: 'Step 2: Predicting', description: 'Prepare the data for prediction.' },
+        { label: 'Step 3: Comparing', description: 'Prediction process completed successfully.' },
     ],
 };
 

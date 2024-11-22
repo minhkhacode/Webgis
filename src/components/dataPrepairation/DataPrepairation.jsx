@@ -18,10 +18,11 @@ function DataPrepairation() {
     const [isLoading, setIsLoading] = useState(false);
 
     const images = [
-        { label: 'VH data', imgSrc: 'https://via.placeholder.com/300x200?text=VH+data' },
-        { label: 'VV data', imgSrc: 'https://via.placeholder.com/300x200?text=VV+data' },
-        { label: 'NDVI data', imgSrc: 'https://via.placeholder.com/300x200?text=NDVI+data' },
-        { label: 'Free Cloud NDVI', imgSrc: 'https://via.placeholder.com/300x200?text=Free+Cloud+NDVI' },
+        { label: 'VH data', imgSrc: '/images/predictionSteps/VH.png' },
+        { label: 'VV data', imgSrc: '/images/predictionSteps/VV.png' },
+        { label: 'NDVI data', imgSrc: '/images/predictionSteps/freeCloundNDVI.png' },
+        { label: 'Free Cloud NDVI', imgSrc: '/images/predictionSteps/NDVI.png' },
+        { label: 'Predicted land use status map', imgSrc: '/images/predictionSteps/Result.png' },
     ];
 
     useEffect(() => {
@@ -110,10 +111,10 @@ function DataPrepairation() {
             case 2:
                 return (
                     <div className="flex flex-col items-center justify-center h-[400px]">
-                        <h4 className="text-xl font-semibold mb-4">Free Cloud NDVI</h4>
+                        <h4 className="text-xl font-semibold mb-4">Predicted land use status map</h4>
                         <img
-                            src={images[3].imgSrc}
-                            alt={images[3].label}
+                            src={images[4].imgSrc}
+                            alt={images[4].label}
                             className="max-w-md w-full h-auto rounded-lg shadow-md"
                         />
                     </div>

@@ -28,7 +28,7 @@ const BarChart = () => {
             },
             {
                 label: 'Fruit Sales Duplicate (in tons)',
-                data: [22, 75, 57, 38, 1, 40, 92, 6], // Same data as the first dataset
+                data: [22, 75, 57, 38, 1, 40, 92, 6],
                 backgroundColor: [
                     'rgba(255, 159, 64, 0.6)',
                     'rgba(153, 102, 255, 0.6)',
@@ -54,15 +54,34 @@ const BarChart = () => {
         plugins: {
             title: {
                 display: true,
-                text: 'Sales Data (2023)',
+                text: 'Area chart of current land use status and classification results',
+                color: 'white',
             },
             legend: {
-                display: false, // Disable the legend
+                display: false,
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: 'white',
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                },
+            },
+            y: {
+                ticks: {
+                    color: 'white',
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                },
             },
         },
         animation: {
-            duration: 1000, // Duration of the animation in milliseconds
-            easing: 'easeInOutBounce', // Easing function for the animation
+            duration: 1000,
+            easing: 'easeInOutBounce',
         },
     };
 
