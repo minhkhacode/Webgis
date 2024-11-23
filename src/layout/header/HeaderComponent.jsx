@@ -75,7 +75,7 @@ function HeaderComponent() {
                     className="flex items-center bg-[#05a0bd] bg-opacity-80 text-white hover:bg-[#3f4854] shadow focus:outline-none py-2 px-3 rounded-2xl transition"
                 >
                     <FaInfoCircle className="mr-2" />
-                    <span className="text-sm">Show Workbench</span>
+                    <span className="text-sm">Prediction Form</span>
                 </button>
             </div>
             <div className="flex items-center gap-x-2">

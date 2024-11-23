@@ -18,8 +18,8 @@ function DataPrepairation() {
     const [isLoading, setIsLoading] = useState(false);
 
     const images = [
-        { label: 'VH data', imgSrc: '/images/predictionSteps/VH.png' },
-        { label: 'VV data', imgSrc: '/images/predictionSteps/VV.png' },
+        { label: 'VV data', imgSrc: '/images/predictionSteps/VH.png' },
+        { label: 'VH data', imgSrc: '/images/predictionSteps/VV.png' },
         { label: 'NDVI data', imgSrc: '/images/predictionSteps/freeCloundNDVI.png' },
         { label: 'Free Cloud NDVI', imgSrc: '/images/predictionSteps/NDVI.png' },
         { label: 'Predicted land use status map', imgSrc: '/images/predictionSteps/Result.png' },

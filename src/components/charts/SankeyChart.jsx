@@ -86,12 +86,30 @@ const SankeyChart = ({ isExpanded }) => {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Biểu đồ Sankey về thay đổi sử dụng đất',
+                        text: 'Sankey diagram of land use change',
+                        color: 'white',
                         font: {
                             size: isExpanded ? 18 : 10,
                             weight: 'bold',
                         },
-                        color: '#333', // Màu tiêu đề
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: 'white',
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)',
+                            },
+                        },
+                        y: {
+                            ticks: {
+                                color: 'white',
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)',
+                            },
+                        },
                     },
                 },
             },
