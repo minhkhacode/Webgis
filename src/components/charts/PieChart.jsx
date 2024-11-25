@@ -7,14 +7,14 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const PieChart = ({ isExpanded }) => {
     const colors = [
-        'rgba(255, 99, 132, 0.6)',
-        'rgba(54, 162, 235, 0.6)',
-        'rgba(255, 206, 86, 0.6)',
-        'rgba(75, 192, 192, 0.6)',
-        'rgba(153, 102, 255, 0.6)',
-        'rgba(255, 159, 64, 0.6)',
-        'rgba(201, 203, 207, 0.6)',
-        'rgba(100, 181, 246, 0.6)',
+        'rgba(255, 252, 140, 0.6)',
+        'rgba(255, 252, 130, 0.6)',
+        'rgba(255, 240, 120, 0.6)',
+        'rgba(255, 210, 160, 0.6)',
+        'rgba(170, 255, 255, 0.6)',
+        'rgba(160, 255, 255, 0.6)',
+        'rgba(255, 170, 160, 0.6)',
+        'rgba(190, 255, 30, 0.6)',
     ];
 
     const data1 = {
@@ -22,7 +22,7 @@ const PieChart = ({ isExpanded }) => {
         datasets: [
             {
                 label: '2023 - Land Use Status Map',
-                data: [68, 91, 4, 16, 91, 56, 59, 10],
+                data: [0.069092, 75.110574, 4.774962, 13.879867, 0.10663, 0.014689, 4.512738, 1.531448],
                 backgroundColor: colors,
                 borderColor: colors.map((color) => color.replace('0.6', '1')),
                 borderWidth: 1,
@@ -35,7 +35,7 @@ const PieChart = ({ isExpanded }) => {
         datasets: [
             {
                 label: '2022 - Inventory map',
-                data: [22, 75, 57, 38, 1, 40, 92, 6],
+                data: [0, 73.36, 2.87, 11.28, 0.65, 5.28, 6.55, 0],
                 backgroundColor: colors,
                 borderColor: colors.map((color) => color.replace('0.6', '1')),
                 borderWidth: 1,
