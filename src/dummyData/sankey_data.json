@@ -1,0 +1,187 @@
+[
+    {
+        "from": "Cay hang nam",
+        "to": "Cay lau nam",
+        "flow": 2237
+    },
+    {
+        "from": "Cay hang nam",
+        "to": "Dat xay dung",
+        "flow": 155
+    },
+    {
+        "from": "Cay hang nam",
+        "to": "Lua",
+        "flow": 1487
+    },
+    {
+        "from": "Cay hang nam",
+        "to": "Lua tom",
+        "flow": 12
+    },
+    {
+        "from": "Cay hang nam",
+        "to": "Rung",
+        "flow": 275
+    },
+    {
+        "from": "Cay hang nam",
+        "to": "Thuy san",
+        "flow": 15
+    },
+    {
+        "from": "Cay lau nam",
+        "to": "Cay hang nam",
+        "flow": 2255
+    },
+    {
+        "from": "Cay lau nam",
+        "to": "Dat xay dung",
+        "flow": 3997
+    },
+    {
+        "from": "Cay lau nam",
+        "to": "Lua",
+        "flow": 2657
+    },
+    {
+        "from": "Cay lau nam",
+        "to": "Lua tom",
+        "flow": 85
+    },
+    {
+        "from": "Cay lau nam",
+        "to": "Rung",
+        "flow": 779
+    },
+    {
+        "from": "Cay lau nam",
+        "to": "Thuy san",
+        "flow": 17
+    },
+    {
+        "from": "Dat xay dung",
+        "to": "Cay hang nam",
+        "flow": 1677
+    },
+    {
+        "from": "Dat xay dung",
+        "to": "Cay lau nam",
+        "flow": 3516
+    },
+    {
+        "from": "Dat xay dung",
+        "to": "Lua",
+        "flow": 2987
+    },
+    {
+        "from": "Dat xay dung",
+        "to": "Lua tom",
+        "flow": 11
+    },
+    {
+        "from": "Dat xay dung",
+        "to": "Rung",
+        "flow": 987
+    },
+    {
+        "from": "Dat xay dung",
+        "to": "Thuy san",
+        "flow": 21
+    },
+    {
+        "from": "Lua",
+        "to": "Cay hang nam",
+        "flow": 1634
+    },
+    {
+        "from": "Lua",
+        "to": "Cay lau nam",
+        "flow": 4615
+    },
+    {
+        "from": "Lua",
+        "to": "Dat xay dung",
+        "flow": 329
+    },
+    {
+        "from": "Lua",
+        "to": "Lua tom",
+        "flow": 7
+    },
+    {
+        "from": "Lua",
+        "to": "Rung",
+        "flow": 296
+    },
+    {
+        "from": "Lua",
+        "to": "Song",
+        "flow": 27
+    },
+    {
+        "from": "Lua",
+        "to": "Thuy san",
+        "flow": 75
+    },
+    {
+        "from": "Song",
+        "to": "Cay hang nam",
+        "flow": 1888
+    },
+    {
+        "from": "Song",
+        "to": "Cay lau nam",
+        "flow": 3816
+    },
+    {
+        "from": "Song",
+        "to": "Dat xay dung",
+        "flow": 910
+    },
+    {
+        "from": "Song",
+        "to": "Lua",
+        "flow": 2682
+    },
+    {
+        "from": "Song",
+        "to": "Lua tom",
+        "flow": 1
+    },
+    {
+        "from": "Song",
+        "to": "Rung",
+        "flow": 448
+    },
+    {
+        "from": "Thuy san",
+        "to": "Cay hang nam",
+        "flow": 215
+    },
+    {
+        "from": "Thuy san",
+        "to": "Cay lau nam",
+        "flow": 348
+    },
+    {
+        "from": "Thuy san",
+        "to": "Dat xay dung",
+        "flow": 98
+    },
+    {
+        "from": "Thuy san",
+        "to": "Lua",
+        "flow": 432
+    },
+    {
+        "from": "Thuy san",
+        "to": "Lua tom",
+        "flow": 11
+    },
+    {
+        "from": "Thuy san",
+        "to": "Rung",
+        "flow": 30
+    }
+]
