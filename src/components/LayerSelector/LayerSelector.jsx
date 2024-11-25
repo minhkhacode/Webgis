@@ -59,10 +59,10 @@ function LayerSelector() {
 
                 setNN(dataNN);
 
-                // const responseTQ = await fetch(
-                //     `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_${selectedYear}&outputFormat=application%2Fjson`,
-                // );
-                const responseTQ = await fetch('/TQ.geojson');
+                const responseTQ = await fetch(
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_${selectedYear}&outputFormat=application%2Fjson`,
+                );
+                // const responseTQ = await fetch('/TQ.geojson');
 
                 const dataTQ = await responseTQ.json();
                 setTQ(dataTQ);

@@ -5,7 +5,7 @@ const initialState = {
     endDate: null,
     modelName: null,
     area: null,
-    isPredictionFormOpen: true,
+    isPredictionFormOpen: false,
 };
 
 export const inputPredictionSlice = createSlice({

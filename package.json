@@ -11,6 +11,7 @@
         "axios": "^1.7.7",
         "chart.js": "^4.4.6",
         "chartjs-chart-sankey": "^0.13.0",
+        "chartjs-plugin-datalabels": "^2.2.0",
         "i18next": "^23.15.1",
         "i18next-browser-languagedetector": "^8.0.0",
         "jszip": "^3.10.1",
@@ -60,5 +61,5 @@
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.12"
     },
-    "proxy": "http://localhost:8080/geoserver"
+    "proxy": "http://10.11.93.66:8080/geoserver"
 }

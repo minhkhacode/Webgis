@@ -8,7 +8,7 @@ const BarChart = () => {
         labels: ['Lua tom', 'Lua', 'Cay hang nam', 'Cay lau nam', 'Thuy san', 'Song', 'Dat xay dung', 'Rung'],
         datasets: [
             {
-                label: 'Fruit Sales 2023 (in tons)',
+                label: '2022 - Inventory map',
                 data: [68, 91, 4, 16, 91, 56, 59, 10],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)',
@@ -27,7 +27,7 @@ const BarChart = () => {
                 borderWidth: 1,
             },
             {
-                label: 'Fruit Sales Duplicate (in tons)',
+                label: '2023 - Land Use Status Map',
                 data: [22, 75, 57, 38, 1, 40, 92, 6],
                 backgroundColor: [
                     'rgba(255, 159, 64, 0.6)',

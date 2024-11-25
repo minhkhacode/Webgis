@@ -1,8 +1,9 @@
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // Register Pie chart elements
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const PieChart = ({ isExpanded }) => {
     const colors = [
@@ -20,7 +21,7 @@ const PieChart = ({ isExpanded }) => {
         labels: ['Lua tom', 'Lua', 'Cay hang nam', 'Cay lau nam', 'Thuy san', 'Song', 'Dat xay dung', 'Rung'],
         datasets: [
             {
-                label: 'Fruit Sales 2023 (in tons)',
+                label: '2023 - Land Use Status Map',
                 data: [68, 91, 4, 16, 91, 56, 59, 10],
                 backgroundColor: colors,
                 borderColor: colors.map((color) => color.replace('0.6', '1')),
@@ -33,7 +34,7 @@ const PieChart = ({ isExpanded }) => {
         labels: ['Lua tom', 'Lua', 'Cay hang nam', 'Cay lau nam', 'Thuy san', 'Song', 'Dat xay dung', 'Rung'],
         datasets: [
             {
-                label: 'Fruit Sales Duplicate (in tons)',
+                label: '2022 - Inventory map',
                 data: [22, 75, 57, 38, 1, 40, 92, 6],
                 backgroundColor: colors,
                 borderColor: colors.map((color) => color.replace('0.6', '1')),
@@ -42,55 +43,110 @@ const PieChart = ({ isExpanded }) => {
         ],
     };
 
-    const options = {
+    const options1 = {
         responsive: true,
         plugins: {
             legend: {
                 display: false,
             },
-
             title: {
                 display: true,
-                text: 'Sales Data (2023)',
+                text: '2023 - Land Use Status Map',
+                color: 'white',
             },
             tooltip: {
                 enabled: true,
+                callbacks: {
+                    label: function (tooltipItem) {
+                        const dataset = tooltipItem.dataset.data;
+                        const total = dataset.reduce((acc, curr) => acc + curr, 0);
+                        const value = dataset[tooltipItem.dataIndex];
+                        const percentage = ((value / total) * 100).toFixed(2);
+                        return `${tooltipItem.label}: ${value} (${percentage}%)`;
+                    },
+                },
+            },
+            datalabels: {
+                color: '#fff',
+                formatter: (value, context) => {
+                    const dataset = context.dataset.data;
+                    const total = dataset.reduce((acc, curr) => acc + curr, 0);
+                    const percentage = ((value / total) * 100).toFixed(2);
+                    return isExpanded ? `${percentage}%` : null;
+                },
+            },
+        },
+    };
+
+    const options2 = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: true,
+                text: '2022 - Inventory Map',
+                color: 'white',
+            },
+            tooltip: {
+                enabled: true,
+                callbacks: {
+                    label: function (tooltipItem) {
+                        const dataset = tooltipItem.dataset.data;
+                        const total = dataset.reduce((acc, curr) => acc + curr, 0);
+                        const value = dataset[tooltipItem.dataIndex];
+                        const percentage = ((value / total) * 100).toFixed(2);
+                        return `${tooltipItem.label}: ${value} (${percentage}%)`;
+                    },
+                },
+            },
+            datalabels: {
+                color: '#fff',
+                formatter: (value, context) => {
+                    const dataset = context.dataset.data;
+                    const total = dataset.reduce((acc, curr) => acc + curr, 0);
+                    const percentage = ((value / total) * 100).toFixed(2);
+                    return isExpanded ? `${percentage}%` : null;
+                },
             },
         },
     };
 
     return (
         <div className={`w-full h-full flex flex-col items-center justify-center ${isExpanded ? 'p-4' : 'p-0'}`}>
-            {/* Two Pie Charts Side by Side */}
             <div className={`w-full h-[70%] flex justify-center grow items-center ${isExpanded ? 'mb-4' : 'mb-0'}`}>
                 <div className="w-[48%] h-full flex items-center justify-center">
-                    <Pie data={data1} options={options} />
+                    <Pie data={data1} options={options1} />
                 </div>
                 <div className="w-[48%] h-full flex items-center justify-center">
-                    <Pie data={data2} options={options} />
+                    <Pie data={data2} options={options2} />
                 </div>
             </div>
 
             {/* Shared Legend with Transition */}
             <div
-                className="flex h-10 justify-center items-center space-x-4 mt-2"
+                className="flex flex-col  justify-center items-center "
                 style={{
                     transform: isExpanded ? 'scale(1)' : 'scale(0.4)',
                     transformOrigin: 'center',
                     transition: 'transform 0.3s ease-in-out',
                 }}
             >
-                {data1.labels.map((label, index) => (
-                    <div key={label} className="flex items-center space-x-2">
-                        <div
-                            style={{
-                                backgroundColor: data1.datasets[0].backgroundColor[index],
-                            }}
-                            className="w-4 h-4"
-                        ></div>
-                        <span className="text-white-700">{label}</span>
-                    </div>
-                ))}
+                <h1 className="text-white">Comparison of Land Use Changes</h1>
+                <div className="flex h-10 space-x-4 mt-2">
+                    {data1.labels.map((label, index) => (
+                        <div key={label} className="flex items-center space-x-2">
+                            <div
+                                style={{
+                                    backgroundColor: data1.datasets[0].backgroundColor[index],
+                                }}
+                                className="w-4 h-4"
+                            ></div>
+                            <span className="text-white">{label}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

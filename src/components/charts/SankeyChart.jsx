@@ -93,6 +93,9 @@ const SankeyChart = ({ isExpanded }) => {
                             weight: 'bold',
                         },
                     },
+                    datalabels: {
+                        display: false,
+                    },
                     scales: {
                         x: {
                             ticks: {
