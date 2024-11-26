@@ -9,6 +9,7 @@ import {
     togglePredictionForm,
 } from '../../features/InputMapProperties/inputPredictionSlice';
 import { toggleShowPredictionSteps } from '../../features/predictionSteps/predictionStepsSlice';
+import toast, { Toaster } from 'react-hot-toast';
 
 function InputPrediction() {
     const { t, i18n } = useTranslation();
@@ -89,8 +90,33 @@ function InputPrediction() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!startDate || !endDate) {
+            toast.error(t('startDate and EndDate are Required'));
+            return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+            toast.error(t('startDate Cannot Exceed EndDate'));
+            return;
+        }
+
+        if (!latitudeRange.start || !latitudeRange.end) {
+            toast.error(t('latitude Range is Required'));
+            return;
+        }
+
+        if (!longitudeRange.start || !longitudeRange.end) {
+            toast.error(t('longitude Range is Required'));
+            return;
+        }
+
         if (!archiveFile) {
-            alert(t('uploadFileRequired'));
+            toast.error(t('upload File is Required'));
+            return;
+        }
+
+        if (!selectedCity || !selectedCity.id) {
+            toast.error(t('city is Required'));
             return;
         }
 
@@ -147,6 +173,7 @@ function InputPrediction() {
 
     return (
         <div onClick={handleTogglePredictForm} className="fixed inset-0 z-[10000] bg-black bg-opacity-50">
+            <Toaster />
             <div
                 onClick={(event) => event.stopPropagation()}
                 className="inputPrediction max-w-lg w-full mx-auto relative top-1/2  transform  -translate-y-1/2 z-[10001]"
