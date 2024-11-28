@@ -20,6 +20,7 @@ function LayerSelector() {
         setIsMapListVisible((prev) => !prev);
     };
 
+    const [layers, setLayers] = useState([]);
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (mapListRef.current && !mapListRef.current.contains(event.target)) {
@@ -41,10 +42,10 @@ function LayerSelector() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const responsePNN = await fetch(
-                //     `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_nn_${selectedYear}&outputFormat=application%2Fjson`
-                // );
-                const responsePNN = await fetch('/PNN.geojson');
+                const responsePNN = await fetch(
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3Aoutput_raster_to_shp_with_mapping&outputFormat=application%2Fjson`,
+                );
+                // const responsePNN = await fetch('/PNN.geojson');
 
                 const dataPNN = await responsePNN.json();
 
