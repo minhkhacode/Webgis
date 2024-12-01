@@ -12,87 +12,71 @@ const SankeyChart = ({ isExpanded }) => {
     useEffect(() => {
         const ctx = chartRef.current.getContext('2d');
 
+        // Dữ liệu gốc của bạn
+        const rawData = [
+            { from: '2022 - Cay hang nam ', to: '2023 - Cay lau nam', flow: 2028 },
+            { from: '2022 - Cay hang nam', to: '2023 - Lua', flow: 1368 },
+            { from: '2022 - Cay hang nam', to: '2023 - Rung', flow: 559 },
+            { from: '2022 - Cay lau nam', to: '2023 - Cay hang nam', flow: 2478 },
+            { from: '2022 - Cay lau nam', to: '2023 - Dat xay dung', flow: 3121 },
+            { from: '2022 - Cay lau nam', to: '2023 - Lua', flow: 2560 },
+            { from: '2022 - Cay lau nam', to: '2023 - Rung', flow: 1817 },
+            { from: '2022 - Dat xay dung', to: '2023 - Cay hang nam', flow: 1957 },
+            { from: '2022 - Dat xay dung', to: '2023 - Cay lau nam', flow: 3414 },
+            { from: '2022 - Dat xay dung', to: '2023 - Lua', flow: 2815 },
+            { from: '2022 - Dat xay dung', to: '2023 - Rung', flow: 1414 },
+            { from: '2022 - Lua', to: '2023 - Cay hang nam', flow: 1645 },
+            { from: '2022 - Lua', to: '2023 - Cay lau nam', flow: 4674 },
+            { from: '2022 - Lua', to: '2023 - Dat xay dung', flow: 231 },
+            { from: '2022 - Lua', to: '2023 - Rung', flow: 780 },
+            { from: '2022 - Song', to: '2023 - Cay hang nam', flow: 2167 },
+            { from: '2022 - Song', to: '2023 - Cay lau nam', flow: 3531 },
+            { from: '2022 - Song', to: '2023 - Dat xay dung', flow: 641 },
+            { from: '2022 - Song', to: '2023 - Lua', flow: 2530 },
+            { from: '2022 - Song', to: '2023 - Rung', flow: 876 },
+            { from: '2022 - Thuy san', to: '2023 - Cay hang nam', flow: 215 },
+            { from: '2022 - Thuy san', to: '2023 - Cay lau nam', flow: 334 },
+            { from: '2022 - Thuy san', to: '2023 - Lua', flow: 436 },
+        ];
+
+        // Tạo bản sao dữ liệu để tránh thay đổi dữ liệu gốc
+        const sankeyData = JSON.parse(JSON.stringify(rawData));
+
+        // Xác định màu cho từng nút và các liên kết liên quan đến "Lua"
         const colors = {
-            BHK: 'red',
-            CLN: 'green',
-            DGT: 'blue',
-            DRA: 'gray',
-            DTL: 'orange',
-            LUC: 'purple',
-            NKH: 'brown',
-            NTS: 'yellow',
-            ONT: 'cyan',
-            SKC: 'pink',
-            SON: 'teal',
-            TQ: 'gold',
-            'Cay lau nam': 'darkgreen',
-            Lua: 'lightgreen',
-            Rung: 'forestgreen',
-            'Cay hang nam': 'lightblue',
-            'Dat xay dung': 'gray',
+            '2022 - Cay hang nam': '#f4a261',
+            '2022 - Cay lau nam': '#e76f51',
+            '2022 - Dat xay dung': '#2a9d8f',
+            '2022 - Lua': '#43a047', // Màu xanh lá cây cho Lua
+            '2022 - Song': '#1d3557',
+            '2022 - Thuy san': '#457b9d',
+            '2023 - Cay hang nam': '#ffb703',
+            '2023 - Cay lau nam': '#fb8500',
+            '2023 - Dat xay dung': '#219ebc',
+            '2023 - Lua': '#43a047', // Màu xanh lá cây cho Lua
+            '2023 - Rung': '#8ecae6',
         };
 
-        const getHover = (key) => colors[key] || 'gray';
-        const getColor = (key) => colors[key] || 'gray';
+        const getHover = (key) => (key.includes('Lua') ? '#76d275' : colors[key] || 'gray');
+        const getColor = (key) => (key.includes('Lua') ? '#43a047' : colors[key] || 'gray');
 
+        // Hủy biểu đồ cũ nếu đã tồn tại
         if (chartInstance.current) chartInstance.current.destroy();
 
+        // Tạo biểu đồ Sankey
         chartInstance.current = new Chart(ctx, {
             type: 'sankey',
             data: {
                 datasets: [
                     {
-                        label: 'My Sankey Chart',
-                        data: [
-                            { from: 'BHK', to: 'Cay lau nam', flow: 1833 },
-                            { from: 'BHK', to: 'Lua', flow: 1344 },
-                            { from: 'BHK', to: 'Rung', flow: 526 },
-                            { from: 'CLN', to: 'Cay hang nam', flow: 515 },
-                            { from: 'CLN', to: 'Dat xay dung', flow: 360 },
-                            { from: 'CLN', to: 'Lua', flow: 847 },
-                            { from: 'CLN', to: 'Rung', flow: 776 },
-                            { from: 'DGT', to: 'Cay hang nam', flow: 1273 },
-                            { from: 'DGT', to: 'Cay lau nam', flow: 2492 },
-                            { from: 'DGT', to: 'Lua', flow: 2544 },
-                            { from: 'DGT', to: 'Rung', flow: 538 },
-                            { from: 'DRA', to: 'Cay lau nam', flow: 108 },
-                            { from: 'DTL', to: 'Cay hang nam', flow: 1038 },
-                            { from: 'DTL', to: 'Cay lau nam', flow: 2736 },
-                            { from: 'DTL', to: 'Dat xay dung', flow: 255 },
-                            { from: 'DTL', to: 'Lua', flow: 2482 },
-                            { from: 'DTL', to: 'Rung', flow: 401 },
-                            { from: 'LUC', to: 'Cay hang nam', flow: 1586 },
-                            { from: 'LUC', to: 'Cay lau nam', flow: 4359 },
-                            { from: 'LUC', to: 'Dat xay dung', flow: 188 },
-                            { from: 'LUC', to: 'Rung', flow: 727 },
-                            { from: 'NKH', to: 'Cay hang nam', flow: 453 },
-                            { from: 'NKH', to: 'Dat xay dung', flow: 490 },
-                            { from: 'NKH', to: 'Lua', flow: 376 },
-                            { from: 'NKH', to: 'Rung', flow: 138 },
-                            { from: 'NTS', to: 'Cay hang nam', flow: 211 },
-                            { from: 'NTS', to: 'Cay lau nam', flow: 332 },
-                            { from: 'NTS', to: 'Lua', flow: 398 },
-                            { from: 'ONT', to: 'Cay hang nam', flow: 118 },
-                            { from: 'ONT', to: 'Cay lau nam', flow: 266 },
-                            { from: 'SKC', to: 'Cay hang nam', flow: 356 },
-                            { from: 'SKC', to: 'Cay lau nam', flow: 236 },
-                            { from: 'SKC', to: 'Rung', flow: 693 },
-                            { from: 'SON', to: 'Cay hang nam', flow: 1129 },
-                            { from: 'SON', to: 'Cay lau nam', flow: 795 },
-                            { from: 'SON', to: 'Dat xay dung', flow: 386 },
-                            { from: 'SON', to: 'Rung', flow: 475 },
-                            { from: 'TQ', to: 'Cay hang nam', flow: 1638 },
-                            { from: 'TQ', to: 'Cay lau nam', flow: 7314 },
-                            { from: 'TQ', to: 'Dat xay dung', flow: 2336 },
-                            { from: 'TQ', to: 'Lua', flow: 2919 },
-                            { from: 'TQ', to: 'Rung', flow: 991 },
-                        ],
+                        label: 'Biểu đồ Sankey',
+                        data: sankeyData,
                         colorFrom: (c) => getColor(c.dataset.data[c.dataIndex].from),
                         colorTo: (c) => getColor(c.dataset.data[c.dataIndex].to),
                         hoverColorFrom: (c) => getHover(c.dataset.data[c.dataIndex].from),
                         hoverColorTo: (c) => getHover(c.dataset.data[c.dataIndex].to),
                         colorMode: 'gradient',
-                        alpha: 1,
+                        alpha: 0.8,
                     },
                 ],
             },
@@ -102,12 +86,33 @@ const SankeyChart = ({ isExpanded }) => {
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Sankey Diagram of Land Use Changes',
+                        text: 'Sankey diagram of land use change',
+                        color: 'white',
                         font: {
                             size: isExpanded ? 18 : 10,
                             weight: 'bold',
                         },
-                        color: '#333', // Title color
+                    },
+                    datalabels: {
+                        display: false,
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: 'white',
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)',
+                            },
+                        },
+                        y: {
+                            ticks: {
+                                color: 'white',
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)',
+                            },
+                        },
                     },
                 },
             },

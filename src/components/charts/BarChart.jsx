@@ -5,24 +5,55 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const BarChart = () => {
     const data = {
-        labels: ['Apples', 'Oranges', 'Bananas', 'Grapes', 'Pineapples'],
+        labels: ['Lua tom', 'Lua', 'Cay hang nam', 'Cay lau nam', 'Thuy san', 'Song', 'Dat xay dung', 'Rung'],
         datasets: [
             {
-                label: 'Fruit Sales 2023 (in tons)',
-                data: [12, 19, 3, 5, 2],
+                label: '2022 - Inventory map',
+                data: [0, 13489580.4, 527810.4, 2074621.6, 119975.1, 971604.1, 1203676.7, 0],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 252, 140, 0.6)',
+                    'rgba(255, 252, 130, 0.6)',
+                    'rgba(255, 240, 120, 0.6)',
+                    'rgba(255, 210, 160, 0.6)',
+                    'rgba(170, 255, 255, 0.6)',
+                    'rgba(160, 255, 255, 0.6)',
+                    'rgba(255, 170, 160, 0.6)',
+                    'rgba(190, 255, 30, 0.6)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 252, 140, 1)',
+                    'rgba(255, 252, 130, 1)',
+                    'rgba(255, 240, 120, 1)',
+                    'rgba(255, 210, 160, 1)',
+                    'rgba(170, 255, 255, 1)',
+                    'rgba(160, 255, 255, 1)',
+                    'rgba(255, 170, 160, 1)',
+                    'rgba(190, 255, 30, 1)',
+                ],
+                borderWidth: 1,
+            },
+            {
+                label: '2023 - Land Use Status Map',
+                data: [12700, 13806300, 877700, 2551300, 19600, 2700, 829500, 281500],
+                backgroundColor: [
+                    'rgba(255, 252, 140, 0.6)',
+                    'rgba(255, 252, 130, 0.6)',
+                    'rgba(255, 240, 120, 0.6)',
+                    'rgba(255, 210, 160, 0.6)',
+                    'rgba(170, 255, 255, 0.6)',
+                    'rgba(160, 255, 255, 0.6)',
+                    'rgba(255, 170, 160, 0.6)',
+                    'rgba(190, 255, 30, 0.6)',
+                ],
+                borderColor: [
+                    'rgba(255, 252, 140, 1)',
+                    'rgba(255, 252, 130, 1)',
+                    'rgba(255, 240, 120, 1)',
+                    'rgba(255, 210, 160, 1)',
+                    'rgba(170, 255, 255, 1)',
+                    'rgba(160, 255, 255, 1)',
+                    'rgba(255, 170, 160, 1)',
+                    'rgba(190, 255, 30, 1)',
                 ],
                 borderWidth: 1,
             },
@@ -35,15 +66,37 @@ const BarChart = () => {
         plugins: {
             title: {
                 display: true,
-                text: 'Sales Data (2023)',
+                text: 'Area chart of current land use status and classification results',
+                color: 'white',
             },
             legend: {
-                display: false, // Disable the legend
+                display: false,
+            },
+        },
+        datalabels: {
+            color: '#fff',
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: 'white',
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                },
+            },
+            y: {
+                ticks: {
+                    color: 'white',
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                },
             },
         },
         animation: {
-            duration: 1000, // Duration of the animation in milliseconds
-            easing: 'easeInOutBounce', // Easing function for the animation
+            duration: 1000,
+            easing: 'easeInOutBounce',
         },
     };
 

@@ -1,11 +1,11 @@
 // redux/settingsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { BarChart, LineChart, PieChart, SankeyChart } from '../../components/charts/';
+import { BarChart, PieChart, SankeyChart } from '../../components/charts/';
 
 const initialState = {
-    chartType: 'line',
-    mapType: 'esriWorldImagery',
+    mapType: 'openStreetMap',
     chartType: 'sankeyChart',
+    isShowChartTab: false,
     isSidebarOpen: true,
     mapTypeList: {
         openStreetMap: {
@@ -40,19 +40,14 @@ const initialState = {
             image: '/images/chartStyles/barChart.png',
             element: BarChart,
         },
-        lineChart: {
-            title: 'line chart',
-            image: '/images/chartStyles/lineChart.png',
-            element: LineChart,
-        },
         pieChart: {
             title: 'pie chart',
-            image: '/images/chartStyles/sankeyChart.png',
+            image: '/images/chartStyles/pieChart.png',
             element: PieChart,
         },
         sankeyChart: {
             title: 'sankey chart',
-            image: '/images/chartStyles/pieChart.png',
+            image: '/images/chartStyles/sankeyChart.png',
             element: SankeyChart,
         },
     },
@@ -71,6 +66,9 @@ const settingsSlice = createSlice({
         toggleSidebar: (state) => {
             state.isSidebarOpen = !state.isSidebarOpen;
         },
+        toggleChartTab: (state) => {
+            state.isShowChartTab = !state.isShowChartTab;
+        },
     },
 });
 
@@ -81,6 +79,7 @@ export const selectMapTypeList = (state) => state.settings.mapTypeList;
 export const selectSidebarStatus = (state) => state.settings.isSidebarOpen;
 export const selectCurrentChart = (state) => state.settings.chartTypeList[state.settings.chartType];
 export const selectChartTypeList = (state) => state.settings.chartTypeList;
+export const selectChartTabStatus = (state) => state.settings.isShowChartTab;
 
-export const { setChartType, setMapType, toggleSidebar } = settingsSlice.actions;
+export const { setChartType, setMapType, toggleSidebar, toggleChartTab } = settingsSlice.actions;
 export default settingsSlice.reducer;

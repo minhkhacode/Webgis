@@ -4,8 +4,6 @@ function Button({ content, customStyle, icon, handleSetActivation, handleActiveT
     const { t } = useTranslation();
 
     const handleClickButton = (content) => {
-        console.log(content);
-
         handleActiveTab(content);
         handleSetActivation && handleSetActivation(content);
     };
