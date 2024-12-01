@@ -15,12 +15,16 @@ const layerSlice = createSlice({
     },
     reducers: {
         toggleTQ: (state, action) => {
+            // Không cần gán loading ở đây
             state.compareLayer.TQ = state.compareLayer.TQ !== null ? null : action.payload;
         },
         toggleNN: (state, action) => {
+            // Không cần gán loading ở đây
             state.compareLayer.NN = state.compareLayer.NN !== null ? null : action.payload;
         },
         togglePNN: (state, action) => {
+            // Không cần gán loading ở đây
+
             state.compareLayer.PNN = state.compareLayer.PNN !== null ? null : action.payload;
         },
         resetCompareLayer: (state) => {

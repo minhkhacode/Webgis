@@ -1,0 +1,1280 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.1",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597250, 1071990],
+                            [597260, 1071990],
+                            [597260, 1071980],
+                            [597250, 1071980],
+                            [597250, 1071990]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 1,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.2",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597280, 1071990],
+                            [597290, 1071990],
+                            [597290, 1071980],
+                            [597280, 1071980],
+                            [597280, 1071990]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 2,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.3",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597240, 1071980],
+                            [597250, 1071980],
+                            [597250, 1071970],
+                            [597240, 1071970],
+                            [597240, 1071980]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 3,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.4",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597280, 1071980],
+                            [597300, 1071980],
+                            [597300, 1071970],
+                            [597310, 1071970],
+                            [597310, 1071950],
+                            [597300, 1071950],
+                            [597300, 1071940],
+                            [597280, 1071940],
+                            [597280, 1071980]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 4,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.5",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597310, 1071970],
+                            [597350, 1071970],
+                            [597350, 1071960],
+                            [597380, 1071960],
+                            [597380, 1071950],
+                            [597340, 1071950],
+                            [597340, 1071960],
+                            [597330, 1071960],
+                            [597330, 1071950],
+                            [597310, 1071950],
+                            [597310, 1071970]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 5,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.6",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [599180, 1071970],
+                            [599190, 1071970],
+                            [599190, 1071960],
+                            [599180, 1071960],
+                            [599180, 1071970]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 6,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.7",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597260, 1072000],
+                            [597280, 1072000],
+                            [597280, 1071980],
+                            [597270, 1071980],
+                            [597270, 1071970],
+                            [597260, 1071970],
+                            [597260, 1071960],
+                            [597250, 1071960],
+                            [597250, 1071950],
+                            [597230, 1071950],
+                            [597230, 1071940],
+                            [597220, 1071940],
+                            [597220, 1071960],
+                            [597230, 1071960],
+                            [597230, 1071970],
+                            [597250, 1071970],
+                            [597250, 1071980],
+                            [597260, 1071980],
+                            [597260, 1072000]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 7,
+                "dn": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.8",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597380, 1071960],
+                            [597390, 1071960],
+                            [597390, 1071950],
+                            [597380, 1071950],
+                            [597380, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 8,
+                "dn": 3
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.9",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597390, 1071960],
+                            [597400, 1071960],
+                            [597400, 1071950],
+                            [597390, 1071950],
+                            [597390, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 9,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.10",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [599150, 1071960],
+                            [599160, 1071960],
+                            [599160, 1071940],
+                            [599150, 1071940],
+                            [599150, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 10,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.11",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597200, 1071950],
+                            [597210, 1071950],
+                            [597210, 1071940],
+                            [597200, 1071940],
+                            [597200, 1071950]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 11,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.12",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597210, 1071950],
+                            [597220, 1071950],
+                            [597220, 1071940],
+                            [597210, 1071940],
+                            [597210, 1071950]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 12,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.13",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597300, 1071950],
+                            [597310, 1071950],
+                            [597310, 1071940],
+                            [597300, 1071940],
+                            [597300, 1071950]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 13,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.14",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597330, 1071960],
+                            [597340, 1071960],
+                            [597340, 1071950],
+                            [597380, 1071950],
+                            [597380, 1071940],
+                            [597370, 1071940],
+                            [597370, 1071930],
+                            [597350, 1071930],
+                            [597350, 1071940],
+                            [597320, 1071940],
+                            [597320, 1071950],
+                            [597330, 1071950],
+                            [597330, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 14,
+                "dn": 7
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.15",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597380, 1071950],
+                            [597390, 1071950],
+                            [597390, 1071930],
+                            [597380, 1071930],
+                            [597380, 1071950]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 15,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.16",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597400, 1071960],
+                            [597410, 1071960],
+                            [597410, 1071930],
+                            [597390, 1071930],
+                            [597390, 1071950],
+                            [597400, 1071950],
+                            [597400, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 16,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.17",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597190, 1071940],
+                            [597200, 1071940],
+                            [597200, 1071930],
+                            [597190, 1071930],
+                            [597190, 1071940]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 17,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.18",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597200, 1071940],
+                            [597210, 1071940],
+                            [597210, 1071930],
+                            [597200, 1071930],
+                            [597200, 1071940]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 18,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.19",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597210, 1071940],
+                            [597220, 1071940],
+                            [597220, 1071930],
+                            [597210, 1071930],
+                            [597210, 1071940]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 19,
+                "dn": 1
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.20",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597540, 1071940],
+                            [597560, 1071940],
+                            [597560, 1071920],
+                            [597540, 1071920],
+                            [597540, 1071940]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 20,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.21",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597580, 1071940],
+                            [597660, 1071940],
+                            [597660, 1071920],
+                            [597680, 1071920],
+                            [597680, 1071930],
+                            [597700, 1071930],
+                            [597700, 1071910],
+                            [597690, 1071910],
+                            [597690, 1071900],
+                            [597680, 1071900],
+                            [597680, 1071890],
+                            [597610, 1071890],
+                            [597610, 1071900],
+                            [597600, 1071900],
+                            [597600, 1071930],
+                            [597580, 1071930],
+                            [597580, 1071940]
+                        ],
+                        [
+                            [597610, 1071930],
+                            [597610, 1071910],
+                            [597620, 1071910],
+                            [597620, 1071900],
+                            [597630, 1071900],
+                            [597630, 1071920],
+                            [597620, 1071920],
+                            [597620, 1071930],
+                            [597610, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 21,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.22",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597180, 1071930],
+                            [597190, 1071930],
+                            [597190, 1071920],
+                            [597180, 1071920],
+                            [597180, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 22,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.23",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597190, 1071930],
+                            [597220, 1071930],
+                            [597220, 1071920],
+                            [597200, 1071920],
+                            [597200, 1071910],
+                            [597190, 1071910],
+                            [597190, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 23,
+                "dn": 3
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.24",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597240, 1071940],
+                            [597250, 1071940],
+                            [597250, 1071930],
+                            [597260, 1071930],
+                            [597260, 1071910],
+                            [597250, 1071910],
+                            [597250, 1071920],
+                            [597230, 1071920],
+                            [597230, 1071930],
+                            [597240, 1071930],
+                            [597240, 1071940]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 24,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.25",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597310, 1071930],
+                            [597320, 1071930],
+                            [597320, 1071920],
+                            [597310, 1071920],
+                            [597310, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 25,
+                "dn": 7
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.26",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597410, 1071960],
+                            [597430, 1071960],
+                            [597430, 1071950],
+                            [597420, 1071950],
+                            [597420, 1071920],
+                            [597390, 1071920],
+                            [597390, 1071930],
+                            [597410, 1071930],
+                            [597410, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 26,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.27",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597480, 1071940],
+                            [597500, 1071940],
+                            [597500, 1071920],
+                            [597480, 1071920],
+                            [597480, 1071910],
+                            [597470, 1071910],
+                            [597470, 1071930],
+                            [597480, 1071930],
+                            [597480, 1071940]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 27,
+                "dn": 3
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.28",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597590, 1071930],
+                            [597600, 1071930],
+                            [597600, 1071920],
+                            [597590, 1071920],
+                            [597590, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 28,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.29",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597610, 1071930],
+                            [597620, 1071930],
+                            [597620, 1071920],
+                            [597630, 1071920],
+                            [597630, 1071900],
+                            [597620, 1071900],
+                            [597620, 1071910],
+                            [597610, 1071910],
+                            [597610, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 29,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.30",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597660, 1071930],
+                            [597680, 1071930],
+                            [597680, 1071920],
+                            [597660, 1071920],
+                            [597660, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 30,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.31",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597740, 1071930],
+                            [597760, 1071930],
+                            [597760, 1071920],
+                            [597740, 1071920],
+                            [597740, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 31,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.32",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597820, 1071930],
+                            [597830, 1071930],
+                            [597830, 1071920],
+                            [597820, 1071920],
+                            [597820, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 32,
+                "dn": 3
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.33",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597830, 1071930],
+                            [597850, 1071930],
+                            [597850, 1071920],
+                            [597830, 1071920],
+                            [597830, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 33,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.34",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597870, 1071930],
+                            [597880, 1071930],
+                            [597880, 1071920],
+                            [597870, 1071920],
+                            [597870, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 34,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.35",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597890, 1071930],
+                            [597920, 1071930],
+                            [597920, 1071920],
+                            [597980, 1071920],
+                            [597980, 1071910],
+                            [597970, 1071910],
+                            [597970, 1071900],
+                            [597960, 1071900],
+                            [597960, 1071890],
+                            [597930, 1071890],
+                            [597930, 1071900],
+                            [597920, 1071900],
+                            [597920, 1071910],
+                            [597900, 1071910],
+                            [597900, 1071920],
+                            [597890, 1071920],
+                            [597890, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 35,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.36",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [599190, 1071960],
+                            [599200, 1071960],
+                            [599200, 1071950],
+                            [599210, 1071950],
+                            [599210, 1071930],
+                            [599190, 1071930],
+                            [599190, 1071920],
+                            [599160, 1071920],
+                            [599160, 1071930],
+                            [599170, 1071930],
+                            [599170, 1071950],
+                            [599190, 1071950],
+                            [599190, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 36,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.37",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [599210, 1071930],
+                            [599220, 1071930],
+                            [599220, 1071920],
+                            [599210, 1071920],
+                            [599210, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 37,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.38",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597170, 1071920],
+                            [597180, 1071920],
+                            [597180, 1071910],
+                            [597170, 1071910],
+                            [597170, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 38,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.39",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597220, 1071920],
+                            [597230, 1071920],
+                            [597230, 1071910],
+                            [597220, 1071910],
+                            [597220, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 39,
+                "dn": 3
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.40",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597230, 1071920],
+                            [597250, 1071920],
+                            [597250, 1071910],
+                            [597230, 1071910],
+                            [597230, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 40,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.41",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597370, 1071920],
+                            [597390, 1071920],
+                            [597390, 1071910],
+                            [597370, 1071910],
+                            [597370, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 41,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.42",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597430, 1071960],
+                            [597450, 1071960],
+                            [597450, 1071950],
+                            [597440, 1071950],
+                            [597440, 1071930],
+                            [597450, 1071930],
+                            [597450, 1071940],
+                            [597460, 1071940],
+                            [597460, 1071920],
+                            [597450, 1071920],
+                            [597450, 1071900],
+                            [597440, 1071900],
+                            [597440, 1071910],
+                            [597400, 1071910],
+                            [597400, 1071920],
+                            [597420, 1071920],
+                            [597420, 1071950],
+                            [597430, 1071950],
+                            [597430, 1071960]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 42,
+                "dn": 3
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.43",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597450, 1071920],
+                            [597470, 1071920],
+                            [597470, 1071910],
+                            [597450, 1071910],
+                            [597450, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 43,
+                "dn": 7
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.44",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597550, 1071920],
+                            [597560, 1071920],
+                            [597560, 1071910],
+                            [597550, 1071910],
+                            [597550, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 44,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.45",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597770, 1071930],
+                            [597820, 1071930],
+                            [597820, 1071920],
+                            [597790, 1071920],
+                            [597790, 1071910],
+                            [597760, 1071910],
+                            [597760, 1071920],
+                            [597770, 1071920],
+                            [597770, 1071930]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 45,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.46",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597820, 1071920],
+                            [597830, 1071920],
+                            [597830, 1071910],
+                            [597820, 1071910],
+                            [597820, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 46,
+                "dn": 7
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.47",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597990, 1071920],
+                            [598020, 1071920],
+                            [598020, 1071910],
+                            [597990, 1071910],
+                            [597990, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 47,
+                "dn": 2
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.48",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [599150, 1071920],
+                            [599160, 1071920],
+                            [599160, 1071910],
+                            [599150, 1071910],
+                            [599150, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 48,
+                "dn": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.49",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [599200, 1071920],
+                            [599210, 1071920],
+                            [599210, 1071910],
+                            [599200, 1071910],
+                            [599200, 1071920]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 49,
+                "dn": 3
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "ketquaphanloai.50",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [597160, 1071910],
+                            [597170, 1071910],
+                            [597170, 1071900],
+                            [597160, 1071900],
+                            [597160, 1071910]
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "fid": 50,
+                "dn": 2
+            }
+        }
+    ],
+    "totalFeatures": 7006,
+    "numberMatched": 7006,
+    "numberReturned": 50,
+    "timeStamp": "2024-10-15T02:51:26.852Z",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:EPSG::32648"
+        }
+    }
+}

@@ -1,8 +1,10 @@
+
 import axios from 'axios';
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
     selectPredictionFormStatus,
     submitInputPrediction,
@@ -16,6 +18,7 @@ function InputPrediction() {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [isValidForm, setIsValidForm] = useState(true);
+
     const [latitudeRange, setLatitudeRange] = useState({ start: '', end: '' });
     const [longitudeRange, setLongitudeRange] = useState({ start: '', end: '' });
     const [archiveFile, setArchiveFile] = useState(null);
@@ -23,7 +26,6 @@ function InputPrediction() {
     const [citiesList, setCitiesList] = useState([]);
     const [districtsList, setDistrictsList] = useState([]);
     const [wardsList, setwardsList] = useState([]);
-
     const [selectedCity, setSelectedCity] = useState({});
     const [selectedDistrict, setSelectedDistrict] = useState({});
     const [selectedWard, setSelectedWard] = useState({});

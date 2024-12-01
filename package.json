@@ -17,6 +17,7 @@
         "jszip": "^3.10.1",
         "leaflet-bing-layer": "^3.3.1",
         "leaflet-minimap": "^3.6.1",
+        "leaflet-toolbar": "^0.4.0-alpha.2",
         "motion": "^11.11.15",
         "react": "^18.3.1",
         "react-chartjs-2": "^5.2.0",
@@ -61,5 +62,6 @@
         "postcss": "^8.4.47",
         "tailwindcss": "^3.4.12"
     },
+
     "proxy": "http://localhost:8080/geoserver"
 }
