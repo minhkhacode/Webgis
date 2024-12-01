@@ -12,7 +12,6 @@ export const fetchLayerGeoJson = createAsyncThunk('layer/fetchLayerGeoJson', asy
             outputFormat: 'application/json',
         },
     });
-    // console.log(response);
 
     return response.data;
 });

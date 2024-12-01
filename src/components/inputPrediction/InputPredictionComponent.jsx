@@ -1,20 +1,28 @@
-/* eslint-disable no-unused-vars */
+
+import axios from 'axios';
+
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-<<<<<<< HEAD:src/components/InputPredictionComponent.jsx
 
-import { submitInputPrediction } from '../features/InputMapProperties/inputPredictionSlice';
-=======
-import { submitInputPrediction } from '../../features/InputMapProperties/inputPredictionSlice';
->>>>>>> main:src/components/inputPrediction/InputPredictionComponent.jsx
+import {
+    selectPredictionFormStatus,
+    submitInputPrediction,
+    togglePredictionForm,
+} from '../../features/InputMapProperties/inputPredictionSlice';
+import { toggleShowPredictionSteps } from '../../features/predictionSteps/predictionStepsSlice';
+import toast, { Toaster } from 'react-hot-toast';
 
-function InputPrediction({ handleOpenPredictForm }) {
+function InputPrediction() {
     const { t, i18n } = useTranslation();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [isValidForm, setIsValidForm] = useState(true);
+
+    const [latitudeRange, setLatitudeRange] = useState({ start: '', end: '' });
+    const [longitudeRange, setLongitudeRange] = useState({ start: '', end: '' });
+    const [archiveFile, setArchiveFile] = useState(null);
+
     const [citiesList, setCitiesList] = useState([]);
     const [districtsList, setDistrictsList] = useState([]);
     const [wardsList, setwardsList] = useState([]);
@@ -24,6 +32,7 @@ function InputPrediction({ handleOpenPredictForm }) {
 
     const dispatch = useDispatch();
     const area = useSelector((state) => state.inputPrediction.area);
+    const isPredictionFormOpen = useSelector(selectPredictionFormStatus);
 
     const areaAPI = 'https://esgoo.net/api-tinhthanh';
 
@@ -56,7 +65,6 @@ function InputPrediction({ handleOpenPredictForm }) {
 
     const handleSelecWard = (event) => {
         const ward = wardsList.filter((ward) => ward.id === event.target.value)[0];
-        console.log(ward);
         setSelectedWard(ward ? { ...ward } : {});
     };
 
@@ -81,39 +89,93 @@ function InputPrediction({ handleOpenPredictForm }) {
         if (isValidForm) setEndDate(event.target.value);
     };
 
-    const isEmptyObject = (obj) => {
-        return Object.keys(obj).length === 0 && obj.constructor === Object;
-    };
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const area = !isEmptyObject(selectedWard)
-            ? selectedWard
-            : !isEmptyObject(selectedDistrict)
-            ? selectedDistrict
-            : !isEmptyObject(selectedCity)
-            ? selectedCity
-            : null;
+        if (!startDate || !endDate) {
+            toast.error(t('startDate and EndDate are Required'));
+            return;
+        }
 
-        dispatch(
-            submitInputPrediction({
-                startDate: startDate,
-                endDate: endDate,
-                modelName: null,
-                area,
-            }),
-        );
-        handleOpenPredictForm();
-        console.log('Submit');
+        if (new Date(startDate) > new Date(endDate)) {
+            toast.error(t('startDate Cannot Exceed EndDate'));
+            return;
+        }
+
+        if (!latitudeRange.start || !latitudeRange.end) {
+            toast.error(t('latitude Range is Required'));
+            return;
+        }
+
+        if (!longitudeRange.start || !longitudeRange.end) {
+            toast.error(t('longitude Range is Required'));
+            return;
+        }
+
+        if (!archiveFile) {
+            toast.error(t('upload File is Required'));
+            return;
+        }
+
+        if (!selectedCity || !selectedCity.id) {
+            toast.error(t('city is Required'));
+            return;
+        }
+
+        const formData = new FormData();
+
+        // Append thông tin form
+        formData.append('startDate', startDate);
+        formData.append('endDate', endDate);
+        formData.append('modelName', null); // Hoặc giá trị modelName nếu có
+        formData.append('area', JSON.stringify(area)); // Nếu area là object
+        formData.append('latitudeRange', JSON.stringify(latitudeRange)); // Dạng JSON
+        formData.append('longitudeRange', JSON.stringify(longitudeRange)); // Dạng JSON
+
+        // Append file nén
+        formData.append('archiveFile', archiveFile);
+
+        console.log(formData);
+
+        // Dispatch thông tin qua async thunk
+        dispatch(submitInputPrediction(formData));
+        dispatch(togglePredictionForm());
+        dispatch(toggleShowPredictionSteps());
     };
 
-    const handleCloseForm = (event) => {
-        handleOpenPredictForm();
+    const handleChangeLatitudeRange = (key, value) => {
+        setLatitudeRange((prev) => ({ ...prev, [key]: value }));
     };
+
+    const handleChangeLongitudeRange = (key, value) => {
+        setLongitudeRange((prev) => ({ ...prev, [key]: value }));
+    };
+
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+        const supportedFormats = [
+            'application/zip',
+            'application/x-rar-compressed',
+            'application/x-tar',
+            'application/gzip',
+        ];
+
+        if (file && supportedFormats.includes(file.type)) {
+            setArchiveFile(file);
+        } else {
+            alert(t('unsupportedFileType'));
+        }
+    };
+
+    const handleTogglePredictForm = () => {
+        dispatch(togglePredictionForm());
+    };
+
+    if (!isPredictionFormOpen) return <></>;
 
     return (
-        <div onClick={handleCloseForm} className="fixed inset-0 z-[10000] bg-black bg-opacity-50">
+        <div onClick={handleTogglePredictForm} className="fixed inset-0 z-[10000] bg-black bg-opacity-50">
+            <Toaster />
             <div
                 onClick={(event) => event.stopPropagation()}
                 className="inputPrediction max-w-lg w-full mx-auto relative top-1/2  transform  -translate-y-1/2 z-[10001]"
@@ -149,6 +211,62 @@ function InputPrediction({ handleOpenPredictForm }) {
                     </div>
 
                     <div>
+                        <label htmlFor="latitude_range" className="block text-sm font-medium text-gray-700">
+                            {t('latitudeRange')}
+                        </label>
+                        <div className="flex space-x-4">
+                            <input
+                                onChange={(e) => handleChangeLatitudeRange('start', e.target.value)}
+                                type="number"
+                                step="0.000001"
+                                id="latitude_start"
+                                name="latitude_start"
+                                value={latitudeRange.start}
+                                placeholder={t('latitudeStart')}
+                                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />
+                            <input
+                                onChange={(e) => handleChangeLatitudeRange('end', e.target.value)}
+                                type="number"
+                                step="0.000001"
+                                id="latitude_end"
+                                name="latitude_end"
+                                value={latitudeRange.end}
+                                placeholder={t('latitudeEnd')}
+                                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label htmlFor="longitude_range" className="block text-sm font-medium text-gray-700">
+                            {t('longitudeRange')}
+                        </label>
+                        <div className="flex space-x-4">
+                            <input
+                                onChange={(e) => handleChangeLongitudeRange('start', e.target.value)}
+                                type="number"
+                                step="0.000001"
+                                id="longitude_start"
+                                name="longitude_start"
+                                value={longitudeRange.start}
+                                placeholder={t('longitudeStart')}
+                                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />
+                            <input
+                                onChange={(e) => handleChangeLongitudeRange('end', e.target.value)}
+                                type="number"
+                                step="0.000001"
+                                id="longitude_end"
+                                name="longitude_end"
+                                value={longitudeRange.end}
+                                placeholder={t('longitudeEnd')}
+                                className="mt-1 block w-1/2 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
                         <label htmlFor="model_name" className="block text-sm font-medium text-gray-700">
                             {t('modelName')}
                         </label>
@@ -163,6 +281,21 @@ function InputPrediction({ handleOpenPredictForm }) {
                             <option value="model4">Model 4</option>
                         </select>
                     </div>
+
+                    <div>
+                        <label htmlFor="archive_file" className="block text-sm font-medium text-gray-700">
+                            {t('uploadArchiveFile')}
+                        </label>
+                        <input
+                            onChange={handleFileChange}
+                            type="file"
+                            id="archive_file"
+                            name="archive_file"
+                            accept=".zip,.rar,.tar,.gz,.7z"
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        />
+                    </div>
+
                     <div>
                         <div>
                             <label htmlFor="city" className="block text-sm font-medium text-gray-700">

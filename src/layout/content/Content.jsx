@@ -1,15 +1,9 @@
-/* eslint-disable no-unused-vars */
 // import axios from 'axios';
 
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-<<<<<<< HEAD
-import { Button, HeaderComponent, MapShapeFile, Dropdown } from '../../components';
-import { toggleNN, togglePNN, toggleTQ } from '../../features/test/testSlice.jsx';
-import InputPrediction from '../../components/InputPredictionComponent.jsx';
-=======
 import { HeaderComponent, MapShapeFile } from '../../components';
 
 import InputPrediction from '../../components/inputPrediction/InputPredictionComponent.jsx';
@@ -18,69 +12,21 @@ import InputPrediction from '../../components/inputPrediction/InputPredictionCom
 import LayerSelector from '../../components/LayerSelector/LayerSelector.jsx';
 import { selectSidebarStatus } from '../../features/setting/settingSlice.jsx';
 import ChartTab from '../../components/charts/ChartTab.jsx';
->>>>>>> main
+import DataPrepairation from '../../components/dataPrepairation/DataPrepairation.jsx';
+import { selectIsShowpredictionSteps } from '../../features/predictionSteps/predictionStepsSlice.jsx';
 
 function Content() {
     const { t } = useTranslation();
     const [isPredictFormOpen, setIsPredictFormOpen] = useState(false);
-<<<<<<< HEAD
-    const dispatch = useDispatch();
-=======
 
     // const dispatch = useDispatch();
->>>>>>> main
     const { compareLayer } = useSelector((state) => state.layer);
     const isSidebarOpen = useSelector(selectSidebarStatus);
+    const isShowPredictionSteps = useSelector(selectIsShowpredictionSteps);
 
-<<<<<<< HEAD
-    const handleActiveTab = async (title) => {
-        setShowTab(title);
-    };
-
-    const handleSetActivation = (value) => {
-        setActivation(value);
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const responsePNN = await fetch('/PNN.geojson');
-                const dataPNN = await responsePNN.json();
-                setPNN(dataPNN);
-
-                const responseNN = await fetch('/NN.geojson');
-                const dataNN = await responseNN.json();
-                setNN(dataNN);
-
-                const responseTQ = await fetch('/TQ.geojson');
-                const dataTQ = await responseTQ.json();
-                setTQ(dataTQ);
-            } catch (error) {
-                console.error('Error loading GeoJSON:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const handleToggleNN = (e) => {
-        dispatch(toggleNN({ ...NN }));
-        // console.log(compareLayer);
-    };
-
-    const handleTogglePNN = (e) => {
-        dispatch(togglePNN({ ...PNN }));
-        // console.log(compareLayer);
-    };
-
-    const handleToggleTQ = (e) => {
-        dispatch(toggleTQ({ ...TQ }));
-        // console.log(compareLayer);
-    };
-
-    const handleOpenPredictForm = () => {
-        setIsPredictFormOpen(!isPredictFormOpen);
-    };
+    // const handleOpenPredictForm = () => {
+    //     setIsPredictFormOpen(!isPredictFormOpen);
+    // };
 
     return (
         <div
@@ -149,27 +95,15 @@ function Content() {
                         {isPredictFormOpen && <InputPrediction handleOpenPredictForm={handleOpenPredictForm} />}
                     </div> */}
 
-                    <div className="search">
-                        <div className="search relative flex items-center">
-                            <i className="absolute left-4 cursor-pointer">
-                                <GoSearch />
-                            </i>
-                            <input
-                                className="w-full bg-[#eeeeee] text-sm p-3 pl-12 border border-gray-300 rounded outline-none focus:bg-white focus:shadow-custom transition duration-300"
-                                type="text"
-                                name=""
-                                id=""
-                                placeholder={t('inputPlaceHolder')}
-                            />
-                        </div>
-                    </div>
                     <HeaderComponent />
 
-                    {/* <div className="w-full h-full">
+                    <div className="w-full h-full">
+                        <InputPrediction />
+                        {isShowPredictionSteps && <DataPrepairation />}
                         <LayerSelector />
                         <MapShapeFile getJsonDataList={Object.values(compareLayer)} />
                         <ChartTab />
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>

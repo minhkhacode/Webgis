@@ -5,6 +5,7 @@ const initialState = {
     endDate: null,
     modelName: null,
     area: null,
+    isPredictionFormOpen: false,
 };
 
 export const inputPredictionSlice = createSlice({
@@ -12,9 +13,10 @@ export const inputPredictionSlice = createSlice({
     initialState,
     reducers: {
         submitInputPrediction: (state, action) => {
-            console.log(action.payload);
-
             return { ...state, ...action.payload };
+        },
+        togglePredictionForm: (state) => {
+            state.isPredictionFormOpen = !state.isPredictionFormOpen;
         },
     },
     extraReducers: (builder) => {
@@ -22,6 +24,8 @@ export const inputPredictionSlice = createSlice({
     },
 });
 
-export const { submitInputPrediction } = inputPredictionSlice.actions;
+export const selectPredictionFormStatus = (state) => state.inputPrediction.isPredictionFormOpen;
+
+export const { submitInputPrediction, togglePredictionForm } = inputPredictionSlice.actions;
 
 export default inputPredictionSlice.reducer;

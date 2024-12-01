@@ -2,26 +2,24 @@ import { GeoJSON } from 'react-leaflet';
 
 export default function MapLayers({ getJsonDataList, styles }) {
     const onEachTypeLandUse = (TypeLandUse, layer) => {
-        const typeLand = TypeLandUse.properties.Type;
-        layer.bindPopup(typeLand, {
+        const properties = TypeLandUse.properties;
+
+        const popupContent = Object.entries(properties)
+            .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+            .join('<br>');
+
+        layer.bindPopup(popupContent, {
             maxWidth: 300,
             closeButton: true,
             autoClose: true,
             closeOnClick: true,
         });
+
         layer.on({
             click: (event) => {
                 event.target.setStyle({
                     fillColor: 'green',
                     color: 'blue',
-                });
-            },
-            clickOutSide: (event) => {
-                event.target.setStyle({
-                    fillColor: 'red',
-                    fillOpacity: '0.1',
-                    color: 'blue',
-                    fontWeight: '200',
                 });
             },
         });
