@@ -43,7 +43,7 @@ function LayerSelector() {
         const fetchData = async () => {
             try {
                 const responsePNN = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3Aoutput_raster_to_shp_with_mapping&outputFormat=application%2Fjson`,
+                    `minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3ANN_changes&outputFormat=application%2Fjson`,
                 );
                 // const responsePNN = await fetch('/PNN.geojson');
 
@@ -54,14 +54,16 @@ function LayerSelector() {
                 // const responseNN = await fetch(
                 //     `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_pnn_${selectedYear}&outputFormat=application%2Fjson`,
                 // );
-                const responseNN = await fetch('/NN.geojson');
+                const responseNN = await fetch(
+                    `minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3APNN_changes&outputFormat=application%2Fjson`,
+                );
 
                 const dataNN = await responseNN.json();
 
                 setNN(dataNN);
 
                 const responseTQ = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_${selectedYear}&outputFormat=application%2Fjson`,
+                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3Aoutput_raster_to_shp_with_mapping&outputFormat=application%2Fjson`,
                 );
                 // const responseTQ = await fetch('/TQ.geojson');
 
@@ -118,8 +120,8 @@ function LayerSelector() {
                                 className="w-full border border-gray-300 rounded-lg p-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
                             >
                                 <option value="thuanhoa">Thuận Hòa</option>
-                                <option value="chauthanh">Châu Thành</option>
-                                <option value="culaodung">Cù Lao Dung</option>
+                                {/* <option value="chauthanh">Châu Thành</option>
+                                <option value="culaodung">Cù Lao Dung</option> */}
                             </select>
                         </label>
                         <label className="w-full" htmlFor="region">
@@ -131,15 +133,16 @@ function LayerSelector() {
                                 onChange={handleYearChange}
                                 className="w-full border border-gray-300 rounded-lg p-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
                             >
-                                <option value="2019">2019</option>
+                                {/* <option value="2019">2019</option>
                                 <option value="2020">2020</option>
                                 <option value="2021">2021</option>
-                                <option value="2022">2022</option>
+                                <option value="2022">2022</option> */}
+                                <option value="2022">2023</option>
                             </select>
                         </label>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <button
+                        {/* <button
                             onClick={handleTogglePNN}
                             className={`relative flex items-center p-3 rounded-lg transition-all duration-300 ease-in-out whitespace-nowrap ${
                                 compareLayer['PNN']
@@ -151,9 +154,9 @@ function LayerSelector() {
                                 <FaRegCheckCircle className="absolute top-1 right-1 text-blue-500" />
                             )}
                             NDVI Map
-                        </button>
+                        </button> */}
 
-                        <button
+                        {/* <button
                             onClick={handleTogglePNN}
                             className={`relative flex items-center p-3 rounded-lg transition-all duration-300 ease-in-out whitespace-nowrap ${
                                 compareLayer['PNN']
@@ -165,7 +168,7 @@ function LayerSelector() {
                                 <FaRegCheckCircle className="absolute top-1 right-1 text-blue-500" />
                             )}
                             Land Inventory Map
-                        </button>
+                        </button> */}
 
                         <button
                             onClick={handleTogglePNN}

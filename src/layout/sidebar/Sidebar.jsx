@@ -3,6 +3,7 @@ import { IoMdCloudDownload, IoIosCloseCircleOutline } from 'react-icons/io';
 import { MdUpload } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSidebarStatus, toggleSidebar } from '../../features/setting/settingSlice';
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
     const dispatch = useDispatch();
@@ -40,10 +41,13 @@ function Sidebar() {
                     <IoMdCloudDownload className="mr-2 text-xl" />
                     Save
                 </button>
-                <button className="flex items-center justify-center bg-teal-500 text-white w-full py-1 rounded-xl hover:bg-teal-400 focus:outline-none">
+                <Link
+                    to={'/layermanagement'}
+                    className="flex items-center justify-center bg-teal-500 text-white w-full py-1 rounded-xl hover:bg-teal-400 focus:outline-none"
+                >
                     <MdUpload className="mr-2 text-xl" />
                     Upload
-                </button>
+                </Link>
             </div>
         </div>
     );

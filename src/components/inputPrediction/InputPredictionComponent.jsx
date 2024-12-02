@@ -273,10 +273,10 @@ function InputPrediction() {
                             name="model_name"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         >
-                            <option value="model1">Model 1</option>
-                            <option value="model2">Model 2</option>
-                            <option value="model3">Model 3</option>
-                            <option value="model4">Model 4</option>
+                            <option value="model1">KNN</option>
+                            <option value="model2">Random forest</option>
+                            <option value="model3">Gradient boosting</option>
+                            <option value="model4">Multi-layer perceptron</option>
                         </select>
                     </div>
 
