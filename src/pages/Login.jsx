@@ -34,16 +34,6 @@ const LoginPage = () => {
             return;
         }
 
-        // Simulating an API call (replace with actual backend logic)
-        const isValid = await mockLogin(username, password);
-
-        if (!isValid) {
-            toast.error('Invalid username or password');
-        } else {
-            toast.success('Login successful');
-            // Redirect or further actions after successful login
-        }
-
         try {
             const response = await axios.post('http://127.0.0.1:8088/api/login/', {
                 username: username,
@@ -59,19 +49,21 @@ const LoginPage = () => {
             setError('Invalid username or password.');
             toast.error(error);
         }
+        toast.success('Login successful');
+        // Redirect or further actions after successful login
     };
 
-    const mockLogin = (username, password) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                if (username === 'user' && password === 'password') {
-                    resolve(true); // Simulating successful login
-                } else {
-                    resolve(false); // Invalid login
-                }
-            }, 1000);
-        });
-    };
+    // const mockLogin = (username, password) => {
+    //     return new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             if (username === 'user' && password === 'password') {
+    //                 resolve(true); // Simulating successful login
+    //             } else {
+    //                 resolve(false); // Invalid login
+    //             }
+    //         }, 1000);
+    //     });
+    // };
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -123,7 +115,7 @@ const LoginPage = () => {
 
                 <hr className="w-[100%] mt-[20px] font-bold" />
 
-                <div className="relative mt-[20px]">
+                {/* <div className="relative mt-[20px]">
                     <button onClick={toggleDropdown} className="text-[#eba602] p-2 rounded-lg">
                         Vietnamese (Vi)
                     </button>
@@ -138,7 +130,7 @@ const LoginPage = () => {
                         <li className="p-2 hover:bg-gray-200 cursor-pointer">Vietnamese (Vi)</li>
                         <li className="p-2 hover:bg-gray-200 cursor-pointer">English (en)</li>
                     </motion.ul>
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -65,23 +65,23 @@ const title_table = [
     // },
 ];
 
-const list_exports = [
-    {
-        name: 'GeoJSON',
-    },
-    {
-        name: 'PNG',
-    },
-    {
-        name: 'tif',
-    },
-    {
-        name: 'shape file',
-    },
-    {
-        name: 'text',
-    },
-];
+// const list_exports = [
+//     {
+//         name: 'GeoJSON',
+//     },
+//     {
+//         name: 'PNG',
+//     },
+//     {
+//         name: 'tif',
+//     },
+//     {
+//         name: 'shape file',
+//     },
+//     {
+//         name: 'text',
+//     },
+// ];
 
 function Map() {
     const [open, setOpen] = useState(false);
@@ -90,11 +90,24 @@ function Map() {
     const [listWorkspace, setListWorkspace] = useState([]);
     const [isOpen, setIsOpen] = useState([]);
     const [selectedOption, setSelectedOption] = useState('Select an option');
+    const [deleteModal, setDeleteModal] = useState({});
+    const [layerName, setLayerName] = useState('');
+    const [description, setDescription] = useState('');
+    const [file, setFile] = useState(null);
+    const [statusMessage, setStatusMessage] = useState('');
 
     const navigate = useNavigate();
 
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
+
+    const OpenDeleteModal = (id) => {
+        setDeleteModal((prev) => ({ ...prev, [id]: true }));
+    };
+
+    const CloseDeleteModal = (id) => {
+        setDeleteModal((prev) => ({ ...prev, [id]: false }));
+    };
 
     const handleOptionSelect = (option) => {
         setSelectedOption(option);
@@ -105,14 +118,65 @@ function Map() {
         navigate('/');
     };
 
-    useEffect(() => {
-        axios
-            .get('http://127.0.0.1:8088/api/layers/get_all_layers/', config)
-            .then((response) => setListLayers(response.data.data.layers));
+    const handleDeleteLayer = async (id) => {
+        console.log(`http://127.0.0.1:8088/api/layers/delete/${id}/`);
+        try {
+            await axios.delete(`http://127.0.0.1:8088/api/layers/delete_layer/${id}/`, config);
+            setListLayers((prev) => prev.filter((layer) => layer.id !== id)); // Update UI
+            toast.success(`Layer ${id} deleted successfully.`);
+        } catch (error) {
+            toast.error(`Failed to delete layer ${id}.`);
+        }
+        CloseDeleteModal(id); // Close modal
+    };
 
-        axios
-            .get('http://127.0.0.1:8088/api/layers/get_workspaces/', config)
-            .then((response) => setListWorkspace(response.data));
+    const handleCreateLayer = async (e) => {
+        e.preventDefault();
+
+        // FormData to send multipart data
+        const formData = new FormData();
+        formData.append('layerName', layerName);
+        formData.append('description', description);
+        formData.append('shapefile', file);
+
+        try {
+            const response = await axios.post(
+                'http://127.0.0.1:8088/api/layers/create/',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                },
+                config,
+            );
+
+            if (response.status === 201) {
+                setStatusMessage('Layer created successfully!');
+                setIsOpen(false);
+            } else {
+                setStatusMessage('Failed to create layer.');
+            }
+        } catch (error) {
+            console.error('Error creating layer:', error);
+            setStatusMessage('An error occurred while creating the layer.');
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const layersResponse = await axios.get('http://127.0.0.1:8088/api/layers/get_all_layers/', config);
+                setListLayers(layersResponse.data.data.layers);
+
+                const workspaceResponse = await axios.get('http://127.0.0.1:8088/api/layers/get_workspaces/', config);
+                setListWorkspace(workspaceResponse.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -150,38 +214,43 @@ function Map() {
                         </div>
                         <Modal open={open} center onClose={onCloseModal}>
                             <div className="uppercase text-center font-bold mb-[25px]">Update layer</div>
-                            <form className="h-auto align-middle flex flex-col items-center">
-                                <label htmlFor="workspace">Name</label>
-
+                            <form
+                                className="h-auto align-middle flex flex-col items-center"
+                                onSubmit={handleCreateLayer}
+                            >
+                                <label htmlFor="name">Name</label>
                                 <input
                                     className="w-[400px] border-[2px] h-[40px] pl-[5px] mb-[15px]"
                                     type="text"
-                                    value={name}
-                                    onChange={() => {
-                                        setName(name);
-                                    }}
+                                    id="layerName"
+                                    value={layerName}
+                                    onChange={(e) => setLayerName(e.target.value)}
+                                    required
                                 />
-                                <label htmlFor="workspace">Title</label>
 
+                                <label htmlFor="title">Description</label>
                                 <input
                                     className="w-[400px] border-[2px] h-[40px] pl-[5px] mb-[15px]"
                                     type="text"
-                                    value={name}
-                                    onChange={() => {
-                                        setName(name);
-                                    }}
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    required
                                 />
-                                <label htmlFor="workspace">Workspace</label>
+
+                                <label htmlFor="file"></label>
                                 <input
                                     className="w-[400px] border-[2px] h-[40px] pl-[5px] mb-[15px]"
-                                    type="select"
-                                    value={name}
-                                    onChange={() => {
-                                        setName(name);
-                                    }}
-                                    id="workspace"
+                                    type="file"
+                                    id="file"
+                                    accept=".zip"
+                                    onChange={(e) => setFile(e.target.files[0])}
+                                    required
                                 />
-                                <button className="uppercase w-[100px] h-[50px] rounded-[7px] bg-[#1F2739] text-[#fff] hover:bg-[#fff] hover:text-[black] hover:shadow-md custom-td-hover">
+
+                                <button
+                                    className="uppercase w-[100px] h-[50px] rounded-[7px] bg-[#1F2739] text-[#fff] hover:bg-[#fff] hover:text-[black] hover:shadow-md custom-td-hover"
+                                    type="submit"
+                                >
                                     Update
                                 </button>
                             </form>
@@ -216,59 +285,33 @@ function Map() {
                                                 <div className="custom-td-hover-edit absolute cursor-pointer w-[40%] h-[100%] top-0 left-0 flex items-center justify-center">
                                                     <LuFileEdit className="h-[20px] w-[20px]" />
                                                 </div>
-                                                <div className="custom-td-hover-delete absolute cursor-pointer w-[40%] h-[100%] top-0 right-0 flex items-center justify-center">
+                                                <div
+                                                    className="custom-td-hover-delete absolute cursor-pointer w-[40%] h-[100%] top-0 right-0 flex items-center justify-center"
+                                                    onClick={() => OpenDeleteModal(item.id)}
+                                                >
                                                     <LuTrash2 className="h-[20px] w-[20px]" />
                                                 </div>
+                                                <Modal
+                                                    open={deleteModal[item.id] || false}
+                                                    center
+                                                    onClose={() => CloseDeleteModal(item.id)}
+                                                >
+                                                    <div className="flex-col place-items-center">
+                                                        <div className="uppercase text-center font-bold mb-[25px]">
+                                                            Are you sure you want to delete layer{' '}
+                                                            <div className="uppercase text-center font-bold mb-[25px]">
+                                                                "{item.id}"?
+                                                            </div>
+                                                        </div>
+                                                        <button
+                                                            onClick={() => handleDeleteLayer(item.id)}
+                                                            className="uppercase w-[100px] h-[50px] rounded-[7px] bg-[#1F2739] text-[#fff] hover:bg-[#ac4242] hover:text-[white] hover:shadow-md custom-td-hover"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </Modal>
                                             </td>
-                                            {/* <td className="align-middle text-center items-center relative">
-                                                <div className="dropdown-container absolute top-[20px] left-[25px] ">
-                                                    <motion.button
-                                                        onClick={() => setIsOpen(!isOpen)}
-                                                        whileTap={{ scale: 0.97 }}
-                                                        className="dropdown-button text-center text-[#fff] uppercase flex"
-                                                    >
-                                                        <motion.div
-                                                            className="box "
-                                                            whileHover={{ scale: 1.1 }}
-                                                            whileTap={{ scale: 0.9 }}
-                                                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                                                        >
-                                                            select one
-                                                        </motion.div>
-                                                        <motion.div
-                                                            animate={{ rotate: isOpen ? 180 : 0 }}
-                                                            transition={{ duration: 0.2 }}
-                                                            style={{ display: 'inline-block', marginLeft: 8 }}
-                                                        >
-                                                            <svg
-                                                                className="ml-[5px]"
-                                                                width="15"
-                                                                height="15"
-                                                                viewBox="0 0 20 20"
-                                                            >
-                                                                <path d="M0 7 L 20 7 L 10 16" />
-                                                            </svg>
-                                                        </motion.div>
-                                                    </motion.button>
-                                                    <motion.ul
-                                                        className="dropdown"
-                                                        initial="closed"
-                                                        animate={isOpen ? 'open' : 'closed'}
-                                                        variants={dropdownVariants}
-                                                    >
-                                                        {list_exports.map((option) => (
-                                                            <motion.li
-                                                                key={option.name}
-                                                                onClick={() => handleOptionSelect(option.name)}
-                                                                whileHover={{ scale: 1.05, backgroundColor: '#f0f0f0' }}
-                                                                className="dropdown-item bg-[#fff]"
-                                                            >
-                                                                {option.name}
-                                                            </motion.li>
-                                                        ))}
-                                                    </motion.ul>
-                                                </div>
-                                            </td> */}
                                         </tr>
                                     );
                                 })}
