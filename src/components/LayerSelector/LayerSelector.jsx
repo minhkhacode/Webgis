@@ -10,7 +10,7 @@ function LayerSelector() {
     const [PNN, setPNN] = useState(null);
     const [NN, setNN] = useState(null);
     const [TQ, setTQ] = useState(null);
-    const [selectedRegion, setSelectedRegion] = useState('thuanhoa');
+    const [selectedRegion, setSelectedRegion] = useState('ThuanHoa');
     const [selectedYear, setSelectedYear] = useState(2022);
 
     const dispatch = useDispatch();
@@ -20,7 +20,8 @@ function LayerSelector() {
         setIsMapListVisible((prev) => !prev);
     };
 
-    const [layers, setLayers] = useState([]);
+    // const [layers, setLayers] = useState([]);
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (mapListRef.current && !mapListRef.current.contains(event.target)) {
@@ -43,30 +44,35 @@ function LayerSelector() {
         const fetchData = async () => {
             try {
                 const responsePNN = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3Aoutput_raster_to_shp_with_mapping&outputFormat=application%2Fjson`,
+                    `/ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3A${selectedRegion}_2022_BanDoKiemKe&outputFormat=application%2Fjson`,
                 );
+
                 // const responsePNN = await fetch('/PNN.geojson');
 
                 const dataPNN = await responsePNN.json();
+                console.log(dataPNN);
 
                 setPNN(dataPNN);
 
                 // const responseNN = await fetch(
                 //     `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_pnn_${selectedYear}&outputFormat=application%2Fjson`,
                 // );
-                const responseNN = await fetch('/NN.geojson');
+                const responseNN = await fetch(
+                    `ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3A${selectedRegion}_2023_KetQuaChongLap&outputFormat=application%2Fjson`,
+                );
 
                 const dataNN = await responseNN.json();
+                console.log('NN', dataNN);
 
                 setNN(dataNN);
 
                 const responseTQ = await fetch(
-                    `/minhkha/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=minhkha%3A${selectedRegion}_tq_${selectedYear}&outputFormat=application%2Fjson`,
+                    `ne/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ne%3A${selectedRegion}_2023_KetQuaPhanLoai_NN&outputFormat=application%2Fjson`,
                 );
-                // const responseTQ = await fetch('/TQ.geojson');
 
                 const dataTQ = await responseTQ.json();
                 setTQ(dataTQ);
+                console.log('TQ', dataTQ);
             } catch (error) {
                 console.log('error');
 
@@ -117,7 +123,7 @@ function LayerSelector() {
                                 onChange={handleRegionChange}
                                 className="w-full border border-gray-300 rounded-lg p-2 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
                             >
-                                <option value="thuanhoa">Thuận Hòa</option>
+                                <option value="ThuanHoa">Thuận Hòa</option>
                                 <option value="chauthanh">Châu Thành</option>
                                 <option value="culaodung">Cù Lao Dung</option>
                             </select>

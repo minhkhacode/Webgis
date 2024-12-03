@@ -10,7 +10,13 @@ import { motion } from 'framer-motion';
 import { LuFileEdit, LuTrash2 } from 'react-icons/lu';
 
 import '../index.css';
-import PaginatedList from '../components/paginations/defaultPagination';
+
+const auth_key = localStorage.getItem('authToken');
+const config = {
+    headers: {
+        Authorization: `Bearer ${auth_key}`, // Use "Bearer" or appropriate schema
+    },
+};
 
 const dropdownVariants = {
     open: {
@@ -54,9 +60,9 @@ const title_table = [
     {
         action: 'Actions',
     },
-    {
-        action: 'Export',
-    },
+    // {
+    //     action: 'Export',
+    // },
 ];
 
 const list_exports = [
@@ -101,12 +107,12 @@ function Map() {
 
     useEffect(() => {
         axios
-            .get('http://127.0.0.1:8088/api/layers/get_all_layers/')
-            .then((response) => setListLayers(response.data.data));
+            .get('http://127.0.0.1:8088/api/layers/get_all_layers/', config)
+            .then((response) => setListLayers(response.data.data.layers));
 
         axios
-            .get('http://127.0.0.1:8088/api/layers/get_workspaces/')
-            .then((response) => setListWorkspace(response.data.List_workspaces));
+            .get('http://127.0.0.1:8088/api/layers/get_workspaces/', config)
+            .then((response) => setListWorkspace(response.data));
     }, []);
 
     return (
@@ -143,7 +149,7 @@ function Map() {
                             </motion.div>
                         </div>
                         <Modal open={open} center onClose={onCloseModal}>
-                            <div className="uppercase text-center font-bold mb-[25px]">add layers</div>
+                            <div className="uppercase text-center font-bold mb-[25px]">Update layer</div>
                             <form className="h-auto align-middle flex flex-col items-center">
                                 <label htmlFor="workspace">Name</label>
 
@@ -176,7 +182,7 @@ function Map() {
                                     id="workspace"
                                 />
                                 <button className="uppercase w-[100px] h-[50px] rounded-[7px] bg-[#1F2739] text-[#fff] hover:bg-[#fff] hover:text-[black] hover:shadow-md custom-td-hover">
-                                    Submit
+                                    Update
                                 </button>
                             </form>
                         </Modal>
@@ -214,7 +220,7 @@ function Map() {
                                                     <LuTrash2 className="h-[20px] w-[20px]" />
                                                 </div>
                                             </td>
-                                            <td className="align-middle text-center items-center relative">
+                                            {/* <td className="align-middle text-center items-center relative">
                                                 <div className="dropdown-container absolute top-[20px] left-[25px] ">
                                                     <motion.button
                                                         onClick={() => setIsOpen(!isOpen)}
@@ -262,13 +268,12 @@ function Map() {
                                                         ))}
                                                     </motion.ul>
                                                 </div>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     );
                                 })}
                             </tbody>
                         </table>
-                        <PaginatedList />
                     </div>
                 </div>
             </div>
