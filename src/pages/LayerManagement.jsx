@@ -27,6 +27,7 @@ function LayerManagement() {
     useEffect(() => {
         fetchLayers();
         fetchStores();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleInputChange = (e) => {
@@ -117,7 +118,6 @@ function LayerManagement() {
                             className="input"
                         />
 
-                        {/* Select Store */}
                         <select
                             name="store"
                             value={formData.store}
