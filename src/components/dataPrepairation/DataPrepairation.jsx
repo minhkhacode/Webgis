@@ -8,6 +8,7 @@ import {
     toggleShowPredictionSteps,
     selectPredictionCurrentStep,
     selectPredictionSteps,
+    setPredicted,
 } from '../../features/predictionSteps/predictionStepsSlice';
 
 function DataPrepairation() {
@@ -29,6 +30,7 @@ function DataPrepairation() {
         setIsLoading(true);
         setTimeout(() => {
             setIsLoading(false);
+            dispatch(setPredicted());
         }, 5000);
     }, []);
 
@@ -149,17 +151,14 @@ function DataPrepairation() {
                                 ? 'bg-gray-300 cursor-not-allowed'
                                 : 'bg-gradient-to-r from-blue-500 to-indigo-500 hover:bg-blue-600'
                         }`}
-                        disabled={currentStep === 1} // Disable the Prev button on step 1
+                        disabled={currentStep === 1}
                         title="You cannot go back from the first step."
                     >
                         <TbPlayerTrackPrevFilled className="text-2xl" />
                     </button>
 
-                    {/* Thêm phần hiển thị tên bước hiện tại */}
                     <div className="flex-1 text-center">
-                        <h2 className="text-lg font-semibold">
-                            {steps[currentStep - 1]?.label || 'Step'} {/* Hiển thị tên bước */}
-                        </h2>
+                        <h2 className="text-lg font-semibold">{steps[currentStep - 1]?.label || 'Step'}</h2>
                     </div>
 
                     <button
@@ -169,7 +168,7 @@ function DataPrepairation() {
                                 ? 'bg-gray-300 cursor-not-allowed'
                                 : 'bg-gradient-to-r from-blue-500 to-indigo-500 hover:bg-blue-600'
                         }`}
-                        disabled={currentStep === 3} // Disable the Next button on step 3
+                        disabled={currentStep === 3}
                         title="You cannot go forward from the last step."
                     >
                         <TbPlayerTrackNextFilled className="text-2xl" />

@@ -1,4 +1,3 @@
-// src/i18n.js
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -30,6 +29,17 @@ i18n.use(LanguageDetector)
                     longitudeRangeRequired: 'Longitude range is required.',
                     uploadFileRequired: 'Upload file is required.',
                     cityRequired: 'City is required.',
+                    logoText: 'CSIROBoeing Vietnam',
+                    searchPlaceholder: 'Search...',
+                    saveButton: 'Save',
+                    selectLayer: 'Select a Layer',
+                    uploadButton: 'Upload',
+                    layer1: 'Overlay Non-Agricultural Land Changes',
+                    layer2: 'Overlay Agricultural Land Changes',
+                    layer3: 'Overlay Non-Agricultural Land Changes',
+                    region: 'Region',
+                    year: 'Year',
+                    Settings: 'Settings',
                 },
             },
             vi: {
@@ -55,6 +65,25 @@ i18n.use(LanguageDetector)
                     longitudeRangeRequired: 'Phạm vi kinh độ là bắt buộc.',
                     uploadFileRequired: 'Tệp tải lên là bắt buộc.',
                     cityRequired: 'Tỉnh là bắt buộc.',
+                    showToolbar: 'Thanh bên',
+                    predictionForm: 'Biểu mẫu dự đoán',
+                    mapSetting: 'Cài đặt bản đồ',
+                    chart: 'Biểu đồ',
+                    logoText: 'CSIROBoeing Vietnam',
+                    searchPlaceholder: 'Tìm kiếm...',
+                    saveButton: 'Lưu',
+                    selectLayer: 'Chọn một lớp',
+                    uploadButton: 'Tải lên',
+                    layer1: 'Lớp hiện trạng dự đoán',
+                    layer2: 'Lớp thay đổi đất nông nghiệp',
+                    layer3: 'Lớp thay đổi đất phi nông nghiệp',
+                    Region: 'Vùng',
+                    Year: 'Năm',
+                    'Overlay Non-Agricultural Land Changes': 'Lớp phủ thay đổi đất phi nông nghiệp',
+                    'Overlay Agricultural Land Changes': 'Lớp phủ thay đổi đất nông nghiệp',
+                    'Overlay Predicted Land Use Status': 'Lớp phủ dự báo trạng thái sử dụng đất',
+
+                    Settings: 'Cài đặt',
                 },
             },
         },

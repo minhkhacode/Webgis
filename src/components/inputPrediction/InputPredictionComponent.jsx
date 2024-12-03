@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 import { useEffect, useState } from 'react';
@@ -92,35 +91,35 @@ function InputPrediction() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!startDate || !endDate) {
-            toast.error(t('startDate and EndDate are Required'));
-            return;
-        }
+        // if (!startDate || !endDate) {
+        //     toast.error(t('startDate and EndDate are Required'));
+        //     return;
+        // }
 
-        if (new Date(startDate) > new Date(endDate)) {
-            toast.error(t('startDate Cannot Exceed EndDate'));
-            return;
-        }
+        // if (new Date(startDate) > new Date(endDate)) {
+        //     toast.error(t('startDate Cannot Exceed EndDate'));
+        //     return;
+        // }
 
-        if (!latitudeRange.start || !latitudeRange.end) {
-            toast.error(t('latitude Range is Required'));
-            return;
-        }
+        // if (!latitudeRange.start || !latitudeRange.end) {
+        //     toast.error(t('latitude Range is Required'));
+        //     return;
+        // }
 
-        if (!longitudeRange.start || !longitudeRange.end) {
-            toast.error(t('longitude Range is Required'));
-            return;
-        }
+        // if (!longitudeRange.start || !longitudeRange.end) {
+        //     toast.error(t('longitude Range is Required'));
+        //     return;
+        // }
 
-        if (!archiveFile) {
-            toast.error(t('upload File is Required'));
-            return;
-        }
+        // if (!archiveFile) {
+        //     toast.error(t('upload File is Required'));
+        //     return;
+        // }
 
-        if (!selectedCity || !selectedCity.id) {
-            toast.error(t('city is Required'));
-            return;
-        }
+        // if (!selectedCity || !selectedCity.id) {
+        //     toast.error(t('city is Required'));
+        //     return;
+        // }
 
         const formData = new FormData();
 
@@ -275,10 +274,10 @@ function InputPrediction() {
                             name="model_name"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         >
-                            <option value="model1">Model 1</option>
-                            <option value="model2">Model 2</option>
-                            <option value="model3">Model 3</option>
-                            <option value="model4">Model 4</option>
+                            <option value="model1">KNN</option>
+                            <option value="model2">Random forest</option>
+                            <option value="model3">Gradient boosting</option>
+                            <option value="model4">Multi-layer perceptron</option>
                         </select>
                     </div>
 
